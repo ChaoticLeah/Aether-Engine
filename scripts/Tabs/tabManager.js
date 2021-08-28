@@ -1,5 +1,5 @@
 import { EditorTab } from "./editorTab.js";
-import { addObject } from "./tabCode/addObject.js";
+import { addComponent } from "./tabCode/addComponent.js";
 import { gameVisualEditor } from "./tabCode/gameVisualEditor.js";
 import { jsCodeEditor } from "./tabCode/jsCodeEditor.js";
 import { TabType } from "./TabType.js";
@@ -14,15 +14,32 @@ export function init() {
   //Add all the tab types
   new TabType("GameVisualEditor").setFile(gameVisualEditor).pushType();
   new TabType("JsCodeEditor").setFile(jsCodeEditor).pushType();
-  new TabType("AddObject").setFile(addObject).pushType();
+  new TabType("AddComponent").setFile(addComponent).pushType();
 
   //Add the tabs
   new EditorTab("Editor", "GameVisualEditor", false, defualtTab);
   new EditorTab("Test Tab", "JsCodeEditor", true);
+  hideAllTabElements();
+}
+
+function hideAllTabElements() {
+  let tabElements = document.getElementById("tabElementHolder").children;
+
+  for (let i = 0; i < tabElements.length; i++) {
+    tabElements[i].style.display = "none";
+  }
 }
 
 export function addOpenTab(tab) {
   openTabs.set(tab.id, tab);
+}
+
+export function openTab(tabName, tabId) {
+  addOpenTab(new EditorTab(tabName, tabId));
+}
+
+export function openTabMetadata(tabName, tabId, metadata) {
+  addOpenTab(new EditorTab(tabName, tabId).addMetadata(metadata));
 }
 
 export function addTabType(type, tab) {
@@ -36,7 +53,9 @@ export function setActiveTab(tabId, type = openTabs.get(tabId).type) {
   }
   leaveCurrentTab();
   //Run the change to code
-  tabTypes.get(type).onChange(tabId, openTabs.get(tabId).name);
+  tabTypes
+    .get(type)
+    .onChange(tabId, openTabs.get(tabId).name, getActiveTabMetadata());
 
   //Visually toggle the tab
 
@@ -49,7 +68,7 @@ export function leaveCurrentTab() {
   //Run the leaving code for the last tab
   tabTypes
     .get(openTabs.get(activeTab).type)
-    .onLeave(activeTab, openTabs.get(activeTab).name);
+    .onLeave(activeTab, openTabs.get(activeTab).name, getActiveTabMetadata());
 
   //Visually toggle the tab
 
@@ -76,4 +95,7 @@ export function getOpenTabId() {
 
 export function getActiveTabLoopFunction() {
   return tabTypes.get(openTabs.get(activeTab).type).tabLoop;
+}
+export function getActiveTabMetadata() {
+  return tabTypes.get(openTabs.get(activeTab).type).data;
 }

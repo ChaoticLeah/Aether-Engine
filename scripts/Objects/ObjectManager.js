@@ -1,4 +1,4 @@
-import { GameObject } from "./Object.js";
+import { GameObject } from "./object.js";
 
 export let objects = new Map();
 

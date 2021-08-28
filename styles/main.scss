@@ -167,3 +167,25 @@ button {
     height: 90%;
   }
 }
+
+//Right Click Menu
+
+#ctxmenu {
+  position: fixed;
+  background: $background-panel;
+  color: black;
+  cursor: pointer;
+  box-shadow: 1px 0px 11px 0px $background;
+  border-radius: 5%;
+  overflow: hidden;
+}
+
+#ctxmenu > p {
+  padding: 0 1rem;
+  margin: 0;
+}
+
+#ctxmenu > p:hover {
+  background: black;
+  color: ghostwhite;
+}

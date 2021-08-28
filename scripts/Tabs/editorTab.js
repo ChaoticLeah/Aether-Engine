@@ -13,6 +13,7 @@ export class EditorTab {
   id;
   name;
   type;
+  data;
   constructor(name, type, canBeClosed = true, tabId = tabIdCounter) {
     tabIdCounter++;
     this.name = name;
@@ -52,5 +53,10 @@ export class EditorTab {
     //Add it to the list of open tabs
     addOpenTab(this);
     setActiveTab(tab.id, type);
+  }
+
+  addMetadata(data) {
+    this.data = data;
+    return this;
   }
 }

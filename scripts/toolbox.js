@@ -99,6 +99,10 @@ export let game = {
   },
 };
 
+export function setCursor(cursor) {
+  document.body.style.cursor = cursor;
+}
+
 export function getCode(char) {
   return char.charCodeAt(0);
 }

@@ -1,31 +1,14 @@
 import { getObject, objects } from "./ObjectManager.js";
 import { themeColors } from "../Themeing/themeColors.js";
 
-export let selected = undefined;
+export let selectedObject = undefined;
 let textSize = 20;
 let counter = 0;
 
 export function renderSidebarObjects() {
-  selected = undefined;
+  selectedObject = undefined;
   context.clearRect(0, 0, leftPanelW, leftPanelH);
   setFontSize(textSize, "Ubuntu");
-
-  /*for (let [id, obj] of objects) {
-    if (selected == obj.id) fill(themeColors["warning-highlight"]);
-    else fill("white");
-    text(obj.name, 4, (textSize + 4) * (counter + 1) + scrollY);
-
-    /*
-        if (
-      (textSize + 4) * counter + scrollY < clickY &&
-      (textSize + 4) * (counter + 1) + scrollY > clickY
-    ) {
-      selected = obj.id;
-    }
-    
-
-    counter++;
-  }*/
   renderChildrenObjectText("root");
 
   resize();
@@ -50,11 +33,11 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
       (textSize + 4) * counter + scrollY < clickY &&
       (textSize + 4) * (counter + 1) + scrollY > clickY
     ) {
-      selected = obj.id;
+      selectedObject = obj.id;
     }
 
     //Render the text
-    if (selected == objId) fill(themeColors["warning-highlight"]);
+    if (selectedObject == objId) fill(themeColors["warning-highlight"]);
     else fill("white");
     text(
       obj.name,
@@ -109,6 +92,7 @@ function fill(col) {
 function rect(x, y, w, h) {
   context.fillRect(x, y, w, h);
 }
+
 function text(text, x, y) {
   context.fillText(text, x, y);
 }
@@ -161,6 +145,10 @@ function moveObject(event) {
   }
   if (mouseInArea) {
     let scrollAmt = delta * 8;
+    if (scrollY + scrollAmt > 0) {
+      return;
+    }
+
     clickY += scrollAmt;
     scrollY += scrollAmt;
   }
