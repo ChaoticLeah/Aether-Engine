@@ -1,0 +1,167 @@
+import { getObject, objects } from "./ObjectManager.js";
+import { themeColors } from "../Themeing/themeColors.js";
+
+export let selected = undefined;
+let textSize = 20;
+let counter = 0;
+
+export function renderSidebarObjects() {
+  selected = undefined;
+  context.clearRect(0, 0, leftPanelW, leftPanelH);
+  setFontSize(textSize, "Ubuntu");
+
+  /*for (let [id, obj] of objects) {
+    if (selected == obj.id) fill(themeColors["warning-highlight"]);
+    else fill("white");
+    text(obj.name, 4, (textSize + 4) * (counter + 1) + scrollY);
+
+    /*
+        if (
+      (textSize + 4) * counter + scrollY < clickY &&
+      (textSize + 4) * (counter + 1) + scrollY > clickY
+    ) {
+      selected = obj.id;
+    }
+    
+
+    counter++;
+  }*/
+  renderChildrenObjectText("root");
+
+  resize();
+  counter = 0;
+  requestAnimationFrame(renderSidebarObjects);
+}
+
+let indentAmount = 30;
+
+//Depth is how far nested in is it. This will be how offset to the right the text will be
+function renderChildrenObjectText(parentObjId, depth = 0) {
+  if (parentObjId == undefined) {
+    parentObjId = "root";
+  }
+  let parent = getObject(parentObjId);
+  for (let i = 0; i < parent.childrenObjectIds.length; i++) {
+    const objId = parent.childrenObjectIds[i];
+    const obj = getObject(objId);
+
+    //Select the object
+    if (
+      (textSize + 4) * counter + scrollY < clickY &&
+      (textSize + 4) * (counter + 1) + scrollY > clickY
+    ) {
+      selected = obj.id;
+    }
+
+    //Render the text
+    if (selected == objId) fill(themeColors["warning-highlight"]);
+    else fill("white");
+    text(
+      obj.name,
+      4 - depth * indentAmount,
+      (textSize + 4) * (counter + 1) + scrollY
+    );
+
+    counter++;
+    //Render the child text
+    if (obj.childrenObjectIds.length > 0) {
+      renderChildrenObjectText(objId, depth - 1);
+    }
+  }
+}
+
+let clickY = -1;
+
+function selectObj(x, y) {
+  // y -= 4;
+  //y = Math.floor((y - scrollY) / (textSize + 4));
+  clickY = y;
+  /*for (let i = 0; i < objects.length; i++) {
+    if (objects[i].id == y) selected = objects[y].id;
+  }*/
+}
+
+let leftPanelCanvas = document.getElementById("ObjectTreeCanvas");
+let leftPanelW, leftPanelH;
+function resize() {
+  leftPanelW =
+    leftPanelCanvas.style.width != ""
+      ? leftPanelCanvas.style.width
+      : leftPanelCanvas.offsetWidth;
+  leftPanelH = leftPanelCanvas.offsetHeight;
+  //If the size changed, resize the canvas
+  if (context.canvas.width != leftPanelW) {
+    context.canvas.width = leftPanelW;
+    context.canvas.height = leftPanelH;
+    panel.width = leftPanelW;
+    panel.height = leftPanelH;
+  }
+}
+
+let panel = document.getElementById("ObjectTreeCanvas");
+let context = panel.getContext("2d");
+let scrollY = 0;
+
+function fill(col) {
+  context.fillStyle = col;
+}
+
+function rect(x, y, w, h) {
+  context.fillRect(x, y, w, h);
+}
+function text(text, x, y) {
+  context.fillText(text, x, y);
+}
+function setFontSize(size, font) {
+  context.font = size + "px " + font;
+}
+
+//Click
+
+panel.onclick = function clickEvent(e) {
+  // e = Mouse click event.
+  var rect = e.target.getBoundingClientRect();
+  var x = e.clientX - rect.left; //x position within the element.
+  var y = e.clientY - rect.top; //y position within the element.
+  selectObj(x, y);
+};
+
+//Scroll
+
+let mouseInArea = false;
+
+panel.addEventListener("mouseover", () => {
+  mouseInArea = true;
+});
+
+panel.addEventListener("mouseleave", () => {
+  mouseInArea = false;
+});
+
+window.onload = function () {
+  //adding the event listerner for Mozilla
+  if (window.addEventListener)
+    document.addEventListener("DOMMouseScroll", moveObject, false);
+
+  //for IE/OPERA etc
+  document.onmousewheel = moveObject;
+};
+function moveObject(event) {
+  var delta = 0;
+
+  if (!event) event = window.event;
+
+  // normalize the delta
+  if (event.wheelDelta) {
+    // IE and Opera
+    delta = event.wheelDelta / 60;
+  } else if (event.detail) {
+    // W3C
+    delta = -event.detail / 2;
+  }
+  if (mouseInArea) {
+    let scrollAmt = delta * 8;
+    clickY += scrollAmt;
+    scrollY += scrollAmt;
+  }
+}

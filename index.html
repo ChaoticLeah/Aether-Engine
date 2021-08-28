@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./TextLib/lib/codemirror.css" />
+  <link rel="stylesheet" href="./TextLib/addon/hint/show-hint.css" />
+  <script src="./TextLib/lib/codemirror.js"></script>
+  <script src="./TextLib/addon/hint/show-hint.js"></script>
+  <script src="./TextLib/addon/hint/javascript-hint.js"></script>
+  <script src="./TextLib/mode/javascript/javascript.js"></script>
+  <script src="./TextLib/mode/markdown/markdown.js"></script>
+  <script src="./TextLib/mode/javascript/javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.5/jshint.min.js"></script>
+
+  <link rel="stylesheet" href="./TextLib/addon/lint/lint.css" />
+  <script src="./TextLib/mode/css/css.js"></script>
+  <script src="https://unpkg.com/jshint@2.9.6/dist/jshint.js"></script>
+  <script src="https://unpkg.com/jsonlint@1.6.3/web/jsonlint.js"></script>
+  <script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
+  <script src="./TextLib/addon/lint/lint.js"></script>
+  <script src="./TextLib/addon/lint/javascript-lint.js"></script>
+  <script src="./TextLib/addon/lint/json-lint.js"></script>
+  <script src="./TextLib/addon/lint/css-lint.js"></script>
+  <script src="./TextLib/addon/edit/closebrackets.js"></script>
+
+  <link rel="stylesheet" href="./TextLib/theme/ayu-mirage.css" />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"
+  />
+  <link rel="stylesheet" href="./styles/dropdown.css" />
+
+  <link rel="stylesheet" href="./styles/main.css" />
+
+  <head>
+    <title id="Title">Loading</title>
+    <link
+      rel="shortcut icon"
+      id="Icon"
+      href="../assets/player/playerDown.png"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script src="index.js" type="module"></script>
+
+  <body>
+    <div id="navbar">
+      <!--This will hold all the open tabs-->
+      <div id="navbarContainer"></div>
+    </div>
+
+    <div id="canvasHolder"></div>
+    <div id="tabElementHolder">
+      <div id="GameEditorPanel">
+        <div id="leftPanel">
+          <div id="ObjectTreeHolder">
+            <canvas id="ObjectTreeCanvas"></canvas>
+          </div>
+          <div id="controlButtons">
+            <button id="AddObject">+</button>
+          </div>
+        </div>
+      </div>
+      <!--Object Type Selecter-->
+      <div id="ObjectTypeSelect"></div>
+      <!--Code Area-->
+      <article id="codeWrapper">
+        <form id="forumCodeWrapper">
+          <textarea id="code" name="code"></textarea>
+        </form>
+        <script src="./textEditorSetup.js"></script>
+      </article>
+    </div>
+  </body>
+</html>
