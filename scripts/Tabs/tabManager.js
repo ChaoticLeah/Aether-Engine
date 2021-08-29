@@ -58,17 +58,22 @@ export function setActiveTab(tabId, type = openTabs.get(tabId).type) {
     .onChange(tabId, openTabs.get(tabId).name, getActiveTabMetadata());
 
   //Visually toggle the tab
-
   document.getElementById(tabId).classList.add("ButtonToggledOn");
 
   activeTab = tabId;
 }
 
+export function closeTab(tabId) {
+  //Remove it
+  openTabs.set(tabId, undefined);
+}
+
 export function leaveCurrentTab() {
   //Run the leaving code for the last tab
-  tabTypes
-    .get(openTabs.get(activeTab).type)
-    .onLeave(activeTab, openTabs.get(activeTab).name, getActiveTabMetadata());
+  if (getOpenTab() != undefined)
+    tabTypes
+      .get(getOpenTab().type)
+      .onLeave(activeTab, getOpenTab().name, getActiveTabMetadata());
 
   //Visually toggle the tab
 
@@ -94,8 +99,8 @@ export function getOpenTabId() {
 }
 
 export function getActiveTabLoopFunction() {
-  return tabTypes.get(openTabs.get(activeTab).type).tabLoop;
+  if (getOpenTab() != undefined) return tabTypes.get(getOpenTab().type).tabLoop;
 }
 export function getActiveTabMetadata() {
-  return tabTypes.get(openTabs.get(activeTab).type).data;
+  if (getOpenTab() != undefined) return tabTypes.get(getOpenTab().type).data;
 }

@@ -1,5 +1,6 @@
 import {
   addOpenTab,
+  closeTab,
   isTabActive,
   leaveCurrentTab,
   setActiveTab,
@@ -47,6 +48,7 @@ export class EditorTab {
           let elm = e.path[1];
           if (isTabActive(elm.id)) leaveCurrentTab();
           elm.remove();
+          closeTab(elm.id);
         });
     }
     this.id = tab.id;
