@@ -103,6 +103,12 @@ button {
       -ms-flex-align: center;
           align-items: center;
   white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#navbar #navbarContainer {
+  width: calc(100% - 40px);
   overflow-y: hidden;
   overflow-x: scroll;
 }
@@ -174,6 +180,13 @@ button {
 #leftPanel #ObjectTreeCanvas {
   width: 100%;
   height: 90%;
+}
+
+#more {
+  position: absolute;
+  right: 0px;
+  padding: 10px;
+  color: white;
 }
 
 #ctxmenu {

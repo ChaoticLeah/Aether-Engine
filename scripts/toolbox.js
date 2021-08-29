@@ -1,3 +1,5 @@
+import { reCalculateSize } from "./Canvas/canvasSizer.js";
+
 export let updateGameArea = () => {};
 export function setLoopFunc(func) {
   updateGameArea = func;
@@ -38,7 +40,6 @@ export let game = {
     this.canvas.height = height;
     this.canvas.id = "canvas";
     this.context = this.canvas.getContext("2d");
-
     document.getElementById("canvasHolder").appendChild(this.canvas);
     //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.frameNo = 0;
@@ -77,8 +78,7 @@ export let game = {
       window.addEventListener("resize", function (e) {
         width = window.innerWidth;
         height = window.innerHeight;
-        document.getElementById("canvas").width = width;
-        document.getElementById("canvas").height = height;
+        reCalculateSize(width, height);
       });
       /*$(window).resize(function () {
         //resize just happened, pixels changed

@@ -65,7 +65,7 @@ function selectObj(x, y) {
 }
 
 let leftPanelCanvas = document.getElementById("ObjectTreeCanvas");
-let leftPanelW, leftPanelH;
+export let leftPanelW, leftPanelH;
 function resize() {
   leftPanelW =
     leftPanelCanvas.style.width != ""

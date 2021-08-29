@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="stylesheet" href="./styles/fontAwesome/css/all.css" />
+
   <link
     href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
     rel="stylesheet"
@@ -63,11 +65,13 @@
     <div id="navbar">
       <!--This will hold all the open tabs-->
       <div id="navbarContainer"></div>
+      <i id="more" class="fas fa-ellipsis-h"></i>
     </div>
 
-    <div id="canvasHolder"></div>
     <div id="tabElementHolder">
       <div id="GameEditorPanel">
+        <div id="canvasHolder"></div>
+
         <div id="leftPanel">
           <div id="ObjectTreeHolder">
             <canvas id="ObjectTreeCanvas"></canvas>
