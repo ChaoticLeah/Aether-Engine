@@ -97,7 +97,9 @@ export function getOpenTab() {
 export function getOpenTabId() {
   return openTabs.get(activeTab).id;
 }
-
+/*export function getTabInitFunction(id) {
+  return tabTypes.get(openTabs.get(id).type).init;
+}*/
 export function getActiveTabLoopFunction() {
   if (getOpenTab() != undefined) return tabTypes.get(getOpenTab().type).tabLoop;
 }

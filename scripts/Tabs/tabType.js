@@ -6,6 +6,10 @@ export class TabType {
   constructor(tabType) {
     this.tabType = tabType;
   }
+
+  //init
+  init = () => {};
+
   //Called when its changed to that tab
   onChange = (tabId, tabName) => {};
 
@@ -34,6 +38,8 @@ export class TabType {
     this.onChange = funcJsonObj.onChange;
     this.tabLoop = funcJsonObj.loop;
     this.onLeave = funcJsonObj.onLeave;
+    this.init = funcJsonObj.init;
+    this.init();
     return this;
   }
 

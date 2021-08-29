@@ -2,6 +2,7 @@ let idCounter = 0;
 export class GameObject {
   name = "Object";
   enabled = true;
+
   id;
   x = 0;
   y = 0;
