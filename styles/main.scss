@@ -76,6 +76,12 @@ $text: white;
 button {
   cursor: pointer;
   border-radius: 3px;
+  background-color: $ui;
+  outline: none;
+  border: none;
+  padding: 6px;
+  color: $text;
+  font-size: 100%;
 }
 
 /* width */
@@ -156,12 +162,6 @@ button {
     align-items: center;
     #AddObject {
       width: 90%;
-      background-color: $ui;
-      outline: none;
-      border: none;
-      padding: 2%;
-      color: $text;
-      font-size: 100%;
     }
   }
   .GameObjectTreeNode {

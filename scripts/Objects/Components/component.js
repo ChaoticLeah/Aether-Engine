@@ -20,3 +20,4 @@ export class Component {
     this.properties = properties;
   }
 }
+Component.RectangleComponent = "RectangleComponent";

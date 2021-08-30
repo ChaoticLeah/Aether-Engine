@@ -1,4 +1,5 @@
 let idCounter = 0;
+export let inEditor = true;
 export class GameObject {
   name = "Object";
   enabled = true;
@@ -20,7 +21,16 @@ export class GameObject {
     this.id = idCounter++;
   }
 
-  render() {}
+  render() {
+    if (!this.enabled) return;
+    for (let i = 0; i < this.components.length; i++) {
+      let component = this.components[i];
+      if (!inEditor) {
+        component.update();
+      }
+      component.display();
+    }
+  }
 
   addChild(child) {
     this.childrenObjectIds.push(child);

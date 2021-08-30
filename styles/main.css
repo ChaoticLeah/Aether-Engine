@@ -70,6 +70,12 @@ canvas :not(#smooth) {
 button {
   cursor: pointer;
   border-radius: 3px;
+  background-color: #292929;
+  outline: none;
+  border: none;
+  padding: 6px;
+  color: white;
+  font-size: 100%;
 }
 
 /* width */
@@ -164,12 +170,6 @@ button {
 
 #leftPanel #controlButtons #AddObject {
   width: 90%;
-  background-color: #292929;
-  outline: none;
-  border: none;
-  padding: 2%;
-  color: white;
-  font-size: 100%;
 }
 
 #leftPanel .GameObjectTreeNode {

@@ -1,5 +1,5 @@
-import { getObject } from "../ObjectManager";
-import { RectangleComponent } from "./rectangleComponent";
+import { getObject } from "../ObjectManager.js";
+import { RectangleComponent } from "./rectangleComponent.js";
 
 let components = new Map();
 init();

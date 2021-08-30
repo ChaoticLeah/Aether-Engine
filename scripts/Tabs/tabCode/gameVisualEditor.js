@@ -1,5 +1,5 @@
 import { calcSize } from "../../Canvas/canvasSizer.js";
-import { getObject } from "../../Objects/ObjectManager.js";
+import { getObject, objects } from "../../Objects/ObjectManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
 import { fill, game, rect } from "../../toolbox.js";
 
@@ -7,6 +7,10 @@ export let gameVisualEditor = {
   init: () => {},
   loop: (tick) => {
     game.clear();
+
+    objects.forEach((object) => {
+      object.render();
+    });
 
     let selectedObj = getObject(selectedObject);
     if (selectedObj === undefined) return;
