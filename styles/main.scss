@@ -73,6 +73,10 @@ $text: white;
   color: $text;
 }
 
+body {
+  //overflow: hidden;
+}
+
 button {
   cursor: pointer;
   border-radius: 3px;
@@ -164,15 +168,32 @@ button {
       width: 90%;
     }
   }
-  .GameObjectTreeNode {
-    padding: 2px;
-    padding-left: 10px;
-  }
 
   #ObjectTreeCanvas {
     width: 100%;
     height: 90%;
   }
+}
+.ui-resizable-handle {
+  width: 10px;
+  background-color: $background;
+}
+
+.ui-resizable-handle:hover {
+  width: 10px;
+  background-color: $ui;
+}
+
+#rightPanel {
+  background-color: $background-panel;
+  height: calc(100vh - var(--navbarHeight));
+  top: var(--navbarHeight);
+  width: 180px;
+  position: absolute;
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
 }
 
 #more {
