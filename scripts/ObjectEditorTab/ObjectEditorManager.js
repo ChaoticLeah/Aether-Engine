@@ -1,7 +1,7 @@
 //TODO: When a object is selected a onselect func should be ran, also on de-select one should be ran
 
 //import { getObject, objects } from "../Objects/objectManager.js";
-
+import { propertyTypes as propTypes } from "./propertyTypes.js";
 let propId = 0;
 
 export function reloadSelection(objectId, object) {
@@ -38,11 +38,19 @@ export function onObjectSelect(objectId, object) {
       let element = document.createElement(propertyType.elem);
       element.setAttribute("type", propertyType.type);
       //Load the current value
-      element.value = object.components[i].properties[propertyKey];
+      let propertyValue = object.components[i].properties[propertyKey];
+      if (propertyType != propTypes.TOGGLE_INPUT) element.value = propertyValue;
+      else element.checked = propertyValue;
+
       element.id = `control${propId}`;
+      console.log(propertyType);
       //Check for changes in value
       element.addEventListener("change", (e) => {
         var value = e.target.value;
+        if (e.target.type == propTypes.TOGGLE_INPUT.type)
+          value = e.target.checked;
+
+        console.log(value);
         //Save the new value
         object.components[i].properties[propertyKey] = value;
         //Tell the component that its values were updated
