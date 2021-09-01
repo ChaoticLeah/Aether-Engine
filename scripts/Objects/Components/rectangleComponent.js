@@ -15,7 +15,7 @@ export class RectangleComponent extends Component {
     this.properties = { color: color };
   }
 
-  onValuesModified() {}
+  initValues() {}
 
   //This one is ran in the editor
   display() {

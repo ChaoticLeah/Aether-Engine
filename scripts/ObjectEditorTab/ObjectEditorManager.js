@@ -43,19 +43,16 @@ export function onObjectSelect(objectId, object) {
       else element.checked = propertyValue;
 
       element.id = `control${propId}`;
-      console.log(propertyType);
       //Check for changes in value
       element.addEventListener("change", (e) => {
         var value = e.target.value;
         if (e.target.type == propTypes.TOGGLE_INPUT.type)
           value = e.target.checked;
 
-        console.log(value);
         //Save the new value
         object.components[i].properties[propertyKey] = value;
         //Tell the component that its values were updated
         object.components[i].initValues();
-        //console.log(value);
       });
       //Add the label for what that value is
       let text = document.createElement("p");
