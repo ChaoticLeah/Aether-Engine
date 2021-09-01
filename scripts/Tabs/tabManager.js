@@ -2,6 +2,7 @@ import { EditorTab } from "./editorTab.js";
 import { addComponent } from "./tabCode/addComponent.js";
 import { gameVisualEditor } from "./tabCode/gameVisualEditor.js";
 import { jsCodeEditor } from "./tabCode/jsCodeEditor.js";
+import { welcomeMessageTab } from "./tabCode/welcomeMessageTab.js";
 import { TabType } from "./TabType.js";
 
 export let defualtTab = "EditorId";
@@ -15,11 +16,14 @@ export function init() {
   new TabType("GameVisualEditor").setFile(gameVisualEditor).pushType();
   new TabType("JsCodeEditor").setFile(jsCodeEditor).pushType();
   new TabType("AddComponent").setFile(addComponent).pushType();
+  new TabType("welcomeMessageTab").setFile(welcomeMessageTab).pushType();
 
   //Add the tabs
   new EditorTab("Editor", "GameVisualEditor", false, defualtTab);
   new EditorTab("Test Tab", "JsCodeEditor", true);
+
   hideAllTabElements();
+  new EditorTab("Welcome!", "welcomeMessageTab", true, "WelcomeTab");
 }
 
 function hideAllTabElements() {
@@ -52,6 +56,7 @@ export function setActiveTab(tabId, type = openTabs.get(tabId).type) {
     return;
   }
   leaveCurrentTab();
+
   //Run the change to code
   tabTypes
     .get(type)

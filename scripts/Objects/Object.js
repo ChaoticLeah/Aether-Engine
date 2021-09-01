@@ -1,3 +1,5 @@
+import { CoreObjectComponent } from "./Components/coreObjectComponent.js";
+
 let idCounter = 0;
 export let inEditor = true;
 export class GameObject {
@@ -5,20 +7,31 @@ export class GameObject {
   enabled = true;
 
   id;
-  x = 0;
-  y = 0;
-  w = 10;
-  h = 10;
+  #x = 0;
+  #y = 0;
+  #w = 10;
+  #h = 10;
   parentObjectId = undefined;
 
   components = [];
   childrenObjectIds = [];
   constructor(x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
+    this.#x = x;
+    this.#y = y;
+    this.#w = w;
+    this.#h = h;
     this.id = idCounter++;
+    let coreObjComp = new CoreObjectComponent(this);
+    coreObjComp.init(
+      this,
+      this.name,
+      this.enabled,
+      this.getX(),
+      this.#y,
+      this.#w,
+      this.#h
+    );
+    this.addComponent(coreObjComp);
   }
 
   render() {
@@ -38,5 +51,31 @@ export class GameObject {
 
   addComponent(component) {
     this.components.push(component);
+  }
+
+  getX() {
+    return this.#x;
+  }
+  getY() {
+    return this.#y;
+  }
+  getW() {
+    return this.#w;
+  }
+  getH() {
+    return this.#h;
+  }
+
+  setX(x) {
+    this.#x = x;
+  }
+  setY(y) {
+    this.#y = y;
+  }
+  setW(w) {
+    this.#w = w;
+  }
+  setH(h) {
+    this.#h = h;
   }
 }

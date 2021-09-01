@@ -42,10 +42,12 @@ export function onObjectSelect(objectId, object) {
       element.id = `control${propId}`;
       //Check for changes in value
       element.addEventListener("change", (e) => {
-        var value = document.getElementById(`control${propId}`).value;
+        var value = e.target.value;
         //Save the new value
         object.components[i].properties[propertyKey] = value;
-        console.log(value);
+        //Tell the component that its values were updated
+        object.components[i].initValues();
+        //console.log(value);
       });
       //Add the label for what that value is
       let text = document.createElement("p");
@@ -64,7 +66,7 @@ export function onObjectSelect(objectId, object) {
 }
 
 export function onObjectDeSelect(objectId, object) {
-  console.log("DESELECTED", objectId);
+  //console.log("DESELECTED", objectId);
   //Remove them all
   document.getElementById("propertyHolder").innerHTML = "";
 }

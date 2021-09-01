@@ -184,13 +184,30 @@ button {
   background-color: $ui;
 }
 
-.property {
+.property,
+#defaultProperties {
   width: 100%;
   background-color: $ui;
   padding: 10px;
   input {
     background-color: $background;
     color: $text;
+  }
+  input[type="text"] {
+    width: calc(100% - 12px);
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    outline: none;
+  }
+  input[type="number"] {
+    width: 80px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    outline: none;
   }
 }
 
@@ -205,7 +222,12 @@ button {
   margin: 0px;
   overflow: hidden;
 }
+#propertyHolder {
+  width: 600px;
+  height: 100%;
 
+  overflow-y: scroll;
+}
 #more {
   position: absolute;
   right: 0px;

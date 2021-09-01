@@ -187,15 +187,39 @@ button {
   background-color: #292929;
 }
 
-.property {
+.property,
+#defaultProperties {
   width: 100%;
   background-color: #292929;
   padding: 10px;
 }
 
-.property input {
+.property input,
+#defaultProperties input {
   background-color: #080f0f;
   color: white;
+}
+
+.property input[type="text"],
+#defaultProperties input[type="text"] {
+  width: calc(100% - 12px);
+  padding: 12px 20px;
+  margin: 8px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
+}
+
+.property input[type="number"],
+#defaultProperties input[type="number"] {
+  width: 80px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
 }
 
 #rightPanel {
@@ -208,6 +232,12 @@ button {
   padding: 0px;
   margin: 0px;
   overflow: hidden;
+}
+
+#propertyHolder {
+  width: 600px;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 #more {

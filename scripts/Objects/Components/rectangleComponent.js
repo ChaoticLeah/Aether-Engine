@@ -5,7 +5,9 @@ import { Component } from "./component.js";
 export class RectangleComponent extends Component {
   constructor(parentObject, color) {
     super(parentObject, { color: color });
-    this.objectPropertyTypes = { color: propertyTypes.COLORSELECT };
+    this.objectPropertyTypes = {
+      color: propertyTypes.COLOR_SELECT,
+    };
   }
 
   init(parentObject, color = "#ff0000") {
@@ -13,14 +15,17 @@ export class RectangleComponent extends Component {
     this.properties = { color: color };
   }
 
+  onValuesModified() {}
+
   //This one is ran in the editor
   display() {
     fill(this.properties.color);
+
     rect(
-      this.parentObject.x,
-      this.parentObject.y,
-      this.parentObject.w,
-      this.parentObject.h
+      this.parentObject.getX(),
+      this.parentObject.getY(),
+      this.parentObject.getW(),
+      this.parentObject.getH()
     );
   }
 
