@@ -184,6 +184,16 @@ button {
   background-color: $ui;
 }
 
+.property {
+  width: 100%;
+  background-color: $ui;
+  padding: 10px;
+  input {
+    background-color: $background;
+    color: $text;
+  }
+}
+
 #rightPanel {
   background-color: $background-panel;
   height: calc(100vh - var(--navbarHeight));

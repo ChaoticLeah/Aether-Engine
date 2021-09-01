@@ -1,6 +1,7 @@
 export class Component {
   parentObject;
   properties = {};
+  objectPropertyTypes = {};
 
   constructor(parentObject, properties) {
     parentObject = parentObject;

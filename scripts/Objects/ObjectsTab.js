@@ -1,7 +1,12 @@
 import { getObject, objects } from "./ObjectManager.js";
 import { themeColors } from "../Themeing/themeColors.js";
+import {
+  onObjectDeSelect,
+  onObjectSelect,
+} from "../ObjectEditorTab/ObjectEditorManager.js";
 
 export let selectedObject = undefined;
+let lastFrameSelectedObject = undefined;
 let textSize = 20;
 let counter = 0;
 
@@ -50,6 +55,18 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
     if (obj.childrenObjectIds.length > 0) {
       renderChildrenObjectText(objId, depth - 1);
     }
+  }
+
+  if (selectedObject != lastFrameSelectedObject) {
+    if (lastFrameSelectedObject != undefined)
+      onObjectDeSelect(
+        lastFrameSelectedObject,
+        getObject(lastFrameSelectedObject)
+      );
+    if (selectedObject != undefined)
+      onObjectSelect(selectedObject, getObject(selectedObject));
+
+    lastFrameSelectedObject = selectedObject;
   }
 }
 

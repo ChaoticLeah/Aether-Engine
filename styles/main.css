@@ -187,6 +187,17 @@ button {
   background-color: #292929;
 }
 
+.property {
+  width: 100%;
+  background-color: #292929;
+  padding: 10px;
+}
+
+.property input {
+  background-color: #080f0f;
+  color: white;
+}
+
 #rightPanel {
   background-color: #191c1c;
   height: calc(100vh - var(--navbarHeight));
