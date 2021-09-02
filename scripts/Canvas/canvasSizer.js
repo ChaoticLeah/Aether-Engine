@@ -14,6 +14,13 @@ export function reCalculateSize(tabWidth, tabHeight) {
   canvas.style.top = 40 + "px";
   canvas.width = tabWidth - leftPanelW - rightPanelW;
   canvas.height = tabHeight - 40;
+
+  //Calculate the bottom panel size
+  console.log(leftPanelW);
+  document.getElementById("bottomPanel").style.left = `${leftPanelW}px`;
+  document.getElementById("bottomPanel").style.width = `${
+    width - (leftPanelW + rightPanelW)
+  }px`;
 }
 
 export function calcSize() {
@@ -35,6 +42,16 @@ export function initCanvasSizer() {
   $(function () {
     $("#rightPanel").resizable({
       handles: "w",
+
+      resize: function (e, ui) {
+        reCalculateSize(width, height);
+      },
+    });
+  });
+
+  $(function () {
+    $("#bottomPanel").resizable({
+      handles: "n",
 
       resize: function (e, ui) {
         reCalculateSize(width, height);

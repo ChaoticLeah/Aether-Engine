@@ -26,6 +26,7 @@ export let gameVisualEditor = {
   },
   onChange: (tabId, tabName, extraData) => {
     document.getElementById("GameEditorPanel").style.display = "inline";
+
     calcSize();
   },
   onLeave: (tabId, tabName, extraData) => {
