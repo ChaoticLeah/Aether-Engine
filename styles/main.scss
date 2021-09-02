@@ -73,6 +73,10 @@ $text: white;
   color: $text;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 body {
   //overflow: hidden;
 }
@@ -228,12 +232,6 @@ button {
 
   overflow-y: scroll;
 }
-#more {
-  position: absolute;
-  right: 0px;
-  padding: 10px;
-  color: white;
-}
 
 //Right Click Menu
 
@@ -255,4 +253,27 @@ button {
 #ctxmenu > p:hover {
   background: black;
   color: ghostwhite;
+}
+
+//... menu
+#more {
+  position: absolute;
+  right: 0px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+#dropdownMenu {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+
+  width: 20vw;
+  height: 20vh;
+  z-index: 100;
+  padding: 0 1rem;
+  border-radius: 0.5vw;
+  background-color: $background;
+  box-shadow: 0 0 1pt 1pt $highlight1;
 }

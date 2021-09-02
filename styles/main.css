@@ -67,6 +67,10 @@ canvas :not(#smooth) {
   color: white;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 button {
   cursor: pointer;
   border-radius: 3px;
@@ -240,13 +244,6 @@ button {
   overflow-y: scroll;
 }
 
-#more {
-  position: absolute;
-  right: 0px;
-  padding: 10px;
-  color: white;
-}
-
 #ctxmenu {
   position: fixed;
   background: #191c1c;
@@ -266,5 +263,27 @@ button {
 #ctxmenu > p:hover {
   background: black;
   color: ghostwhite;
+}
+
+#more {
+  position: absolute;
+  right: 0px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+#dropdownMenu {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  width: 20vw;
+  height: 20vh;
+  z-index: 100;
+  padding: 0 1rem;
+  border-radius: 0.5vw;
+  background-color: #080f0f;
+  -webkit-box-shadow: 0 0 1pt 1pt #a6b1e1;
+          box-shadow: 0 0 1pt 1pt #a6b1e1;
 }
 /*# sourceMappingURL=main.css.map */

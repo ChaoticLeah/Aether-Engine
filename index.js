@@ -19,3 +19,6 @@ initCanvasSizer();
 document.getElementById("AddObject").addEventListener("click", () => {
   addEmptyObject(selectedObject);
 });
+document.getElementById("more").addEventListener("click", () => {
+  document.getElementById("dropdownMenu").classList.toggle("hidden");
+});
