@@ -78,7 +78,7 @@ $text: white;
 }
 
 body {
-  //overflow: hidden;
+  overflow: hidden;
 }
 
 button {
@@ -190,7 +190,16 @@ button {
     left: 0px;
     width: 100%;
     height: 1.5em;
-    background-color: red;
+    //background-color: red;
+    background-color: $ui;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    * {
+      padding: 0.4%;
+      cursor: pointer;
+    }
   }
 }
 
@@ -324,15 +333,26 @@ button {
 
 #assetHolder {
   display: flex;
+  flex-wrap: wrap;
   justify-content: left;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+  div {
+    margin: 10px;
+    //margin-bottom: 0px;
+  }
   * {
-    padding: 10px;
     max-width: 60px;
     max-height: 60px;
 
     font-size: 60px;
   }
   p {
+    width: 120px;
+
     font-size: medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

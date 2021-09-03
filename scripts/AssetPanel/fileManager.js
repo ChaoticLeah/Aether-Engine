@@ -30,7 +30,11 @@ export function addDirectory(fullDir) {
   directories.set(fullDir, dir);
 }
 
-export function setDir(newDir) {
+export function reloadDirectory() {
+  setDir(currentDir);
+}
+
+export function setDir(newDir = currentDir) {
   currentDir = newDir;
   document.getElementById("assetHolder").innerHTML = "";
   addFileElem("../", () => {

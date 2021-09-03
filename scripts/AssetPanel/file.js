@@ -24,6 +24,7 @@ export class File {
     if (this.type == File.TYPE.IMAGE) {
       let img = new Image();
       img.src = this.data;
+      console.log(dir);
       addFileElem(
         dir,
         () => {

@@ -33,3 +33,15 @@ export async function readFileBase64(file, callback) {
     callback(reader.result);
   };
 }
+
+export function uploadFile(callback) {
+  let fileUploader = document.createElement("input");
+  fileUploader.type = "file";
+  fileUploader.multiple = true;
+  fileUploader.click();
+  fileUploader.addEventListener("change", (async) => {
+    callback(fileUploader.files);
+    //fileUploader.removeEventListener("change", null);
+    fileUploader.remove();
+  });
+}

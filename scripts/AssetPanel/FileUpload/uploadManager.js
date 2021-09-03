@@ -1,5 +1,6 @@
 import { File } from "../file.js";
-import { addFile } from "../fileManager.js";
+import { addFile, reloadDirectory } from "../fileManager.js";
+import { uploadFile } from "./uploadSaver.js";
 
 export function initAssetManager() {
   let dropArea = document.getElementById("bottomPanel");
@@ -12,6 +13,12 @@ export function initAssetManager() {
       },
       false
     );
+  });
+
+  document.getElementById("uploadButton").addEventListener("click", () => {
+    uploadFile((files) => {
+      uploadFiles(files);
+    });
   });
 
   dropArea.addEventListener("drop", dropHandler, false);
@@ -33,15 +40,16 @@ function uploadFiles(files) {
         foundFunc = true;
         File.UPLOAD_CONVERSION_FUNC[objKey](files[i], (dataURL) => {
           addFile(dataURL, files[i].name, File.TYPE[objKey]);
+          reloadDirectory();
         });
       }
     }
     if (!foundFunc) {
       File.UPLOAD_CONVERSION_FUNC.FILE(files[i], (dataURL) => {
-        addFile(dataURL, files[i].name, File.TYPE[objKey]);
+        addFile(dataURL, files[i].name, File.TYPE.FILE);
+        reloadDirectory();
       });
     }
-
     continue;
     if (
       /*imageTypes.includes(files[i].type)*/ files[i].type.startsWith("image/")
