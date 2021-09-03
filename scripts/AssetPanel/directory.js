@@ -1,4 +1,4 @@
-import { addFileElem, getDirectory, setDir } from "./fileManager.js";
+import { addFileElem, getDirectory, getFile, setDir } from "./fileManager.js";
 
 export class Directory {
   ///parentDirectoryId; //the parent directory id
@@ -16,8 +16,13 @@ export class Directory {
     this.name = splitDir[splitDir.length - 1];
   }
 
-  addChildDirectory(directoryId) {
-    this.childrenDirectorys.push(directoryId);
+  addChildDirectory(directoryPath) {
+    this.childrenDirectorys.push(directoryPath);
+    return this;
+  }
+
+  addChildFile(filePath) {
+    this.childrenFiles.push(filePath);
     return this;
   }
 
@@ -56,7 +61,8 @@ export class Directory {
       getDirectory(this.childrenDirectorys[i]).show(this.childrenDirectorys[i]);
     }
     for (let i = 0; i < this.childrenFiles.length; i++) {
-      this.childrenFiles[i].show(this.childrenFiles[i]);
+      getFile(this.childrenFiles[i]).show(this.childrenFiles[i]);
+      //this.childrenFiles[i].show(this.childrenFiles[i]);
     }
   }
 }

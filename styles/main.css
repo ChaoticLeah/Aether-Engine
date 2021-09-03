@@ -343,6 +343,13 @@ button {
 }
 
 #assetHolder * {
-  padding: 3px;
+  padding: 10px;
+  max-width: 60px;
+  max-height: 60px;
+  font-size: 60px;
+}
+
+#assetHolder p {
+  font-size: medium;
 }
 /*# sourceMappingURL=main.css.map */

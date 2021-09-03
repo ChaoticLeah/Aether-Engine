@@ -14,8 +14,9 @@ addDirectory("/assets");
 addDirectory("/scripts");
 
 //use this, dont use new File()
-export function addFile(filePath, fileData) {
-  files.set(fileIdCounter++, new File(filePath, fileData));
+export function addFile(fileData, fileName, type, filePath = currentDir) {
+  directories.get(filePath).addChildFile(filePath + "/" + fileName);
+  files.set(filePath + "/" + fileName, new File(filePath, type, fileData));
 }
 
 export function addDirectory(fullDir) {
@@ -38,15 +39,33 @@ export function setDir(newDir) {
   directories.get(currentDir).showItems();
 }
 
-export function addFileElem(dir, clickEvent) {
+export function addFileElem(dir, clickEvent, iconHtml) {
   let icon = document.createElement("div");
   let dirName =
     getDirectory(dir) != undefined ? getDirectory(dir).getName() : dir;
-  icon.innerHTML = `<i class="far fa-folder"></i><br><p>${dirName}</p>`;
+
+  if (iconHtml == undefined) {
+    iconHtml = document.createElement("i");
+    iconHtml.classList.add("far");
+
+    iconHtml.classList.add("fa-folder");
+  }
+
+  let p = document.createElement("p");
+  p.innerHTML = dirName;
+  //<i class="far fa-folder"></i>
+  icon.appendChild(iconHtml);
+  icon.appendChild(p);
+
+  // icon.innerHTML = `${code}<br><p>${dirName}</p>`;
   icon.addEventListener("click", clickEvent);
   document.getElementById("assetHolder").appendChild(icon);
 }
 
 export function getDirectory(path) {
   return directories.get(path);
+}
+
+export function getFile(path) {
+  return files.get(path);
 }

@@ -326,6 +326,13 @@ button {
   display: flex;
   justify-content: left;
   * {
-    padding: 3px;
+    padding: 10px;
+    max-width: 60px;
+    max-height: 60px;
+
+    font-size: 60px;
+  }
+  p {
+    font-size: medium;
   }
 }

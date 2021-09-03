@@ -1,3 +1,4 @@
+import { initAssetManager } from "./scripts/AssetPanel/FileUpload/uploadManager.js";
 import { initCanvasSizer } from "./scripts/Canvas/canvasSizer.js";
 import { addEmptyObject } from "./scripts/Objects/ObjectManager.js";
 import {
@@ -15,6 +16,7 @@ setLoopFunc(runTabs);
 renderSidebarObjects();
 initRightClickMenuManager();
 initCanvasSizer();
+initAssetManager();
 
 document.getElementById("AddObject").addEventListener("click", () => {
   addEmptyObject(selectedObject);
