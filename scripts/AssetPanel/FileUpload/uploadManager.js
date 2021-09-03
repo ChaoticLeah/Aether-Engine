@@ -2,7 +2,7 @@ import { File } from "../file.js";
 import { addFile } from "../fileManager.js";
 
 export function initAssetManager() {
-  let dropArea = document;
+  let dropArea = document.getElementById("bottomPanel");
   ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
     dropArea.addEventListener(
       eventName,
