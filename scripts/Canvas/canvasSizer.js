@@ -16,7 +16,6 @@ export function reCalculateSize(tabWidth, tabHeight) {
   canvas.height = tabHeight - 40;
 
   //Calculate the bottom panel size
-  console.log(leftPanelW);
   document.getElementById("bottomPanel").style.left = `${leftPanelW}px`;
   document.getElementById("bottomPanel").style.width = `${
     width - (leftPanelW + rightPanelW)

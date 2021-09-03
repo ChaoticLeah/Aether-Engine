@@ -1,3 +1,4 @@
+import { setDir } from "../../AssetPanel/fileManager.js";
 import { calcSize } from "../../Canvas/canvasSizer.js";
 import { getObject, objects } from "../../Objects/ObjectManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
@@ -26,7 +27,7 @@ export let gameVisualEditor = {
   },
   onChange: (tabId, tabName, extraData) => {
     document.getElementById("GameEditorPanel").style.display = "inline";
-
+    setDir("");
     calcSize();
   },
   onLeave: (tabId, tabName, extraData) => {
