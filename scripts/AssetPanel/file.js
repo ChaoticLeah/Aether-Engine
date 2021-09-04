@@ -1,3 +1,4 @@
+import { EditorTab } from "../Tabs/editorTab.js";
 import { getFontAwesomeElem } from "../toolbox.js";
 import { addFileElem, setDir } from "./fileManager.js";
 import {
@@ -26,10 +27,13 @@ export class File {
       case File.TYPE.IMAGE:
         let img = new Image();
         img.src = this.data;
+        let name = this.fileName;
         addFileElem(
           dir,
           () => {
             //Open the file
+            new EditorTab(dir, "imageViewTab", true);
+            imageViewTabImg.src = img.src;
           },
           img
         );

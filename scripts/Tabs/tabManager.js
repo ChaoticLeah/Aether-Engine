@@ -1,6 +1,7 @@
 import { EditorTab } from "./editorTab.js";
 import { addComponent } from "./tabCode/addComponent.js";
 import { gameVisualEditor } from "./tabCode/gameVisualEditor.js";
+import { imageViewTab } from "./tabCode/imageViewTab.js";
 import { jsCodeEditor } from "./tabCode/jsCodeEditor.js";
 import { welcomeMessageTab } from "./tabCode/welcomeMessageTab.js";
 import { TabType } from "./TabType.js";
@@ -17,6 +18,7 @@ export function init() {
   new TabType("JsCodeEditor").setFile(jsCodeEditor).pushType();
   new TabType("AddComponent").setFile(addComponent).pushType();
   new TabType("welcomeMessageTab").setFile(welcomeMessageTab).pushType();
+  new TabType("imageViewTab").setFile(imageViewTab).pushType();
 
   //Add the tabs
   new EditorTab("Editor", "GameVisualEditor", false, defualtTab);

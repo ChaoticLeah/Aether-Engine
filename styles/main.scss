@@ -8,25 +8,25 @@
 body {
   background-color: black;
 }
-
 canvas {
   position: absolute;
   top: 0;
   left: 0;
-  :not(#smooth) {
-    /* Older versions of FF          */
-    image-rendering: -moz-crisp-edges;
-    /* FF 6.0+                       */
-    image-rendering: -webkit-optimize-contrast;
-    /* Safari                        */
-    image-rendering: -o-crisp-edges;
-    /* OS X & Windows Opera (12.02+) */
-    image-rendering: pixelated;
-    /* Awesome future-browsers       */
-    -ms-interpolation-mode: nearest-neighbor;
-    /* IE                            */
-    image-rendering: optimizeSpeed;
-  }
+}
+canvas,
+.noAA {
+  /* Older versions of FF          */
+  image-rendering: -moz-crisp-edges;
+  /* FF 6.0+                       */
+  image-rendering: -webkit-optimize-contrast;
+  /* Safari                        */
+  image-rendering: -o-crisp-edges;
+  /* OS X & Windows Opera (12.02+) */
+  image-rendering: pixelated;
+  /* Awesome future-browsers       */
+  -ms-interpolation-mode: nearest-neighbor;
+  /* IE                            */
+  image-rendering: optimizeSpeed;
 }
 .forumCodeWrapper {
   position: absolute;
@@ -354,5 +354,26 @@ button {
     font-size: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+//File Viewer Code
+#imageholder {
+  width: 90%;
+  height: 80vh;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: $ui;
+  overflow: hidden; /*hide bounds of image */
+
+  #imageViewTabImg {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    //top: 50%;
+    //left: 50%;
+    transform: translate(50%, 50%);
   }
 }
