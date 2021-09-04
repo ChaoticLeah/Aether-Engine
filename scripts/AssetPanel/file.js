@@ -1,3 +1,4 @@
+import { getFontAwesomeElem } from "../toolbox.js";
 import { addFileElem, setDir } from "./fileManager.js";
 import {
   readFile,
@@ -21,22 +22,49 @@ export class File {
   }
 
   show(dir) {
-    if (this.type == File.TYPE.IMAGE) {
-      let img = new Image();
-      img.src = this.data;
-      console.log(dir);
-      addFileElem(
-        dir,
-        () => {
-          //Open the file
-        },
-        img
-        //`<img src="${this.data}>"`
-      );
-    } else
-      addFileElem(dir, () => {
-        //Open the file
-      });
+    switch (this.type) {
+      case File.TYPE.IMAGE:
+        let img = new Image();
+        img.src = this.data;
+        addFileElem(
+          dir,
+          () => {
+            //Open the file
+          },
+          img
+        );
+        break;
+
+      case File.TYPE.SCRIPT:
+        addFileElem(
+          dir,
+          () => {
+            //Open the file
+          },
+          getFontAwesomeElem("far fa-file-code")
+        );
+        break;
+
+      case File.TYPE.AUDIO:
+        addFileElem(
+          dir,
+          () => {
+            //Open the file
+          },
+          getFontAwesomeElem("far fa-file-audio")
+        );
+        break;
+
+      default:
+        addFileElem(
+          dir,
+          () => {
+            //Open the file
+          },
+          getFontAwesomeElem("far fa-file")
+        );
+        break;
+    }
   }
 }
 

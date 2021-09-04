@@ -378,7 +378,7 @@ button {
 
 #assetHolder p {
   width: 120px;
-  font-size: medium;
+  font-size: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

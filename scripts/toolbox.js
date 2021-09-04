@@ -99,6 +99,12 @@ export let game = {
   },
 };
 
+export function getFontAwesomeElem(elemClasses) {
+  let elem = document.createElement("i");
+  elem.className = elemClasses;
+  return elem;
+}
+
 export function setCursor(cursor) {
   document.body.style.cursor = cursor;
 }
