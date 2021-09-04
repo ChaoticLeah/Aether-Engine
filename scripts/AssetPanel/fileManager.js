@@ -13,14 +13,24 @@ addDirectory("");
 addDirectory("/assets");
 addDirectory("/scripts");
 
-//use this, dont use new File()
+/**
+ *
+ * @param {String} fileData - The files Data
+ * @param {String} fileName - The name of the file
+ * @param {String} type - The type of file. Use File.TYPE to see the types
+ * @param {String} filePath - Path to the file
+ * @description - Used to add a file to the file system
+ */
 export function addFile(fileData, fileName, type, filePath = currentDir) {
   directories.get(filePath).addChildFile(filePath + "/" + fileName);
+  //Its ok to use new File() here, deprication was only added to make people use this instead of new File()
   files.set(filePath + "/" + fileName, new File(filePath, type, fileData));
 }
-
+/**
+ *
+ * @param {String} fullDir - full path to the new directory. Include the name of the new directory
+ */
 export function addDirectory(fullDir) {
-  //if (parentDir == undefined) parentDir = "root";
   let splitDir = fullDir.split("/");
   splitDir.pop();
   let parentDir = splitDir.join("/");
@@ -29,7 +39,9 @@ export function addDirectory(fullDir) {
   if (fullDir != "") directories.get(parentDir).addChildDirectory(fullDir);
   directories.set(fullDir, dir);
 }
-
+/**
+ * @description - Reload the currend directory to show any new files/folders
+ */
 export function reloadDirectory() {
   setDir(currentDir);
 }
@@ -37,39 +49,52 @@ export function reloadDirectory() {
 export function setDir(newDir = currentDir) {
   currentDir = newDir;
   document.getElementById("assetHolder").innerHTML = "";
-  addFileElem("../", () => {
-    setDir(getDirectory(currentDir).getParent());
-  });
+  //Add the back directory button
+  if (newDir != "")
+    addFileElem("../", () => {
+      setDir(getDirectory(currentDir).getParent());
+    });
+  //show all the folders and files
   directories.get(currentDir).showItems();
 }
 
-export function addFileElem(dir, clickEvent, iconHtml) {
+export function addFileElem(dir, clickEvent, iconHtml, extraData) {
   let icon = document.createElement("div");
   let dirName =
     getDirectory(dir) != undefined ? getDirectory(dir).getName() : dir;
-
+  //If we didnt tell it how to look, set it to the default (folder icon)
   if (iconHtml == undefined) {
     iconHtml = document.createElement("i");
     iconHtml.classList.add("far");
 
     iconHtml.classList.add("fa-folder");
   }
-
+  //Add the file name
   let p = document.createElement("p");
   p.innerHTML = dirName;
-  //<i class="far fa-folder"></i>
   icon.appendChild(iconHtml);
   icon.appendChild(p);
 
-  // icon.innerHTML = `${code}<br><p>${dirName}</p>`;
-  icon.addEventListener("click", clickEvent);
+  //Add the click listener so that it opens whatever when the file is clicked
+  icon.addEventListener("click", () => {
+    clickEvent(extraData);
+  });
   document.getElementById("assetHolder").appendChild(icon);
 }
-
+/**
+ *
+ * @param {String} path - the path to the directory
+ * @returns - The directory object
+ */
 export function getDirectory(path) {
   return directories.get(path);
 }
 
+/**
+ *
+ * @param {String} path - the path to the file
+ * @returns - The file object
+ */
 export function getFile(path) {
   return files.get(path);
 }

@@ -1,4 +1,5 @@
 import { EditorTab } from "../Tabs/editorTab.js";
+import { setActiveTab, setActiveTabMetadata } from "../Tabs/TabManager.js";
 import { getFontAwesomeElem } from "../toolbox.js";
 import { addFileElem, setDir } from "./fileManager.js";
 import {
@@ -15,7 +16,11 @@ export class File {
   directory;
   type; //Type of file
   data;
+  /**
+   * @deprecated - DONT USE THIS. USE addFile() instead.
+   * @description - DONT USE THIS. USE addFile() instead.
 
+   */
   constructor(directory, type, data) {
     this.directory = directory;
     this.type = type;
@@ -27,7 +32,6 @@ export class File {
       case File.TYPE.IMAGE:
         let img = new Image();
         img.src = this.data;
-        let name = this.fileName;
         addFileElem(
           dir,
           () => {
@@ -42,10 +46,15 @@ export class File {
       case File.TYPE.SCRIPT:
         addFileElem(
           dir,
-          () => {
+          (data) => {
             //Open the file
+            const code = data.code;
+            new EditorTab(dir, "JsCodeEditor", true, {
+              code: code,
+            });
           },
-          getFontAwesomeElem("far fa-file-code")
+          getFontAwesomeElem("far fa-file-code"),
+          { code: this.data } //Pass the code into it so when its clicked we have access to it
         );
         break;
 

@@ -1,3 +1,7 @@
+/**
+ * @description - This file contains the class for storing a open tab instance
+ */
+
 import {
   addOpenTab,
   closeTab,
@@ -15,11 +19,20 @@ export class EditorTab {
   name;
   type;
   data;
-  constructor(name, type, canBeClosed = true, tabId = tabIdCounter) {
+  /**
+   *
+   * @param {*} name
+   * @param {*} type
+   * @param {*} canBeClosed
+   * @param {*} tabId
+   * @description - Call this to make a new tab, it will be added to the open tab list automatically
+   */
+  constructor(name, type, canBeClosed = true, extraData, tabId = tabIdCounter) {
     tabIdCounter++;
     this.name = name;
     this.canBeClosed = true;
     this.type = type;
+    this.data = extraData;
 
     //Add the tab
     let tab = document.createElement("div");
@@ -37,10 +50,13 @@ export class EditorTab {
         setActiveTab(elm.id, elm.getAttribute("type"));
       }
     });
+
+    //Add the X button
     tab.innerHTML = `${name} ${
       canBeClosed ? `<p class="closeEditorTab">X</p>` : ""
     }`;
     document.getElementById("navbarContainer").appendChild(tab);
+    //If it can be closed, add the closing functionality
     if (canBeClosed) {
       tab
         .getElementsByClassName("closeEditorTab")[0]
@@ -57,8 +73,12 @@ export class EditorTab {
     setActiveTab(tab.id, type);
   }
 
-  addMetadata(data) {
+  setMetadata(data) {
     this.data = data;
     return this;
+  }
+
+  getMetadata() {
+    return this.data;
   }
 }

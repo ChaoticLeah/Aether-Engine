@@ -1,3 +1,7 @@
+/**
+ * @description - The point of this file is to keep track of all the open tabs and tab types. This includes their id's
+ **/
+
 import { EditorTab } from "./editorTab.js";
 import { addComponent } from "./tabCode/addComponent.js";
 import { gameVisualEditor } from "./tabCode/gameVisualEditor.js";
@@ -52,7 +56,8 @@ export function addTabType(type, tab) {
   tabTypes.set(type, tab);
 }
 
-export function setActiveTab(tabId, type = openTabs.get(tabId).type) {
+export function setActiveTab(tabId, type = undefined) {
+  if (type == undefined) type = openTabs.get(tabId).type;
   if (type == null) {
     setActiveTab(defualtTab, openTabs.get(tabId).type);
     return;
@@ -62,7 +67,7 @@ export function setActiveTab(tabId, type = openTabs.get(tabId).type) {
   //Run the change to code
   tabTypes
     .get(type)
-    .onChange(tabId, openTabs.get(tabId).name, getActiveTabMetadata());
+    .onChange(tabId, openTabs.get(tabId).name, getTabMetadata(tabId));
 
   //Visually toggle the tab
   document.getElementById(tabId).classList.add("ButtonToggledOn");
@@ -72,7 +77,7 @@ export function setActiveTab(tabId, type = openTabs.get(tabId).type) {
 
 export function closeTab(tabId) {
   //Remove it
-  openTabs.set(tabId, undefined);
+  openTabs.delete(tabId);
 }
 
 export function leaveCurrentTab() {
@@ -80,10 +85,9 @@ export function leaveCurrentTab() {
   if (getOpenTab() != undefined)
     tabTypes
       .get(getOpenTab().type)
-      .onLeave(activeTab, getOpenTab().name, getActiveTabMetadata());
+      .onLeave(activeTab, getOpenTab().name, getOpenTabType());
 
-  //Visually toggle the tab
-
+  //Visually toggle the tab to show its not selected
   document.getElementById("navbarContainer").childNodes.forEach((elem) => {
     elem.classList.remove("ButtonToggledOn");
   });
@@ -107,9 +111,25 @@ export function getOpenTabId() {
 /*export function getTabInitFunction(id) {
   return tabTypes.get(openTabs.get(id).type).init;
 }*/
+/*
+export function setTabData(id, data) {
+  tabTypes.get(id).setData(data);
+}*/
+
+export function setActiveTabMetadata(data) {
+  getOpenTab().setMetadata(data);
+}
+
 export function getActiveTabLoopFunction() {
   if (getOpenTab() != undefined) return tabTypes.get(getOpenTab().type).tabLoop;
 }
 export function getActiveTabMetadata() {
-  if (getOpenTab() != undefined) return tabTypes.get(getOpenTab().type).data;
+  if (getOpenTab() != undefined) return getOpenTab().getMetadata();
+}
+export function getTabMetadata(id) {
+  if (getOpenTab() != undefined) return openTabs.get(id).getMetadata();
+}
+
+export function getOpenTabType() {
+  if (getOpenTab() != undefined) return tabTypes.get(getOpenTab().type);
 }

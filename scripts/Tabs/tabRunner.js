@@ -1,3 +1,7 @@
+/**
+ * @description - This file contains the code to run the loop function for the active tab
+ */
+
 //This runs the code for each tab that needs to be ran
 
 import {
