@@ -26,7 +26,6 @@ export function init() {
 
   //Add the tabs
   new EditorTab("Editor", "GameVisualEditor", false, defualtTab);
-  new EditorTab("Test Tab", "JsCodeEditor", true);
 
   hideAllTabElements();
   new EditorTab("Welcome!", "welcomeMessageTab", true, "WelcomeTab");

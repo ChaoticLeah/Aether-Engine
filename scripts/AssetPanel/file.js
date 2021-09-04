@@ -28,6 +28,7 @@ export class File {
   }
 
   show(dir) {
+    this.fileName = this.directory.split("/").pop();
     switch (this.type) {
       case File.TYPE.IMAGE:
         let img = new Image();
@@ -43,40 +44,34 @@ export class File {
         );
         break;
 
-      case File.TYPE.SCRIPT:
+      default:
+        console.log(File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)]);
         addFileElem(
           dir,
           (data) => {
             //Open the file
-            const code = data.code;
-            new EditorTab(dir, "JsCodeEditor", true, {
-              code: code,
-            });
+            new EditorTab(
+              dir,
+              File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)].editorType,
+              true,
+              data
+            );
           },
-          getFontAwesomeElem("far fa-file-code"),
-          { code: this.data } //Pass the code into it so when its clicked we have access to it
+          getFontAwesomeElem(
+            File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)].fontAwesome
+          ),
+          this.data //Pass the code into it so when its clicked we have access to it")
         );
         break;
+    }
+  }
+}
 
-      case File.TYPE.AUDIO:
-        addFileElem(
-          dir,
-          () => {
-            //Open the file
-          },
-          getFontAwesomeElem("far fa-file-audio")
-        );
-        break;
-
-      default:
-        addFileElem(
-          dir,
-          () => {
-            //Open the file
-          },
-          getFontAwesomeElem("far fa-file")
-        );
-        break;
+function getTypeReverse(type) {
+  for (let i = 0; i < Object.keys(File.TYPE).length; i++) {
+    let key = Object.keys(File.TYPE)[i];
+    if (File.TYPE[key] === type) {
+      return key;
     }
   }
 }
@@ -86,6 +81,7 @@ File.TYPE = {
   IMAGE: "image",
   FONT: "font",
   AUDIO: "audio",
+  JSON: "text/json",
   FILE: "file",
 };
 
@@ -94,5 +90,26 @@ File.UPLOAD_CONVERSION_FUNC = {
   IMAGE: readImage,
   FONT: readFileBase64,
   AUDIO: readImage,
+  JSON: readFile,
   FILE: readFile,
+};
+
+File.FILE_OPEN_EVENT_FUNC = {
+  SCRIPT: {
+    fontAwesome: "far fa-file-code",
+    editorType: "JsCodeEditor",
+  },
+  IMAGE: undefined,
+  FONT: {
+    fontAwesome: "fas fa-font",
+    editorType: "JsCodeEditor",
+  },
+  AUDIO: {
+    fontAwesome: "far fa-file-audio",
+    editorType: "JsCodeEditor",
+  },
+  FILE: {
+    fontAwesome: "far fa-file",
+    editorType: "JsCodeEditor",
+  },
 };

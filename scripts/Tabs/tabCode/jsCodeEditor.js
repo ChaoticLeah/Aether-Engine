@@ -4,7 +4,7 @@ export let jsCodeEditor = {
   onChange: (tabId, tabName, extraData) => {
     document.getElementById("codeWrapper").style.display = "inline";
     if (extraData != undefined) {
-      setCode(extraData.code);
+      setCode(extraData);
     }
   },
   onLeave: (tabId, tabName, extraData) => {
