@@ -7,6 +7,7 @@
 import {
   getActiveTabLoopFunction,
   getActiveTabMetadata,
+  getOpenTab,
 } from "./TabManager.js";
 
 let tick = 0;
@@ -15,7 +16,7 @@ export function runTabs() {
   tick++;
 
   let activeTab = getActiveTabLoopFunction();
-  if (!!activeTab) activeTab(tick, getActiveTabMetadata());
+  if (!!activeTab) activeTab(tick, getActiveTabMetadata(), getOpenTab());
   else {
   }
 }

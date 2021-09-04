@@ -22,9 +22,10 @@ addDirectory("/scripts");
  * @description - Used to add a file to the file system
  */
 export function addFile(fileData, fileName, type, filePath = currentDir) {
-  directories.get(filePath).addChildFile(filePath + "/" + fileName);
+  let path = filePath + "/" + fileName;
+  directories.get(filePath).addChildFile(path);
   //Its ok to use new File() here, deprication was only added to make people use this instead of new File()
-  files.set(filePath + "/" + fileName, new File(filePath, type, fileData));
+  files.set(path, new File(path, type, fileData));
 }
 /**
  *
@@ -97,4 +98,14 @@ export function getDirectory(path) {
  */
 export function getFile(path) {
   return files.get(path);
+}
+
+/**
+ *
+ * @param {String} path - the path to the file
+ * @peram {String} data - data
+ * @returns - The file object
+ */
+export function setFileData(filepath, data) {
+  return files.get(filepath).setData(data);
 }

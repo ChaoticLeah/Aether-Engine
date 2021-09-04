@@ -19,6 +19,7 @@ export class EditorTab {
   name;
   type;
   data;
+  extraCharacters = "";
   /**
    *
    * @param {*} name
@@ -54,7 +55,7 @@ export class EditorTab {
     //Add the X button
     tab.innerHTML = `${name} ${
       canBeClosed ? `<p class="closeEditorTab">X</p>` : ""
-    }`;
+    }<p class="extraText" color = "white"></p>`;
     document.getElementById("navbarContainer").appendChild(tab);
     //If it can be closed, add the closing functionality
     if (canBeClosed) {
@@ -73,6 +74,19 @@ export class EditorTab {
     setActiveTab(tab.id, type);
   }
 
+  showDot() {
+    this.extraCharacters = "•";
+    document
+      .getElementById(this.id)
+      .getElementsByClassName("extraText")[0].innerHTML = this.extraCharacters;
+  }
+  hideDot() {
+    this.extraCharacters = "";
+    document
+      .getElementById(this.id)
+      .getElementsByClassName("extraText")[0].innerHTML = this.extraCharacters;
+  }
+
   setMetadata(data) {
     this.data = data;
     return this;
@@ -80,5 +94,13 @@ export class EditorTab {
 
   getMetadata() {
     return this.data;
+  }
+
+  getData() {
+    return this.data;
+  }
+
+  setData(data) {
+    this.data = data;
   }
 }

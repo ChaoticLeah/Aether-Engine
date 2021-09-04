@@ -48,7 +48,7 @@ export function openTab(tabName, tabId) {
 }
 
 export function openTabMetadata(tabName, tabId, metadata) {
-  addOpenTab(new EditorTab(tabName, tabId).addMetadata(metadata));
+  addOpenTab(new EditorTab(tabName, tabId).setMetadata(metadata));
 }
 
 export function addTabType(type, tab) {

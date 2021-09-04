@@ -1,10 +1,41 @@
+import { getFile, setFileData } from "../../AssetPanel/fileManager.js";
+
+let change = false;
+let saveFile = false;
 export let jsCodeEditor = {
-  init: () => {},
-  loop: (tick) => {},
+  init: () => {
+    document
+      .getElementsByClassName("CodeMirror")[0]
+      .CodeMirror.on("change", function (cMirror) {
+        //console.log(cMirror.getValue());
+        change = true;
+      });
+    document.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.key == "s") {
+        e.preventDefault();
+        saveFile = true;
+      }
+    });
+  },
+  loop: (tick, extraData, tab) => {
+    if (change) {
+      tab.showDot();
+      change = false;
+    }
+    if (saveFile) {
+      //Put the data into the tab element
+      tab.setData(getCode());
+      //Save it to the file
+      setFileData(extraData.dir, getCode());
+      tab.hideDot();
+      saveFile = false;
+    }
+  },
   onChange: (tabId, tabName, extraData) => {
     document.getElementById("codeWrapper").style.display = "inline";
     if (extraData != undefined) {
-      setCode(extraData);
+      setCode(extraData.data);
+      change = false;
     }
   },
   onLeave: (tabId, tabName, extraData) => {

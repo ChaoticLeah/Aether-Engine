@@ -1,7 +1,6 @@
 import { EditorTab } from "../Tabs/editorTab.js";
-import { setActiveTab, setActiveTabMetadata } from "../Tabs/TabManager.js";
 import { getFontAwesomeElem } from "../toolbox.js";
-import { addFileElem, setDir } from "./fileManager.js";
+import { addFileElem } from "./fileManager.js";
 import {
   readFile,
   readFileBase64,
@@ -28,7 +27,8 @@ export class File {
   }
 
   show(dir) {
-    this.fileName = this.directory.split("/").pop();
+    this.fileName = this.directory.split("/");
+    this.fileName = this.fileName[this.fileName.length - 1];
     switch (this.type) {
       case File.TYPE.IMAGE:
         let img = new Image();
@@ -45,7 +45,6 @@ export class File {
         break;
 
       default:
-        console.log(File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)]);
         addFileElem(
           dir,
           (data) => {
@@ -54,7 +53,7 @@ export class File {
               dir,
               File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)].editorType,
               true,
-              data
+              { dir: dir, data: data }
             );
           },
           getFontAwesomeElem(
@@ -65,8 +64,15 @@ export class File {
         break;
     }
   }
-}
 
+  setData(data) {
+    this.data = data;
+  }
+}
+/**
+ * @description - Takes in the value of the json and returns the key
+ * @param {String} type - one of the values from File.TYPE
+ */
 function getTypeReverse(type) {
   for (let i = 0; i < Object.keys(File.TYPE).length; i++) {
     let key = Object.keys(File.TYPE)[i];
