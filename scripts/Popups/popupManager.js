@@ -16,3 +16,7 @@ export function getPopupByName(name) {
     if (popups[i].name === name) return popups[i];
   }
 }
+
+export function removePopup(index) {
+  popups.splice(index, 1);
+}

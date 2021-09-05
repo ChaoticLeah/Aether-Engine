@@ -405,6 +405,13 @@ button {
       cursor: move;
       text-align: center;
       font-size: small;
+      clear: left;
+      p {
+        clear: none;
+        display: inline-block;
+        padding-left: 30px;
+        cursor: pointer;
+      }
     }
     .contentAreaPopup {
       display: flex;

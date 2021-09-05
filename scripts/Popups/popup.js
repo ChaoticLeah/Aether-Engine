@@ -1,3 +1,5 @@
+import { removePopup } from "./popupManager.js";
+
 export class Popup {
   mainDiv;
   name;
@@ -14,6 +16,14 @@ export class Popup {
     let topBar = document.createElement("div");
     topBar.innerHTML = name;
     topBar.classList.add("topBarPopup");
+    let xButton = document.createElement("p");
+    xButton.innerHTML = "X";
+    xButton.addEventListener("click", (e) => {
+      e.target.parentNode.parentNode.remove();
+      removePopup(popupId);
+    });
+    topBar.appendChild(xButton);
+
     contentArea.classList.add("contentAreaPopup");
     this.mainDiv.appendChild(topBar);
     this.mainDiv.appendChild(contentArea);
