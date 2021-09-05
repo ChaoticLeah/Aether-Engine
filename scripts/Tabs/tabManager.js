@@ -65,6 +65,7 @@ export function setActiveTab(tabId, type = undefined) {
   } catch (e) {}
   leaveCurrentTab();
 
+  console.log(tabTypes.get(type));
   //Run the change to code
   tabTypes
     .get(type)

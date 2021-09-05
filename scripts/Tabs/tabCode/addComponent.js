@@ -4,6 +4,7 @@ import { addComponent as addComponentToObj } from "../../Objects/Components/comp
 import { getObject } from "../../Objects/ObjectManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
 import { defualtTab, setActiveTab } from "../TabManager.js";
+import { addInfoPopup } from "../../Popups/popupManager.js";
 
 let requestClose = false;
 
@@ -13,6 +14,11 @@ function addButton(name, id) {
   //button.classList.add("");
   button.id = id;
   button.addEventListener("click", () => {
+    if (selectedObject == undefined) {
+      addInfoPopup("Error", `Please select an object to add a component to it`);
+      return;
+    }
+
     addComponentToObj(selectedObject, id);
     reloadSelection(selectedObject, getObject(selectedObject));
     //Auto close tab

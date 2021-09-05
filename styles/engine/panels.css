@@ -74,6 +74,18 @@
   overflow: hidden;
 }
 
+#rightPanel #propertyHolder {
+  width: 600px;
+  height: calc(100% - 40px);
+  overflow-y: scroll;
+}
+
+#rightPanel #addComponentHolder button {
+  width: 100%;
+  height: 40px;
+  cursor: pointer;
+}
+
 .ui-resizable-handle {
   background-color: var(--background);
 }
@@ -115,11 +127,5 @@
           box-sizing: border-box;
   border: 1px solid #555;
   outline: none;
-}
-
-#propertyHolder {
-  width: 600px;
-  height: 100%;
-  overflow-y: scroll;
 }
 /*# sourceMappingURL=panels.css.map */

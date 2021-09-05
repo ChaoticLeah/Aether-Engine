@@ -1,4 +1,7 @@
 import { getFile, setFileData } from "../../AssetPanel/fileManager.js";
+import { selectedObject } from "../../Objects/ObjectsTab.js";
+import { addInfoPopup } from "../../Popups/popupManager.js";
+import { openTabMetadata } from "../TabManager.js";
 
 let change = false;
 let saveFile = false;
@@ -15,6 +18,15 @@ export let jsCodeEditor = {
         e.preventDefault();
         saveFile = true;
       }
+    });
+
+    document.getElementById("addComponent").addEventListener("click", () => {
+      if (selectedObject == undefined)
+        addInfoPopup(
+          "Error",
+          `Please select an object to add a component to it`
+        );
+      else openTabMetadata("Add Component", "AddComponent", selectedObject);
     });
   },
   loop: (tick, extraData, tab) => {
