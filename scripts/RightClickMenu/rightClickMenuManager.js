@@ -21,17 +21,18 @@ export function initRightClickMenuManager() {
       "Delete",
       (target) => {
         target = target.parentNode;
+        //Get the path to the file/folder
         let cls = target.className
           .split(" ")
           .find((cls) => {
             return cls.includes("path:");
           })
           .replace("path:", "");
-        console.log(cls);
 
-        //removeFile(cls);
+        //We dont know if its a file or directory, so try both
+        removeFile(cls);
         removeDir(cls);
-
+        //Reload it to show the changes
         reloadDirectory();
       },
       "file",

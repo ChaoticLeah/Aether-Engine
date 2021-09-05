@@ -17,18 +17,25 @@ addDirectory("/scripts");
 addDirectory("/scripts/dead");
 
 export function removeFile(filePath) {
+  if (getFile(filePath) == undefined) return;
+
+  let splitDir = filePath.split("/");
+  splitDir.pop();
+  let parentDir = splitDir.join("/");
+  getDirectory(parentDir).removeChildFile(filePath);
   files.delete(filePath);
 }
 
 export function removeDir(dirPath) {
+  if (getDirectory(dirPath) == undefined) return;
   dirPath = dirPath;
-  directories.delete(dirPath);
 
   let splitDir = dirPath.split("/");
   splitDir.pop();
   let parentDir = splitDir.join("/");
-  directories.get(parentDir).removeChildDirectory();
-  console.log(directories);
+  directories.get(parentDir).removeChildDirectory(dirPath);
+
+  directories.delete(dirPath);
 }
 
 /**

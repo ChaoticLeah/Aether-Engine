@@ -2,6 +2,7 @@ export class Component {
   parentObject;
   properties = {};
   objectPropertyTypes = {};
+  enabled = true;
 
   constructor(parentObject, properties) {
     parentObject = parentObject;

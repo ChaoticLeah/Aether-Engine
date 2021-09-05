@@ -1,4 +1,11 @@
-import { addFileElem, getDirectory, getFile, setDir } from "./fileManager.js";
+import {
+  addFileElem,
+  getDirectory,
+  getFile,
+  removeDir,
+  removeFile,
+  setDir,
+} from "./fileManager.js";
 
 export class Directory {
   ///parentDirectoryId; //the parent directory id
@@ -16,17 +23,40 @@ export class Directory {
     this.name = splitDir[splitDir.length - 1];
   }
 
+  removeChildFile(filePath) {
+    //Find the correct file and remove it from the directory
+    this.childrenFiles.find((str, index) => {
+      if (str == filePath) {
+        //Remove it
+        this.childrenFiles.splice(index, 1);
+      }
+    });
+  }
+
   removeChildDirectory(directoryPath) {
-    this.childrenDirectorys = this.childrenDirectorys.remove(directoryPath);
+    //this.childrenDirectorys = this.childrenDirectorys.remove(directoryPath);
 
     this.childrenDirectorys.find((str, index) => {
       if (str == directoryPath) {
-        //TODO FIGURE OUT WHY THIS WONT WORK
+        let dir = getDirectory(str);
+
+        //Remove Files
+
+        for (let i = 0; i < dir.childrenFiles.length; i++) {
+          removeFile(dir.childrenFiles[i]);
+        }
+
+        //Remove nested directories
+
+        for (let i = 0; i < dir.childrenDirectorys.length; i++) {
+          removeDir(dir.childrenDirectorys[i]);
+        }
+
+        //Remove the link from the parent directory to the directory/file we are deleting
         this.childrenDirectorys.splice(index, 1);
       }
     });
 
-    console.log(this.childrenDirectorys);
     return this;
   }
 
