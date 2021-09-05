@@ -1,0 +1,21 @@
+@import url("./main.css");
+
+#ctxmenu {
+  position: fixed;
+  background: var(--background-panel);
+  color: black;
+  cursor: pointer;
+  box-shadow: 1px 0px 11px 0px var(--background);
+  border-radius: 5%;
+  overflow: hidden;
+}
+
+#ctxmenu > p {
+  padding: 0 1rem;
+  margin: 0;
+}
+
+#ctxmenu > p:hover {
+  background: black;
+  color: ghostwhite;
+}

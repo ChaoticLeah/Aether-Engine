@@ -1,0 +1,57 @@
+@import url("./main.css");
+#popupHolder {
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 4000;
+}
+
+#popupHolder * {
+  pointer-events: all;
+}
+
+#popupHolder .popup {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-box-shadow: 0 0 1pt 1pt var(--highlight1);
+          box-shadow: 0 0 1pt 1pt var(--highlight1);
+}
+
+#popupHolder .popup .topBarPopup {
+  background-color: var(--background);
+  width: 100%;
+  cursor: move;
+  text-align: center;
+  font-size: small;
+  clear: left;
+}
+
+#popupHolder .popup .topBarPopup p {
+  clear: none;
+  display: inline-block;
+  padding-left: 30px;
+  cursor: pointer;
+  color: var(--warning-highlight);
+}
+
+#popupHolder .popup .contentAreaPopup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: var(--background-panel);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+#popupHolder .popup .contentAreaPopup * {
+  padding: 10px;
+}
+/*# sourceMappingURL=popups.css.map */

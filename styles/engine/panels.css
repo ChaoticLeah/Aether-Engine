@@ -1,0 +1,125 @@
+@import url("./main.css");
+#leftPanel {
+  background-color: var(--background-panel);
+  height: calc(100vh - var(--navbarHeight));
+  width: 200px;
+  overflow: hidden;
+}
+
+#leftPanel #controlButtons {
+  position: relative;
+  top: calc(100vh - var(--navbarHeight) - 26px - 5px);
+  height: 26px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#leftPanel #controlButtons #AddObject {
+  width: 90%;
+}
+
+#leftPanel #ObjectTreeCanvas {
+  width: 100%;
+  height: 90%;
+}
+
+#bottomPanel {
+  background-color: var(--background-panel);
+  position: absolute;
+  bottom: 0px;
+  height: 5vh;
+}
+
+#bottomPanel #bottomPanelBar {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 1.5em;
+  background-color: var(--ui);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+#bottomPanel #bottomPanelBar * {
+  padding: 3px;
+  cursor: pointer;
+}
+
+#rightPanel {
+  background-color: var(--background-panel);
+  height: calc(100vh - var(--navbarHeight));
+  top: var(--navbarHeight);
+  width: 180px;
+  position: absolute;
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+
+.ui-resizable-handle {
+  background-color: var(--background);
+}
+
+.ui-resizable-handle:hover {
+  background-color: var(--ui);
+}
+
+.property,
+#defaultProperties {
+  width: 100%;
+  background-color: var(--ui);
+  padding: 10px;
+}
+
+.property input,
+#defaultProperties input {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+.property input[type="text"],
+#defaultProperties input[type="text"] {
+  width: 150px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
+}
+
+.property input[type="number"],
+#defaultProperties input[type="number"] {
+  width: 80px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
+}
+
+#propertyHolder {
+  width: 600px;
+  height: 100%;
+  overflow-y: scroll;
+}
+/*# sourceMappingURL=panels.css.map */

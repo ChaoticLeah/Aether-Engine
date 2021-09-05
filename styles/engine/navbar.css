@@ -1,0 +1,54 @@
+@import url("./main.css");
+#navbar {
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: var(--navbarHeight);
+  background-color: var(--background-panel);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#navbar #navbarContainer {
+  width: calc(100% - 40px);
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.navbarTab {
+  color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px;
+  margin: 4px;
+  display: inline-block;
+  background-color: var(--ui);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.navbarTab p {
+  display: inline;
+  color: var(--warning-highlight);
+  padding: 3px;
+}
+
+.ButtonToggledOn {
+  background-color: var(--highlight1);
+}
+
+.cm-s-ayu-mirage {
+  height: calc(100vh - var(--navbarHeight));
+}
+/*# sourceMappingURL=navbar.css.map */
