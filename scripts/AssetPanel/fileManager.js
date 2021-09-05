@@ -9,6 +9,8 @@ let directories = new Map();
 
 export let currentDir = "";
 
+let currentDraggingFile = "";
+
 addDirectory("");
 addDirectory("/assets");
 addDirectory("/scripts");
@@ -80,6 +82,11 @@ export function addFileElem(dir, clickEvent, iconHtml, extraData) {
   icon.addEventListener("click", () => {
     clickEvent(extraData);
   });
+
+  icon.addEventListener("dragstart", () => {
+    currentDraggingFile = icon.getElementsByTagName("p")[0].innerHTML;
+  });
+
   document.getElementById("assetHolder").appendChild(icon);
 }
 /**
@@ -108,4 +115,8 @@ export function getFile(path) {
  */
 export function setFileData(filepath, data) {
   return files.get(filepath).setData(data);
+}
+
+export function getCurrentDraggingFile() {
+  return currentDraggingFile;
 }

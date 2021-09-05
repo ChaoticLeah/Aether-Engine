@@ -24,8 +24,10 @@ function addButton(name, id) {
 
 export let addComponent = {
   init: () => {
-    console.log("inited");
+    console.log("inited components");
     addButton("Rectangle Component", Component.RectangleComponent);
+    addButton("Image Component", Component.ImageComponent);
+
     document
       .getElementById("componentSearch")
       .addEventListener("keyup", (e) => {

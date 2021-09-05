@@ -22,3 +22,4 @@ export class Component {
   }
 }
 Component.RectangleComponent = "RectangleComponent";
+Component.ImageComponent = "ImageComponent";

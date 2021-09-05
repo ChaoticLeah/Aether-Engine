@@ -1,6 +1,7 @@
 //TODO: When a object is selected a onselect func should be ran, also on de-select one should be ran
 
 //import { getObject, objects } from "../Objects/objectManager.js";
+import { getCurrentDraggingFile } from "../AssetPanel/fileManager.js";
 import { propertyTypes as propTypes } from "./propertyTypes.js";
 let propId = 0;
 
@@ -37,6 +38,16 @@ export function onObjectSelect(objectId, object) {
       innerDiv.classList.add("propertyInnerDiv");
       let element = document.createElement(propertyType.elem);
       element.setAttribute("type", propertyType.type);
+      //If it takes in a game engine file, add drag support
+      if (propertyType.extra == "gameEngineFile") {
+        element.addEventListener("drop", (ev) => {
+          ev.preventDefault();
+          ev.srcElement.value = getCurrentDraggingFile();
+          ev.srcElement.dispatchEvent(
+            new Event("change", { target: { value: ev.srcElement.value } })
+          );
+        });
+      }
       //Load the current value
       let propertyValue = object.components[i].properties[propertyKey];
       if (propertyType != propTypes.TOGGLE_INPUT) element.value = propertyValue;

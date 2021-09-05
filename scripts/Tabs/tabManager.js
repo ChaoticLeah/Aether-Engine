@@ -56,11 +56,13 @@ export function addTabType(type, tab) {
 }
 
 export function setActiveTab(tabId, type = undefined) {
-  if (type == undefined) type = openTabs.get(tabId).type;
-  if (type == null) {
-    setActiveTab(defualtTab, openTabs.get(tabId).type);
-    return;
-  }
+  try {
+    if (type == undefined) type = openTabs.get(tabId).type;
+    if (type == null) {
+      setActiveTab(defualtTab, openTabs.get(tabId).type);
+      return;
+    }
+  } catch (e) {}
   leaveCurrentTab();
 
   //Run the change to code

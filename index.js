@@ -31,7 +31,7 @@ document.getElementById("more").addEventListener("click", () => {
   document.getElementById("dropdownMenu").classList.toggle("hidden");
 });
 
-let p = addInfoPopup(
+addInfoPopup(
   "Rick Roll!",
   `
   Never gonna give you up
