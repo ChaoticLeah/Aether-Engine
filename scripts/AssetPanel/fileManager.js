@@ -1,3 +1,4 @@
+import { addInfoPopup } from "../Popups/popupManager.js";
 import { Directory } from "./directory.js";
 import { File } from "./file.js";
 
@@ -14,7 +15,17 @@ let currentDraggingFile = "";
 addDirectory("");
 addDirectory("/assets");
 addDirectory("/scripts");
-addDirectory("/scripts/dead");
+
+document.getElementById("createNewFile").addEventListener("click", () => {
+  let name = prompt("Please name your script. Dont use any special characters");
+  //Dont allow fancy characters in the name
+  if (name.match(/[^a-zA-Z0-9_-]/g)) {
+    addInfoPopup("Error", "Dont use any special characters");
+    return;
+  }
+  addFile("", `${name}.js`, File.TYPE.SCRIPT);
+  reloadDirectory();
+});
 
 export function removeFile(filePath) {
   if (getFile(filePath) == undefined) return;

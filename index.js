@@ -30,7 +30,7 @@ document.getElementById("AddObject").addEventListener("click", () => {
 document.getElementById("more").addEventListener("click", () => {
   document.getElementById("dropdownMenu").classList.toggle("hidden");
 });
-
+/*
 addInfoPopup(
   "Rick Roll!",
   `
@@ -48,3 +48,4 @@ addInfoPopup(
   Never gonna say goodbye
   Never gonna tell a lie and hurt you`
 );
+*/
