@@ -14,9 +14,13 @@ export class Popup {
     this.mainDiv.id = "popup" + popupId;
     let contentArea = document.createElement("div");
     let topBar = document.createElement("div");
-    topBar.innerHTML = name;
+    //topBar.innerHTML = name;
+    let popupName = document.createElement("p");
+    popupName.innerHTML = name;
+    topBar.appendChild(popupName);
     topBar.classList.add("topBarPopup");
     let xButton = document.createElement("p");
+    xButton.classList.add("xButton");
     xButton.innerHTML = "X";
     xButton.addEventListener("click", (e) => {
       e.target.parentNode.parentNode.remove();

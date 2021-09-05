@@ -26,17 +26,32 @@
   background-color: var(--background);
   width: 100%;
   cursor: move;
-  text-align: center;
   font-size: small;
-  clear: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 #popupHolder .popup .topBarPopup p {
-  clear: none;
-  display: inline-block;
-  padding-left: 30px;
-  cursor: pointer;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  text-align: justify;
+  padding: 10px;
+}
+
+#popupHolder .popup .topBarPopup .xButton {
   color: var(--warning-highlight);
+  cursor: pointer;
 }
 
 #popupHolder .popup .contentAreaPopup {

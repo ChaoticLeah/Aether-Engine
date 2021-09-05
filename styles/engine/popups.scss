@@ -23,15 +23,21 @@
       background-color: var(--background);
       width: 100%;
       cursor: move;
-      text-align: center;
+      //text-align: center;
       font-size: small;
-      clear: left;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
       p {
-        clear: none;
-        display: inline-block;
-        padding-left: 30px;
-        cursor: pointer;
+        width: max-content;
+        text-align: justify;
+        padding: 10px;
+      }
+      .xButton {
         color: var(--warning-highlight);
+        cursor: pointer;
       }
     }
     .contentAreaPopup {
