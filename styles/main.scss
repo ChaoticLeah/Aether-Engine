@@ -309,7 +309,7 @@ button {
 
   width: 20vw;
   height: 20vh;
-  z-index: 100;
+  z-index: 5000;
   //padding: 0 1rem;
   border-radius: 0.5vw;
   background-color: $background;
@@ -376,5 +376,44 @@ button {
     //top: 50%;
     //left: 50%;
     transform: translate(50%, 50%);
+  }
+}
+
+//POPUPS!
+
+#popupHolder {
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: 4000;
+  * {
+    pointer-events: all;
+    //border-radius: 0.5vw;
+  }
+
+  .popup {
+    width: fit-content;
+    box-shadow: 0 0 1pt 1pt $highlight1;
+
+    .topBarPopup {
+      background-color: $background;
+      width: 100%;
+      cursor: move;
+      text-align: center;
+      font-size: small;
+    }
+    .contentAreaPopup {
+      display: flex;
+      justify-content: center;
+      background-color: $background-panel;
+      * {
+        padding: 10px;
+      }
+      height: fit-content;
+    }
   }
 }

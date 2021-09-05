@@ -5,6 +5,11 @@ import {
   renderSidebarObjects,
   selectedObject,
 } from "./scripts/Objects/ObjectsTab.js";
+import {
+  addPopup,
+  getPopup,
+  getPopupByName,
+} from "./scripts/Popups/popupManager.js";
 import { initRightClickMenuManager } from "./scripts/RightClickMenu/RightClickMenuManager.js";
 import { init as initTabManager } from "./scripts/Tabs/tabManager.js";
 import { runTabs } from "./scripts/Tabs/tabRunner.js";
@@ -24,3 +29,8 @@ document.getElementById("AddObject").addEventListener("click", () => {
 document.getElementById("more").addEventListener("click", () => {
   document.getElementById("dropdownMenu").classList.toggle("hidden");
 });
+
+let p = addPopup("First Popup!");
+let text = document.createElement("p");
+text.innerHTML = ":)";
+getPopup(p).addElement(text);

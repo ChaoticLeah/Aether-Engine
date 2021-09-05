@@ -329,7 +329,7 @@ button {
   right: 10px;
   width: 20vw;
   height: 20vh;
-  z-index: 100;
+  z-index: 5000;
   border-radius: 0.5vw;
   background-color: #080f0f;
   -webkit-box-shadow: 0 0 1pt 1pt #a6b1e1;
@@ -406,5 +406,52 @@ button {
   position: relative;
   -webkit-transform: translate(50%, 50%);
           transform: translate(50%, 50%);
+}
+
+#popupHolder {
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 4000;
+}
+
+#popupHolder * {
+  pointer-events: all;
+}
+
+#popupHolder .popup {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-box-shadow: 0 0 1pt 1pt #a6b1e1;
+          box-shadow: 0 0 1pt 1pt #a6b1e1;
+}
+
+#popupHolder .popup .topBarPopup {
+  background-color: #080f0f;
+  width: 100%;
+  cursor: move;
+  text-align: center;
+  font-size: small;
+}
+
+#popupHolder .popup .contentAreaPopup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #191c1c;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+#popupHolder .popup .contentAreaPopup * {
+  padding: 10px;
 }
 /*# sourceMappingURL=main.css.map */
