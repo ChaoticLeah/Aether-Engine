@@ -52,7 +52,6 @@ oncontextmenu = (e) => {
     //Check requirements (see if right clicked element has the required class)
     if (option.requiredElemClass != undefined) {
       if (option.isParentElem) {
-        console.log("t");
         if (
           !e.target.parentNode.className
             .split(" ")
