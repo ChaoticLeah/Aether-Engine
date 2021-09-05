@@ -12,6 +12,17 @@ export function initRightClickMenuManager() {
   );
 
   addRightClickOption(
+    new RightClickMenuButton(
+      "Delete",
+      () => {
+        console.log("deleted");
+      },
+      "file",
+      true
+    )
+  );
+
+  addRightClickOption(
     new RightClickMenuButton("Save Project", () => {
       alert("This feature is not done");
     })
@@ -31,18 +42,38 @@ export function initRightClickMenuManager() {
 
 oncontextmenu = (e) => {
   e.preventDefault();
+  console.log(e.target.parentNode);
   let menu = document.createElement("div");
   menu.id = "ctxmenu";
   menu.style = `top:${e.pageY - 10}px;left:${e.pageX - 40}px`;
   menu.onmouseleave = () => (ctxmenu.outerHTML = "");
   for (let [key, option] of rightClickOptions) {
-    let child = document.createElement("p");
-    child.innerHTML = option.text;
-    child.addEventListener("click", () => {
-      option.onClickEvent();
-      child.parentNode.outerHTML = "";
-    });
-    menu.appendChild(child);
+    let show = true;
+    //Check requirements (see if right clicked element has the required class)
+    if (option.requiredElemClass != undefined) {
+      if (option.isParentElem) {
+        console.log("t");
+        if (
+          !e.target.parentNode.className
+            .split(" ")
+            .includes(option.requiredElemClass)
+        )
+          show = false;
+      } else {
+        if (!e.target.className.split(" ").includes(option.requiredElemClass))
+          show = false;
+      }
+    }
+
+    if (show) {
+      let child = document.createElement("p");
+      child.innerHTML = option.text;
+      child.addEventListener("click", () => {
+        option.onClickEvent();
+        child.parentNode.outerHTML = "";
+      });
+      menu.appendChild(child);
+    }
   }
 
   document.body.appendChild(menu);

@@ -63,8 +63,11 @@ export function setDir(newDir = currentDir) {
 
 export function addFileElem(dir, clickEvent, iconHtml, extraData) {
   let icon = document.createElement("div");
+
   let dirName =
     getDirectory(dir) != undefined ? getDirectory(dir).getName() : dir;
+  icon.classList.add(`file`);
+  icon.classList.add("path:" + dirName);
   //If we didnt tell it how to look, set it to the default (folder icon)
   if (iconHtml == undefined) {
     iconHtml = document.createElement("i");
