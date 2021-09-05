@@ -6,6 +6,7 @@ import {
   selectedObject,
 } from "./scripts/Objects/ObjectsTab.js";
 import {
+  addInfoPopup,
   addPopup,
   getPopup,
   getPopupByName,
@@ -30,7 +31,7 @@ document.getElementById("more").addEventListener("click", () => {
   document.getElementById("dropdownMenu").classList.toggle("hidden");
 });
 
-let p = addPopup("First Popup!");
-let text = document.createElement("p");
-text.innerHTML = ":)";
-getPopup(p).addElement(text);
+let p = addInfoPopup(
+  "First Popup!",
+  `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a lacinia urna, sed dignissim metus. `
+);

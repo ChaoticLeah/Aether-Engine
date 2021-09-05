@@ -32,7 +32,7 @@ export class Popup {
     //Make it draggable
     $(`#${this.mainDiv.id}`).draggable({
       handle: "div.topBarPopup",
-      containment: "window",
+      containment: "document",
     });
   }
 

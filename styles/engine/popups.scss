@@ -16,6 +16,7 @@
 
   .popup {
     width: fit-content;
+    max-width: 300px;
     box-shadow: 0 0 1pt 1pt var(--highlight1);
 
     .topBarPopup {

@@ -7,6 +7,13 @@ export function addPopup(popupName) {
   return popups.length - 1;
 }
 
+export function addInfoPopup(popupName, info) {
+  let popupId = addPopup(popupName);
+  let text = document.createElement("p");
+  text.innerHTML = info;
+  getPopup(popupId).addElement(text);
+}
+
 export function getPopup(index) {
   return popups[index];
 }

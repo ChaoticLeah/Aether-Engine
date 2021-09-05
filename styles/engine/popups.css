@@ -17,6 +17,7 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  max-width: 300px;
   -webkit-box-shadow: 0 0 1pt 1pt var(--highlight1);
           box-shadow: 0 0 1pt 1pt var(--highlight1);
 }
