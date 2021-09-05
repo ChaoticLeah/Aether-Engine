@@ -38,6 +38,9 @@
     color: var(--warning-highlight);
     padding: 3px;
   }
+  .extraText {
+    pointer-events: none;
+  }
 }
 .ButtonToggledOn {
   background-color: var(--highlight1);
