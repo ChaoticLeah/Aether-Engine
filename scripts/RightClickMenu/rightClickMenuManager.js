@@ -3,6 +3,7 @@ import {
   removeDir,
   removeFile,
 } from "../AssetPanel/fileManager.js";
+import { getObject } from "../Objects/ObjectManager.js";
 import { selectedObject } from "../Objects/ObjectsTab.js";
 import { openTabMetadata } from "../Tabs/TabManager.js";
 import { RightClickMenuButton } from "./rightClickMenuButton.js";
@@ -37,6 +38,25 @@ export function initRightClickMenuManager() {
       },
       "file",
       true
+    )
+  );
+
+  addRightClickOption(
+    new RightClickMenuButton(
+      "Delete Component",
+      (target) => {
+        //Get the path to the file/folder
+        let cls = target.className
+          .split(" ")
+          .find((cls) => {
+            return cls.includes("componentid:");
+          })
+          .replace("componentid:", "");
+        let id = Number(cls) - 1;
+        getObject(selectedObject).removeObject(id);
+      },
+      "componentTitle",
+      false
     )
   );
 

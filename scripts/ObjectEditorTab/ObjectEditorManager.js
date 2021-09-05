@@ -24,6 +24,8 @@ export function onObjectSelect(objectId, object) {
     let div = document.createElement("div");
     //add the label saying what property is is from
     let txt = document.createElement("h4");
+    txt.classList.add("componentTitle");
+    txt.classList.add(`componentid:${propId}`);
     txt.innerHTML = `${component.constructor.name} :<br><br>`;
     div.appendChild(txt);
 

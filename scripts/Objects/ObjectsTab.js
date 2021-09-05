@@ -70,6 +70,12 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
   }
 }
 
+export function reloadObjectSelection() {
+  let selobj = selectedObject;
+  onObjectDeSelect(selectedObject, getObject(selectedObject));
+  onObjectSelect(selobj, getObject(selobj));
+}
+
 let clickY = -1;
 
 function selectObj(x, y) {

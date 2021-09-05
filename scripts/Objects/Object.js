@@ -1,4 +1,5 @@
 import { CoreObjectComponent } from "./Components/coreObjectComponent.js";
+import { reloadObjectSelection } from "./ObjectsTab.js";
 
 let idCounter = 0;
 export let inEditor = true;
@@ -51,6 +52,11 @@ export class GameObject {
 
   addComponent(component) {
     this.components.push(component);
+  }
+
+  removeObject(index) {
+    this.components.splice(index, 1);
+    reloadObjectSelection();
   }
 
   getX() {
