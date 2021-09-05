@@ -1,3 +1,8 @@
+import {
+  reloadDirectory,
+  removeDir,
+  removeFile,
+} from "../AssetPanel/fileManager.js";
 import { selectedObject } from "../Objects/ObjectsTab.js";
 import { openTabMetadata } from "../Tabs/TabManager.js";
 import { RightClickMenuButton } from "./rightClickMenuButton.js";
@@ -14,8 +19,20 @@ export function initRightClickMenuManager() {
   addRightClickOption(
     new RightClickMenuButton(
       "Delete",
-      () => {
-        console.log("deleted");
+      (target) => {
+        target = target.parentNode;
+        let cls = target.className
+          .split(" ")
+          .find((cls) => {
+            return cls.includes("path:");
+          })
+          .replace("path:", "");
+        console.log(cls);
+
+        //removeFile(cls);
+        removeDir(cls);
+
+        reloadDirectory();
       },
       "file",
       true
@@ -42,7 +59,6 @@ export function initRightClickMenuManager() {
 
 oncontextmenu = (e) => {
   e.preventDefault();
-  console.log(e.target.parentNode);
   let menu = document.createElement("div");
   menu.id = "ctxmenu";
   menu.style = `top:${e.pageY - 10}px;left:${e.pageX - 40}px`;
@@ -68,7 +84,7 @@ oncontextmenu = (e) => {
       let child = document.createElement("p");
       child.innerHTML = option.text;
       child.addEventListener("click", () => {
-        option.onClickEvent();
+        option.onClickEvent(e.target);
         child.parentNode.outerHTML = "";
       });
       menu.appendChild(child);

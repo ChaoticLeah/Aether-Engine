@@ -16,6 +16,20 @@ export class Directory {
     this.name = splitDir[splitDir.length - 1];
   }
 
+  removeChildDirectory(directoryPath) {
+    this.childrenDirectorys = this.childrenDirectorys.remove(directoryPath);
+
+    this.childrenDirectorys.find((str, index) => {
+      if (str == directoryPath) {
+        //TODO FIGURE OUT WHY THIS WONT WORK
+        this.childrenDirectorys.splice(index, 1);
+      }
+    });
+
+    console.log(this.childrenDirectorys);
+    return this;
+  }
+
   addChildDirectory(directoryPath) {
     this.childrenDirectorys.push(directoryPath);
     return this;

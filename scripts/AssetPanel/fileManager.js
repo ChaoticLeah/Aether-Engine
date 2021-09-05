@@ -14,6 +14,22 @@ let currentDraggingFile = "";
 addDirectory("");
 addDirectory("/assets");
 addDirectory("/scripts");
+addDirectory("/scripts/dead");
+
+export function removeFile(filePath) {
+  files.delete(filePath);
+}
+
+export function removeDir(dirPath) {
+  dirPath = dirPath;
+  directories.delete(dirPath);
+
+  let splitDir = dirPath.split("/");
+  splitDir.pop();
+  let parentDir = splitDir.join("/");
+  directories.get(parentDir).removeChildDirectory();
+  console.log(directories);
+}
 
 /**
  *
@@ -67,7 +83,7 @@ export function addFileElem(dir, clickEvent, iconHtml, extraData) {
   let dirName =
     getDirectory(dir) != undefined ? getDirectory(dir).getName() : dir;
   icon.classList.add(`file`);
-  icon.classList.add("path:" + dirName);
+  icon.classList.add("path:" + dir);
   //If we didnt tell it how to look, set it to the default (folder icon)
   if (iconHtml == undefined) {
     iconHtml = document.createElement("i");
