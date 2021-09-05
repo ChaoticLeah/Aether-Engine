@@ -54,6 +54,7 @@
   <link rel="stylesheet" href="./styles/engine/menu.css" />
   <link rel="stylesheet" href="./styles/engine/popups.css" />
   <link rel="stylesheet" href="./styles/engine/rightclick.css" />
+  <link rel="stylesheet" href="./styles/engine/componentSelector.css" />
 
   <head>
     <title id="Title">Loading</title>
@@ -114,7 +115,12 @@
       </div>
       <!--Component Selecter-->
       <div id="ComponentSelect">
-        <p>Testing</p>
+        <input
+          type="text"
+          id="componentSearch"
+          placeholder="Filter Components"
+        />
+        <div id="componentButtonHolder"></div>
       </div>
       <!--Code Area-->
       <article id="codeWrapper">

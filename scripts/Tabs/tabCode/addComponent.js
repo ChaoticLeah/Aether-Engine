@@ -13,14 +13,21 @@ function addButton(name, id) {
     reloadSelection(selectedObject, getObject(selectedObject));
   });
 
-  document.getElementById("ComponentSelect").appendChild(button);
+  document.getElementById("componentButtonHolder").appendChild(button);
 }
 
 export let addComponent = {
   init: () => {
     console.log("inited");
     addButton("Rectangle Component", Component.RectangleComponent);
-    document.getElementById("");
+    document
+      .getElementById("componentSearch")
+      .addEventListener("keyup", (e) => {
+        filterElements(
+          document.getElementById("componentButtonHolder"),
+          e.target.value
+        );
+      });
   },
   loop: (tick, selectedObject) => {
     //console.log(tick, selectedObject);
@@ -33,3 +40,17 @@ export let addComponent = {
     document.getElementById("ComponentSelect").style.display = "none";
   },
 };
+
+function filterElements(div, searchQuery) {
+  var filter, ul, li, a, i, txtValue;
+  filter = searchQuery.toUpperCase();
+  li = div.getElementsByTagName("button");
+  for (i = 0; i < li.length; i++) {
+    txtValue = li[i].innerHTML;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}

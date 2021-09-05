@@ -94,6 +94,14 @@ button {
   font-size: 100%;
 }
 
+input[type="text"] {
+  font-size: 16px;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid var(--background-panel);
+  background-color: var(--background-panel);
+  margin-bottom: 12px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   height: 6px;
