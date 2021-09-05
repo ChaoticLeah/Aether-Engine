@@ -25,10 +25,10 @@ export function init() {
   new TabType("imageViewTab").setFile(imageViewTab).pushType();
 
   //Add the tabs
-  new EditorTab("Editor", "GameVisualEditor", false, defualtTab);
+  new EditorTab("Editor", "GameVisualEditor", false, undefined, defualtTab);
 
   hideAllTabElements();
-  new EditorTab("Welcome!", "welcomeMessageTab", true, "WelcomeTab");
+  new EditorTab("Welcome!", "welcomeMessageTab", true, undefined, "WelcomeTab");
 }
 
 function hideAllTabElements() {

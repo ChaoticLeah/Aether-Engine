@@ -20,6 +20,7 @@ export class EditorTab {
   type;
   data;
   extraCharacters = "";
+  tabObject;
   /**
    *
    * @param {*} name
@@ -37,6 +38,7 @@ export class EditorTab {
 
     //Add the tab
     let tab = document.createElement("div");
+    this.tabObject = tab;
 
     //Add date.now so that there is not a problem with 2 of the same named documents opening
     tab.id = tabId;
@@ -62,16 +64,19 @@ export class EditorTab {
       tab
         .getElementsByClassName("closeEditorTab")[0]
         .addEventListener("click", (e) => {
-          let elm = e.path[1];
-          if (isTabActive(elm.id)) leaveCurrentTab();
-          elm.remove();
-          closeTab(elm.id);
+          this.close();
         });
     }
     this.id = tab.id;
     //Add it to the list of open tabs
     addOpenTab(this);
     setActiveTab(tab.id, type);
+  }
+
+  close() {
+    if (isTabActive(this.tabObject.id)) leaveCurrentTab();
+    this.tabObject.remove();
+    closeTab(this.tabObject.id);
   }
 
   showDot() {
