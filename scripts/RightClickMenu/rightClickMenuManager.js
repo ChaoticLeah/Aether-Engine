@@ -28,8 +28,9 @@ export function initRightClickMenuManager() {
           .find((cls) => {
             return cls.includes("path:");
           })
-          .replace("path:", "");
-
+          .replace("path:", "")
+          .replace(/\$/g, " ");
+        console.log(cls);
         //We dont know if its a file or directory, so try both
         removeFile(cls);
         removeDir(cls);

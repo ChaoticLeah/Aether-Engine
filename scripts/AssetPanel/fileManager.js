@@ -101,7 +101,7 @@ export function addFileElem(dir, clickEvent, iconHtml, extraData) {
   let dirName =
     getDirectory(dir) != undefined ? getDirectory(dir).getName() : dir;
   icon.classList.add(`file`);
-  icon.classList.add("path:" + dir);
+  icon.classList.add("path:" + dir.replace(/ /g, "$"));
   //If we didnt tell it how to look, set it to the default (folder icon)
   if (iconHtml == undefined) {
     iconHtml = document.createElement("i");
@@ -109,6 +109,8 @@ export function addFileElem(dir, clickEvent, iconHtml, extraData) {
 
     iconHtml.classList.add("fa-folder");
   }
+  iconHtml.setAttribute("draggable", true);
+
   //Add the file name
   let p = document.createElement("p");
   p.innerHTML = dirName;

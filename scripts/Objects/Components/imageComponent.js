@@ -1,3 +1,4 @@
+import { File } from "../../AssetPanel/file.js";
 import { getFile } from "../../AssetPanel/fileManager.js";
 import { propertyTypes } from "../../ObjectEditorTab/propertyTypes.js";
 import { addInfoPopup } from "../../Popups/popupManager.js";
@@ -21,7 +22,10 @@ export class ImageComponent extends Component {
   }
 
   initValues() {
-    if (getFile(this.properties.image) == undefined) {
+    if (
+      getFile(this.properties.image) == undefined ||
+      getFile(this.properties.image).type != File.TYPE.IMAGE
+    ) {
       addInfoPopup(
         "Error",
         `you tried adding a invalid file to this component`

@@ -42,6 +42,9 @@ export function onObjectSelect(objectId, object) {
       element.setAttribute("type", propertyType.type);
       //If it takes in a game engine file, add drag support
       if (propertyType.extra == "gameEngineFile") {
+        element.addEventListener("dragover", (ev) => {
+          ev.preventDefault();
+        });
         element.addEventListener("drop", (ev) => {
           ev.preventDefault();
           ev.srcElement.value = getCurrentDraggingFile();
