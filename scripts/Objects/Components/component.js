@@ -1,12 +1,14 @@
+let componentIdCounter = 0;
 export class Component {
   parentObject;
   properties = {};
   objectPropertyTypes = {};
   enabled = true;
-
-  constructor(parentObject, properties) {
+  componentId = 0;
+  constructor(parentObject, properties, id = componentIdCounter++) {
     parentObject = parentObject;
     this.properties = properties;
+    this.componentId = id;
   }
 
   //This one is ran in the editor

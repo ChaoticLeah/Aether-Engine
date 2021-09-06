@@ -52,8 +52,8 @@ export function initRightClickMenuManager() {
             return cls.includes("componentid:");
           })
           .replace("componentid:", "");
-        let id = Number(cls) - 1;
-        getObject(selectedObject).removeObject(id);
+        let id = Number(cls);
+        getObject(selectedObject).removeComponent(id);
       },
       "componentTitle",
       false

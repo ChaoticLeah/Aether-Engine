@@ -54,8 +54,10 @@ export class GameObject {
     this.components.push(component);
   }
 
-  removeObject(index) {
-    this.components.splice(index, 1);
+  removeComponent(index) {
+    this.components.find((component, i) => {
+      if (component.componentId == index) this.components.splice(i, 1);
+    });
     reloadObjectSelection();
   }
 
