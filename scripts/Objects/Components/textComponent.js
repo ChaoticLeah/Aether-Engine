@@ -1,3 +1,4 @@
+import { File } from "../../AssetPanel/file.js";
 import { propertyTypes } from "../../ObjectEditorTab/propertyTypes.js";
 import { fill, rect, setFontSize, textWraped } from "../../toolbox.js";
 import { Component } from "./component.js";
@@ -26,7 +27,10 @@ export class TextComponent extends Component {
   }
 
   initValues() {
-    if (getFile(this.properties.font) == undefined) {
+    if (
+      getFile(this.properties.font) == undefined ||
+      getFile(this.properties.font).type != File.TYPE.FONT
+    ) {
       addInfoPopup(
         "Error",
         `you tried adding a invalid file to this component`

@@ -85,7 +85,7 @@ function getTypeReverse(type) {
 File.TYPE = {
   SCRIPT: "text/javascript",
   IMAGE: "image",
-  FONT: "font",
+  FONT: "ttf",
   AUDIO: "audio",
   JSON: "text/json",
   FILE: "file",

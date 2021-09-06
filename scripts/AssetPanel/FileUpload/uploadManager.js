@@ -36,7 +36,10 @@ function uploadFiles(files) {
     for (let j = 0; j < Object.keys(File.TYPE).length; j++) {
       let objKey = Object.keys(File.TYPE)[j];
 
-      if (files[i].type.startsWith(File.TYPE[objKey])) {
+      if (
+        files[i].type.startsWith(File.TYPE[objKey]) ||
+        (files[i].type == "" && files[i].name.endsWith(File.TYPE[objKey]))
+      ) {
         foundFunc = true;
         File.UPLOAD_CONVERSION_FUNC[objKey](files[i], (dataURL) => {
           addFile(dataURL, files[i].name, File.TYPE[objKey]);
