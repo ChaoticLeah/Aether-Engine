@@ -8,7 +8,7 @@ import { Component } from "./component.js";
 export class ImageComponent extends Component {
   componentName = "Image Component";
 
-  image = undefined;
+  //image = undefined;
   constructor(parentObject, image) {
     super(parentObject, { image: image });
     this.objectPropertyTypes = {
@@ -16,12 +16,13 @@ export class ImageComponent extends Component {
     };
   }
 
-  init(parentObject, image) {
+  init(parentObject, image = "") {
     this.parentObject = parentObject;
     this.properties = { image: image };
   }
 
   initValues() {
+    if (this.properties.image == "") return;
     if (
       getFile(this.properties.image) == undefined ||
       getFile(this.properties.image).type != File.TYPE.IMAGE
@@ -33,15 +34,13 @@ export class ImageComponent extends Component {
 
       return;
     }
-    this.image = new Image();
-    this.image.src = getFile(this.properties.image).data;
   }
 
   //This one is ran in the editor
   display() {
-    if (this.image != undefined)
+    if (getFile(this.properties.image) != undefined)
       renderImage(
-        this.image,
+        getFile(this.properties.image).data,
         this.parentObject.getX(),
         this.parentObject.getY(),
         this.parentObject.getW(),

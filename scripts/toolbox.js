@@ -246,6 +246,7 @@ export function roundedRect(x, y, width, height, radius) {
 }
 
 export function setFontSize(size, font) {
+  //console.log(getFontSize(), size);
   game.context.font = size + "px " + font;
 }
 

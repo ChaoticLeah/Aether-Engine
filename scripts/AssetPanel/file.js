@@ -14,7 +14,9 @@ export class File {
   fileName;
   directory;
   type; //Type of file
+  rawData;
   data;
+
   /**
    * @deprecated - DONT USE THIS. USE addFile() instead.
    * @description - DONT USE THIS. USE addFile() instead.
@@ -23,7 +25,26 @@ export class File {
   constructor(directory, type, data) {
     this.directory = directory;
     this.type = type;
-    this.data = data;
+    this.rawData = data;
+
+    switch (type) {
+      case File.TYPE.IMAGE:
+        this.data = new Image();
+        this.data.src = this.rawData;
+        break;
+      case File.TYPE.FONT:
+        this.data = new FontFace(
+          directory.replace(/ /g, "-").replace(/\//g, "-").replace(/\./, "-"),
+          `url(${this.rawData})`
+        );
+        this.data.load().then(() => {
+          // add font to document
+          document.fonts.add(this.data);
+          // enable font with CSS class
+          document.body.classList.add("fonts-loaded");
+        });
+        break;
+    }
   }
 
   show(dir) {
@@ -32,7 +53,7 @@ export class File {
     switch (this.type) {
       case File.TYPE.IMAGE:
         let img = new Image();
-        img.src = this.data;
+        img.src = this.rawData;
         addFileElem(
           dir,
           () => {
@@ -59,14 +80,14 @@ export class File {
           getFontAwesomeElem(
             File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)].fontAwesome
           ),
-          this.data //Pass the code into it so when its clicked we have access to it")
+          this.rawData //Pass the code into it so when its clicked we have access to it")
         );
         break;
     }
   }
 
   setData(data) {
-    this.data = data;
+    this.rawData = data;
   }
 }
 /**

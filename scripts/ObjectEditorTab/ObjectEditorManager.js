@@ -70,6 +70,9 @@ export function onObjectSelect(objectId, object) {
         //Tell the component that its values were updated
         object.components[i].initValues();
       });
+      element.dispatchEvent(
+        new Event("change", { target: { value: element.value } })
+      );
       //Add the label for what that value is
       let text = document.createElement("p");
       text.innerHTML = `${

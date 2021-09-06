@@ -1,5 +1,7 @@
 import { File } from "../../AssetPanel/file.js";
+import { getFile } from "../../AssetPanel/fileManager.js";
 import { propertyTypes } from "../../ObjectEditorTab/propertyTypes.js";
+import { addInfoPopup } from "../../Popups/popupManager.js";
 import { fill, rect, setFontSize, textWraped } from "../../toolbox.js";
 import { Component } from "./component.js";
 
@@ -21,40 +23,47 @@ export class TextComponent extends Component {
     this.properties = {
       text: text,
       fontsize: fontsize,
-      font: "default",
+      font: "none",
       color: color,
     };
   }
 
   initValues() {
+    if (this.properties.font == "none") return;
     if (
       getFile(this.properties.font) == undefined ||
       getFile(this.properties.font).type != File.TYPE.FONT
     ) {
+      console.log(this.properties.font);
       addInfoPopup(
         "Error",
         `you tried adding a invalid file to this component`
       );
-
+      this.properties.font = "none";
       return;
     }
-    this.font = new FontFace("test", getFile(this.properties.image).data);
   }
 
   //This one is ran in the editor
   display() {
     fill(this.properties.color);
-    setFontSize(this.properties.fontsize, "test");
-    let yOffset = this.properties.fontsize * 0.8;
 
+    let fontName = this.properties.font
+      .replace(/ /g, "-")
+      .replace(/\//g, "-")
+      .replace(/\./, "-");
+
+    //console.log(Number(this.properties.fontsize), this.properties.font);
+    setFontSize(this.properties.fontsize, fontName);
+    let yOffset = Number(this.properties.fontsize) * 0.8;
     if (this.parentObject.getW() < this.properties.fontsize) return;
 
     textWraped(
       this.properties.text,
       this.parentObject.getX(),
-      this.parentObject.getY() + yOffset, // + this.properties.fontsize / 2
+      this.parentObject.getY() + yOffset,
       this.parentObject.getW(),
-      this.properties.fontsize * 0.8
+      Number(this.properties.fontsize) * 0.8
     );
   }
 
