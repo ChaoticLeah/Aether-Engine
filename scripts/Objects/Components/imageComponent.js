@@ -5,6 +5,8 @@ import { fill, rect, renderImage } from "../../toolbox.js";
 import { Component } from "./component.js";
 
 export class ImageComponent extends Component {
+  componentName = "Image Component";
+
   image = undefined;
   constructor(parentObject, image) {
     super(parentObject, { image: image });

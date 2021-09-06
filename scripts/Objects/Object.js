@@ -62,16 +62,16 @@ export class GameObject {
   }
 
   getX() {
-    return this.#x;
+    return Number(this.#x);
   }
   getY() {
-    return this.#y;
+    return Number(this.#y);
   }
   getW() {
-    return this.#w;
+    return Number(this.#w);
   }
   getH() {
-    return this.#h;
+    return Number(this.#h);
   }
 
   setX(x) {

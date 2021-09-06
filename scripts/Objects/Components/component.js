@@ -24,5 +24,3 @@ export class Component {
     this.properties = properties;
   }
 }
-Component.RectangleComponent = "RectangleComponent";
-Component.ImageComponent = "ImageComponent";

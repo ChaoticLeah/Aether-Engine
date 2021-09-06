@@ -33,6 +33,7 @@ export let addComponent = {
     console.log("inited components");
     addButton("Rectangle Component", Component.RectangleComponent);
     addButton("Image Component", Component.ImageComponent);
+    addButton("Text Component", Component.TextComponent);
 
     document
       .getElementById("componentSearch")
