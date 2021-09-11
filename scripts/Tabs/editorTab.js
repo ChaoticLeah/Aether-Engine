@@ -74,9 +74,14 @@ export class EditorTab {
   }
 
   close() {
-    if (isTabActive(this.tabObject.id)) leaveCurrentTab();
-    this.tabObject.remove();
-    closeTab(this.tabObject.id);
+    const tabObj = this.tabObject;
+    $(this.tabObject).effect("explode", { pieces: 10 }, function () {
+      tabObj.setAttribute("style", "");
+      //Animation is over
+      if (isTabActive(tabObj.id)) leaveCurrentTab();
+      tabObj.remove();
+      closeTab(tabObj.id);
+    });
   }
 
   showDot() {
