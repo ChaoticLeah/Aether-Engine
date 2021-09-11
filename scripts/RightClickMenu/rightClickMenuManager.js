@@ -91,6 +91,7 @@ oncontextmenu = (e) => {
     if (option.requiredElemClass != undefined) {
       if (option.isParentElem) {
         if (
+          e.target.parentNode.className != undefined &&
           !e.target.parentNode.className
             .split(" ")
             .includes(option.requiredElemClass)
@@ -101,6 +102,8 @@ oncontextmenu = (e) => {
           show = false;
       }
     }
+
+    if (option.requiredElemClass != undefined) show = false;
 
     if (show) {
       let child = document.createElement("p");
