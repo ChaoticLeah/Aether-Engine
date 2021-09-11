@@ -1,6 +1,6 @@
 import { getFile, setFileData } from "../../AssetPanel/fileManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
-import { addInfoPopup } from "../../Popups/popupManager.js";
+import { addInfoPopup, popupTypes } from "../../Popups/popupManager.js";
 import { openTabMetadata } from "../TabManager.js";
 
 let change = false;
@@ -24,7 +24,8 @@ export let jsCodeEditor = {
       if (selectedObject == undefined)
         addInfoPopup(
           "Error",
-          `Please select an object to add a component to it`
+          `Please select an object to add a component to it`,
+          popupTypes.ERROR
         );
       else openTabMetadata("Add Component", "AddComponent", selectedObject);
     });

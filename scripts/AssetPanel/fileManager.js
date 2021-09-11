@@ -1,4 +1,4 @@
-import { addInfoPopup } from "../Popups/popupManager.js";
+import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
 import { Directory } from "./directory.js";
 import { File } from "./file.js";
 
@@ -20,7 +20,7 @@ document.getElementById("createNewFile").addEventListener("click", () => {
   let name = prompt("Please name your script. Dont use any special characters");
   //Dont allow fancy characters in the name
   if (name.match(/[^a-zA-Z0-9_-]/g)) {
-    addInfoPopup("Error", "Dont use any special characters");
+    addInfoPopup("Error", "Dont use any special characters", popupTypes.ERROR);
     return;
   }
   addFile("", `${name}.js`, File.TYPE.SCRIPT);

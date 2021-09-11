@@ -2,13 +2,18 @@ import { Popup } from "./popup.js";
 
 let popups = [];
 
-export function addPopup(popupName) {
+export let popupTypes = { ERROR: "error", INFO: "info" };
+
+export function addPopup(popupName, type = popupTypes.INFO) {
   popups.push(new Popup(popupName, popups.length));
+  if (type == popupTypes.ERROR) {
+    $(document.body).effect("shake", { distance: 10 });
+  }
   return popups.length - 1;
 }
 
-export function addInfoPopup(popupName, info) {
-  let popupId = addPopup(popupName);
+export function addInfoPopup(popupName, info, type = popupTypes.INFO) {
+  let popupId = addPopup(popupName, type);
   let text = document.createElement("p");
   text.innerHTML = info;
   getPopup(popupId).addElement(text);

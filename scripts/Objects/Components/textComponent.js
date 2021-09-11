@@ -1,7 +1,7 @@
 import { File } from "../../AssetPanel/file.js";
 import { getFile } from "../../AssetPanel/fileManager.js";
 import { propertyTypes } from "../../ObjectEditorTab/propertyTypes.js";
-import { addInfoPopup } from "../../Popups/popupManager.js";
+import { addInfoPopup, popupTypes } from "../../Popups/popupManager.js";
 import { fill, rect, setFontSize, textWraped } from "../../toolbox.js";
 import { Component } from "./component.js";
 
@@ -37,7 +37,8 @@ export class TextComponent extends Component {
       console.log(this.properties.font);
       addInfoPopup(
         "Error",
-        `you tried adding a invalid file to this component`
+        `you tried adding a invalid file to this component`,
+        popupTypes.ERROR
       );
       this.properties.font = "none";
       return;
