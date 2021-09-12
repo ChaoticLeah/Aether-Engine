@@ -9,6 +9,7 @@ export let selectedObject = undefined;
 let lastFrameSelectedObject = undefined;
 let textSize = 20;
 let counter = 0;
+let clickcounter = 0;
 
 export function renderSidebarObjects() {
   selectedObject = undefined;
@@ -22,7 +23,6 @@ export function renderSidebarObjects() {
 }
 
 let indentAmount = 30;
-let frameTickAmt = 0;
 
 //Depth is how far nested in is it. This will be how offset to the right the text will be
 function renderChildrenObjectText(parentObjId, depth = 0) {
@@ -39,7 +39,7 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
       (textSize + 4) * counter + scrollY < clickY &&
       (textSize + 4) * (counter + 1) + scrollY > clickY
     ) {
-      selectedObject = obj.id;
+      //selectedObject = obj.id;
     }
 
     //Render the text
@@ -57,7 +57,7 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
       renderChildrenObjectText(objId, depth - 1);
     }
   }
-
+  /*
   if (selectedObject != lastFrameSelectedObject && frameTickAmt % 2 == 0) {
     console.log(selectedObject, lastFrameSelectedObject);
     if (lastFrameSelectedObject != undefined)
@@ -69,8 +69,45 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
       onObjectSelect(selectedObject, getObject(selectedObject));
 
     lastFrameSelectedObject = selectedObject;
+  }*/
+}
+
+//Depth is how far nested in is it. This will be how offset to the right the text will be
+function detectClickedObjectEvent(parentObjId, depth = 0, y) {
+  if (parentObjId == undefined) {
+    parentObjId = "root";
   }
-  frameTickAmt++;
+  let parent = getObject(parentObjId);
+  for (let i = 0; i < parent.childrenObjectIds.length; i++) {
+    const objId = parent.childrenObjectIds[i];
+    const obj = getObject(objId);
+
+    //Select the object
+    if (
+      (textSize + 4) * clickcounter + scrollY < y &&
+      (textSize + 4) * (clickcounter + 1) + scrollY > y
+    ) {
+      selectedObject = obj.id;
+    }
+
+    clickcounter++;
+    //Render the child text
+    if (obj.childrenObjectIds.length > 0) {
+      detectClickedObjectEvent(objId, depth - 1);
+    }
+  }
+
+  //if (selectedObject != lastFrameSelectedObject) {
+  if (lastFrameSelectedObject != undefined)
+    onObjectDeSelect(
+      lastFrameSelectedObject,
+      getObject(lastFrameSelectedObject)
+    );
+  if (selectedObject != undefined)
+    onObjectSelect(selectedObject, getObject(selectedObject));
+
+  lastFrameSelectedObject = selectedObject;
+  //}
 }
 
 export function reloadObjectSelection() {
@@ -84,8 +121,9 @@ let clickY = -1;
 function selectObj(x, y) {
   // y -= 4;
   //y = Math.floor((y - scrollY) / (textSize + 4));
-  lastFrameSelectedObject = -1;
   clickY = y;
+  detectClickedObjectEvent(undefined, 0, y);
+
   /*for (let i = 0; i < objects.length; i++) {
     if (objects[i].id == y) selected = objects[y].id;
   }*/
