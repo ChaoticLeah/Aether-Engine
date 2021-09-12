@@ -22,6 +22,8 @@ export function addObject(object, parentObjectId) {
   if (parentObjectId == undefined) {
     parentObjectId = "root";
   }
+  //console.log(getObject(parentObjectId), parentObjectId);
+  console.log(objects);
   object.parentObjectId = parentObjectId.toString();
   if (parentObjectId != "none") getObject(parentObjectId).addChild(object.id);
   objects.set(object.id, object);

@@ -6,7 +6,6 @@ export function getObjectsAsJSON() {
   let objectKeys = [...getObjects().keys()];
   objectKeys.forEach((objectKey) => {
     let object = getObject(objectKey);
-    console.log(object);
     let components = object.components;
     let componentsArray = [];
     for (let i = 0; i < components.length; i++) {
