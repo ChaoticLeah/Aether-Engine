@@ -12,7 +12,9 @@
   top: 40px;
   right: 10px;
   width: 20vw;
-  height: 20vh;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   z-index: 5000;
   border-radius: 0.5vw;
   background-color: var(--background);
@@ -36,6 +38,6 @@
   background-color: var(--background-panel);
   border-radius: 0.5vw;
   text-align: center;
-  font-size: 150%;
+  font-size: 80%;
 }
 /*# sourceMappingURL=menu.css.map */

@@ -9,6 +9,11 @@ export function renderObjects() {}
 export function getObject(id) {
   return objects.get(id);
 }
+
+export function getObjects() {
+  return objects;
+}
+
 export let rootObject = new GameObject(0, 0, 10, 10);
 rootObject.id = "root";
 addObject(rootObject, "none");

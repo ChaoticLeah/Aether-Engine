@@ -137,6 +137,10 @@ export function getDirectory(path) {
   return directories.get(path);
 }
 
+export function getDirectorys() {
+  return directories;
+}
+
 /**
  *
  * @param {String} path - the path to the file
@@ -144,6 +148,10 @@ export function getDirectory(path) {
  */
 export function getFile(path) {
   return files.get(path);
+}
+
+export function getFiles(path) {
+  return files;
 }
 
 /**

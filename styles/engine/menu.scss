@@ -14,7 +14,7 @@
   right: 10px;
 
   width: 20vw;
-  height: 20vh;
+  height: fit-content;
   z-index: 5000;
   //padding: 0 1rem;
   border-radius: 0.5vw;
@@ -34,6 +34,6 @@
     background-color: var(--background-panel);
     border-radius: 0.5vw;
     text-align: center;
-    font-size: 150%;
+    font-size: 80%;
   }
 }

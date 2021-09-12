@@ -12,9 +12,12 @@ import {
   getPopupByName,
 } from "./scripts/Popups/popupManager.js";
 import { initRightClickMenuManager } from "./scripts/RightClickMenu/RightClickMenuManager.js";
+import { setupSaveButtonHandlers } from "./scripts/SaveProject/saveProjectButtonManager.js";
 import { init as initTabManager } from "./scripts/Tabs/tabManager.js";
 import { runTabs } from "./scripts/Tabs/tabRunner.js";
 import { game, setLoopFunc } from "./scripts/toolbox.js";
+import {} from "./scripts/flatted.min.js";
+
 game.start();
 
 initTabManager();
@@ -23,6 +26,7 @@ renderSidebarObjects();
 initRightClickMenuManager();
 initCanvasSizer();
 initAssetManager();
+setupSaveButtonHandlers();
 
 document.getElementById("AddObject").addEventListener("click", () => {
   addEmptyObject(selectedObject);

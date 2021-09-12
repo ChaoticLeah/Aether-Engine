@@ -2,6 +2,8 @@ import { propertyTypes } from "../../ObjectEditorTab/propertyTypes.js";
 import { Component } from "./component.js";
 
 export class CoreObjectComponent extends Component {
+  componentName = "Core Component";
+
   constructor(parentObject) {
     super(parentObject, {});
     this.objectPropertyTypes = {
