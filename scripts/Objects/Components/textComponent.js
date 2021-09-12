@@ -6,7 +6,7 @@ import { fill, rect, setFontSize, textWraped } from "../../toolbox.js";
 import { Component } from "./component.js";
 
 export class TextComponent extends Component {
-  componentName = "Text Component";
+  componentName = Component.TextComponent;
   font;
   constructor(parentObject, color) {
     super(parentObject, { color: color });

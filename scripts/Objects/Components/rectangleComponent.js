@@ -3,7 +3,7 @@ import { fill, rect } from "../../toolbox.js";
 import { Component } from "./component.js";
 
 export class RectangleComponent extends Component {
-  componentName = "Rectangle Component";
+  componentName = Component.RectangleComponent;
 
   constructor(parentObject, color) {
     super(parentObject, { color: color });

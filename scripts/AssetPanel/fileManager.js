@@ -49,6 +49,13 @@ export function removeDir(dirPath) {
   directories.delete(dirPath);
 }
 
+export function removeAllDirectories() {
+  removeDir("");
+  addDirectory("");
+
+  reloadDirectory();
+}
+
 /**
  *
  * @param {String} fileData - The files Data

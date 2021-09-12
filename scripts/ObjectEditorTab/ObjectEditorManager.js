@@ -55,8 +55,11 @@ export function onObjectSelect(objectId, object) {
       }
       //Load the current value
       let propertyValue = object.components[i].properties[propertyKey];
-      if (propertyType != propTypes.TOGGLE_INPUT) element.value = propertyValue;
-      else element.checked = propertyValue;
+      if (!_.isEqual(propTypes.TOGGLE_INPUT, propertyType))
+        element.value = propertyValue;
+      else {
+        element.checked = propertyValue;
+      }
 
       element.id = `control${propId}`;
       //Check for changes in value

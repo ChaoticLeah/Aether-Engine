@@ -31,6 +31,10 @@ export function addEmptyObject(parentObject) {
   addObject(new GameObject(0, 0, 10, 10), parentObject);
 }
 
+export function addObjectMetadata(parentObject) {
+  addObject(new GameObject(0, 0, 10, 10), parentObject);
+}
+
 export function convertToScreenCoords(x, y) {
   let fullWidthNumber = 100;
 
