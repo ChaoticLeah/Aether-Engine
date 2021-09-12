@@ -19,14 +19,17 @@ rootObject.id = "root";
 addObject(rootObject, "none");
 
 export function addObject(object, parentObjectId) {
-  if (parentObjectId == undefined) {
-    parentObjectId = "root";
+  try {
+    if (parentObjectId == undefined) {
+      parentObjectId = "root";
+    }
+    object.parentObjectId = parentObjectId.toString();
+    if (parentObjectId != "none") getObject(parentObjectId).addChild(object.id);
+    objects.set(object.id, object);
+    return true;
+  } catch (err) {
+    return false;
   }
-  //console.log(getObject(parentObjectId), parentObjectId);
-  console.log(objects);
-  object.parentObjectId = parentObjectId.toString();
-  if (parentObjectId != "none") getObject(parentObjectId).addChild(object.id);
-  objects.set(object.id, object);
 }
 
 export function addEmptyObject(parentObject) {

@@ -7,7 +7,7 @@ import {
 import { editorData } from "../editorData.js";
 import { getComponentByName } from "../Objects/Components/componentAdder.js";
 import { GameObject } from "../Objects/object.js";
-import { addObject } from "../Objects/ObjectManager.js";
+import { addObject, getObject } from "../Objects/ObjectManager.js";
 import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
 import { getAssetsAsJSON, getDirectorysAsJSON } from "./assetDataJSONifyer.js";
 import { getObjectsAsJSON } from "./objectDataJSONifyer.js";
@@ -126,19 +126,26 @@ export async function loadProject(data = undefined) {
       //add the component to the object
       gameObject.addComponent(componentObj);
     }
-    objectsToAdd.push({ obj: gameObject, parent: object.parentObjectId });
+    if (object.parentObjectId == "none") {
+      addObject(gameObject, object.parentObjectId);
+    } else
+      objectsToAdd.push({ obj: gameObject, parent: object.parentObjectId });
   }
   objectsToAdd = objectsToAdd.reverse();
   let ticker = 0;
   while (objectsToAdd.length > 0) {
-    try {
+    if (
       addObject(
         objectsToAdd[ticker % objectsToAdd.length].obj,
         objectsToAdd[ticker % objectsToAdd.length].parent
-      );
-      console.log("e");
+      )
+    ) {
+      //console.log(objectsToAdd[ticker % objectsToAdd.length].parent);
       objectsToAdd.splice(ticker % objectsToAdd.length, 1);
-    } catch (err) {}
+    } else {
+    }
+    //console.log(getObject("root"));
+
     ticker++;
   }
 

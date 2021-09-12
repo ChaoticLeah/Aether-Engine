@@ -22,6 +22,7 @@ export function renderSidebarObjects() {
 }
 
 let indentAmount = 30;
+let frameTickAmt = 0;
 
 //Depth is how far nested in is it. This will be how offset to the right the text will be
 function renderChildrenObjectText(parentObjId, depth = 0) {
@@ -57,7 +58,8 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
     }
   }
 
-  if (selectedObject != lastFrameSelectedObject) {
+  if (selectedObject != lastFrameSelectedObject && frameTickAmt % 2 == 0) {
+    console.log(selectedObject, lastFrameSelectedObject);
     if (lastFrameSelectedObject != undefined)
       onObjectDeSelect(
         lastFrameSelectedObject,
@@ -68,6 +70,7 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
 
     lastFrameSelectedObject = selectedObject;
   }
+  frameTickAmt++;
 }
 
 export function reloadObjectSelection() {
@@ -81,6 +84,7 @@ let clickY = -1;
 function selectObj(x, y) {
   // y -= 4;
   //y = Math.floor((y - scrollY) / (textSize + 4));
+  lastFrameSelectedObject = -1;
   clickY = y;
   /*for (let i = 0; i < objects.length; i++) {
     if (objects[i].id == y) selected = objects[y].id;
