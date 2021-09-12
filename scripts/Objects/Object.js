@@ -59,6 +59,18 @@ export class GameObject {
     this.components[0].init(this, name, enabled, x, y, w, h);
   }
 
+  setName(name) {
+    this.name = name;
+    this.components[0].properties.name = name;
+  }
+  setSize(w, h) {
+    this.#w = w;
+    this.components[0].properties.w = w;
+
+    this.#h = h;
+    this.components[0].properties.h = h;
+  }
+
   removeComponent(index) {
     this.components.find((component, i) => {
       if (component.componentId == index) this.components.splice(i, 1);

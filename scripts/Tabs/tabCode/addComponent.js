@@ -1,6 +1,10 @@
 import { reloadSelection } from "../../ObjectEditorTab/ObjectEditorManager.js";
 import { Component } from "../../Objects/Components/component.js";
-import { addComponent as addComponentToObj } from "../../Objects/Components/componentAdder.js";
+import {
+  addComponent as addComponentToObj,
+  getComponents,
+  getComponentsMap,
+} from "../../Objects/Components/componentAdder.js";
 import { getObject } from "../../Objects/ObjectManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
 import { defualtTab, setActiveTab } from "../TabManager.js";
@@ -35,9 +39,14 @@ function addButton(name, id) {
 export let addComponent = {
   init: () => {
     console.log("inited components");
-    addButton("Rectangle Component", Component.RectangleComponent);
-    addButton("Image Component", Component.ImageComponent);
-    addButton("Text Component", Component.TextComponent);
+
+    //Add all the add compnent buttons
+    let comp = getComponentsMap();
+    let componentKeys = [...comp.keys()];
+
+    componentKeys.forEach((key) => {
+      addButton(key, comp.get(key).componentName);
+    });
 
     document
       .getElementById("componentSearch")

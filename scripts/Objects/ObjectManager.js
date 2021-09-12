@@ -18,6 +18,11 @@ export let rootObject = new GameObject(0, 0, 10, 10);
 rootObject.id = "root";
 addObject(rootObject, "none");
 
+let camera = addEmptyObject("root");
+console.log(camera.components[0].properties);
+camera.setName("Camera");
+camera.setSize(100, 100);
+
 export function addObject(object, parentObjectId) {
   try {
     if (parentObjectId == undefined) {
@@ -33,7 +38,9 @@ export function addObject(object, parentObjectId) {
 }
 
 export function addEmptyObject(parentObject) {
-  addObject(new GameObject(0, 0, 10, 10), parentObject);
+  let obj = new GameObject(0, 0, 10, 10);
+  addObject(obj, parentObject);
+  return obj;
 }
 
 export function addObjectMetadata(parentObject) {
