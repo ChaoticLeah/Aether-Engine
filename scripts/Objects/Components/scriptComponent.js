@@ -8,7 +8,6 @@ import { Component } from "./component.js";
 export class ScriptComponent extends Component {
   componentName = Component.ScriptComponent;
 
-  //image = undefined;
   constructor(parentObject, script) {
     super(parentObject, { script: script });
     this.objectPropertyTypes = {
@@ -16,9 +15,9 @@ export class ScriptComponent extends Component {
     };
   }
 
-  init(parentObject, image = "") {
+  init(parentObject, script = "") {
     this.parentObject = parentObject;
-    this.properties = { image: image };
+    this.properties = { script: script };
   }
 
   initValues() {

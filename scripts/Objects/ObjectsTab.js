@@ -7,7 +7,7 @@ import {
 
 export let selectedObject = undefined;
 let lastFrameSelectedObject = undefined;
-let textSize = 20;
+let textSize = 18;
 let counter = 0;
 let clickcounter = 0;
 
