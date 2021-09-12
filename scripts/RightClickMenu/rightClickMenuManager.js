@@ -103,7 +103,7 @@ oncontextmenu = (e) => {
       }
     }
 
-    if (option.requiredElemClass != undefined) show = false;
+    //if (option.requiredElemClass != undefined) show = false;
 
     if (show) {
       let child = document.createElement("p");
