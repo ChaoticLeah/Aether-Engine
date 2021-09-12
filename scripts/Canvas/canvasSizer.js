@@ -22,6 +22,15 @@ export function reCalculateSize(tabWidth, tabHeight) {
   }px`;
 }
 
+export function getCanvasSize() {
+  let canvas = document.getElementById("canvas");
+
+  let w = canvas != null ? canvas.offsetWidth : 0;
+  let h = canvas != null ? canvas.offsetHeight : 0;
+
+  return { w: w, h: h };
+}
+
 export function calcSize() {
   reCalculateSize(width, height);
 }

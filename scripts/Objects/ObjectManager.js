@@ -1,3 +1,4 @@
+import { getCanvasSize } from "../Canvas/canvasSizer.js";
 import { GameObject } from "./object.js";
 
 export let objects = new Map();
@@ -23,4 +24,21 @@ export function addObject(object, parentObjectId) {
 
 export function addEmptyObject(parentObject) {
   addObject(new GameObject(0, 0, 10, 10), parentObject);
+}
+
+export function convertToScreenCoords(x, y) {
+  let fullWidthNumber = 100;
+
+  let canvasSize = getCanvasSize();
+
+  //Get the shortest side
+  let scaler = canvasSize.w;
+  if (scaler > canvasSize.h) {
+    scaler = canvasSize.h;
+  }
+
+  return {
+    x: x * (scaler / fullWidthNumber),
+    y: y * (scaler / fullWidthNumber),
+  };
 }

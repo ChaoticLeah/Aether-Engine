@@ -1,4 +1,5 @@
 import { CoreObjectComponent } from "./Components/coreObjectComponent.js";
+import { convertToScreenCoords } from "./ObjectManager.js";
 import { reloadObjectSelection } from "./ObjectsTab.js";
 
 let idCounter = 0;
@@ -62,16 +63,16 @@ export class GameObject {
   }
 
   getX() {
-    return Number(this.#x);
+    return convertToScreenCoords(Number(this.#x), 0).x;
   }
   getY() {
-    return Number(this.#y);
+    return convertToScreenCoords(0, Number(this.#y)).y;
   }
   getW() {
-    return Number(this.#w);
+    return convertToScreenCoords(Number(this.#w), 0).x;
   }
   getH() {
-    return Number(this.#h);
+    return convertToScreenCoords(0, Number(this.#h)).y;
   }
 
   setX(x) {
