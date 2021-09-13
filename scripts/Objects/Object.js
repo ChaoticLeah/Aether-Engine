@@ -85,10 +85,10 @@ export class GameObject {
     return convertToScreenCoords(0, Number(this.#y)).y;
   }
   getW() {
-    return convertToScreenCoords(Number(this.#w), 0).x;
+    return convertToScreenCoords(0, 0, Number(this.#w), 0).w;
   }
   getH() {
-    return convertToScreenCoords(0, Number(this.#h)).y;
+    return convertToScreenCoords(0, 0, 0, Number(this.#h)).h;
   }
 
   setX(x) {
