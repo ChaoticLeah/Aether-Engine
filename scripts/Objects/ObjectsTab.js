@@ -217,7 +217,7 @@ function moveObject(event) {
   if (mouseInArea) {
     let scrollAmt = delta * 8;
     if (scrollY + scrollAmt > 0) {
-      return;
+      //return;
     }
 
     clickY += scrollAmt;
