@@ -21,7 +21,7 @@ addObject(rootObject, "none");
 let camera = addEmptyObject("root");
 console.log(camera.components[0].properties);
 camera.setName("Camera");
-camera.setSize(100, 100);
+camera.setSize(178, 100);
 
 export function addObject(object, parentObjectId) {
   try {
