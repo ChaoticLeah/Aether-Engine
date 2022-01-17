@@ -4,6 +4,7 @@
 
 //This runs the code for each tab that needs to be ran
 
+import { resetMousePressed } from "../toolbox.js";
 import {
   getActiveTabLoopFunction,
   getActiveTabMetadata,
@@ -19,4 +20,5 @@ export function runTabs() {
   if (!!activeTab) activeTab(tick, getActiveTabMetadata(), getOpenTab());
   else {
   }
+  resetMousePressed();
 }

@@ -1,17 +1,55 @@
 import { setDir } from "../../AssetPanel/fileManager.js";
 import { calcSize } from "../../Canvas/canvasSizer.js";
 import {
+  globalOffsetX,
+  globalOffsetY,
+  setGlobalOffsetX,
+  setGlobalOffsetY,
+} from "../../Objects/object.js";
+import {
   convertToScreenCoords,
   getObject,
   objects,
 } from "../../Objects/ObjectManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
-import { fill, game, rect } from "../../toolbox.js";
+import {
+  fill,
+  game,
+  mouseButton,
+  mouseDown,
+  mousePressed,
+  mouseX,
+  mouseY,
+  pressedMouseStartX,
+  pressedMouseStartY,
+  rect,
+  setCursor,
+} from "../../toolbox.js";
 const outlineWidth = 2;
+
+//for helping you drag around the objects in the editor
+let dragoffsetXSave = 0;
+let dragoffsetYSave = 0;
+
 export let gameVisualEditor = {
   init: () => {},
   loop: (tick) => {
     game.clear();
+
+    //detect mouse drag
+    if (mouseDown) {
+      if (mouseButton == "MIDDLE") {
+        if (mousePressed) {
+          dragoffsetXSave = globalOffsetX;
+          dragoffsetYSave = globalOffsetY;
+          setCursor("grabbing");
+        }
+
+        //console.log(mouseX - pressedMouseStartX, mouseY - pressedMouseStartY);
+        setGlobalOffsetX(dragoffsetXSave + (mouseX - pressedMouseStartX));
+        setGlobalOffsetY(dragoffsetYSave + (mouseY - pressedMouseStartY));
+      }
+    }
 
     fill(
       getComputedStyle(document.documentElement).getPropertyValue(
@@ -20,8 +58,8 @@ export let gameVisualEditor = {
     );
 
     rect(
-      convertToScreenCoords(0, 0).x,
-      convertToScreenCoords(0, 0).y,
+      convertToScreenCoords(0, 0).x + globalOffsetX,
+      convertToScreenCoords(0, 0).y + globalOffsetY,
       convertToScreenCoords(100, 0).x,
       convertToScreenCoords(0, 100).y
     );

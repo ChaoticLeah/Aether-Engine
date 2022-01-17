@@ -4,6 +4,10 @@ import { reloadObjectSelection } from "./ObjectsTab.js";
 
 let idCounter = 0;
 export let inEditor = true;
+
+export let globalOffsetX = 0;
+export let globalOffsetY = 0;
+
 export class GameObject {
   name = "Object";
   enabled = true;
@@ -79,10 +83,10 @@ export class GameObject {
   }
 
   getX() {
-    return convertToScreenCoords(Number(this.#x), 0).x;
+    return convertToScreenCoords(Number(this.#x), 0).x + globalOffsetX;
   }
   getY() {
-    return convertToScreenCoords(0, Number(this.#y)).y;
+    return convertToScreenCoords(0, Number(this.#y)).y + globalOffsetY;
   }
   getW() {
     return convertToScreenCoords(0, 0, Number(this.#w), 0).w;
@@ -97,10 +101,19 @@ export class GameObject {
   setY(y) {
     this.#y = y;
   }
+
   setW(w) {
     this.#w = w;
   }
   setH(h) {
     this.#h = h;
   }
+}
+
+export function setGlobalOffsetY(y) {
+  globalOffsetY = y;
+}
+
+export function setGlobalOffsetX(x) {
+  globalOffsetX = x;
 }

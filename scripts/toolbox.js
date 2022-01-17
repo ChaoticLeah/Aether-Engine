@@ -11,6 +11,7 @@ export let height = window.innerHeight;
 
 export let mousePressed = false;
 export let mouseDown = false;
+export let mouseButton;
 export let keyDown = false;
 export function resetMousePressed() {
   mousePressed = false;
@@ -19,6 +20,8 @@ export function resetMousePressed() {
   scroll = 0;
 }
 export let mouseX, mouseY;
+
+export let pressedMouseStartX, pressedMouseStartY;
 //WASD
 export let controls = [87, 65, 83, 68];
 export function setControls(c) {
@@ -58,10 +61,22 @@ export let game = {
     //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.frameNo = 0;
     this.canvas.addEventListener("mousedown", function (e) {
+      if (e.which == null)
+        /* IE case */
+        mouseButton =
+          e.button < 2 ? "LEFT" : e.button == 4 ? "MIDDLE" : "RIGHT";
+      /* All others */ else
+        mouseButton = e.which < 2 ? "LEFT" : e.which == 2 ? "MIDDLE" : "RIGHT";
+      if (mouseButton == "MIDDLE") e.preventDefault();
+      pressedMouseStartX = mouseX;
+      pressedMouseStartY = mouseY;
       mousePressed = true;
       mouseDown = true;
     });
     this.canvas.addEventListener("mouseup", function (e) {
+      setCursor("default");
+
+      mouseButton = "";
       mouseDown = false;
     });
     window.addEventListener("mousemove", function (e) {
