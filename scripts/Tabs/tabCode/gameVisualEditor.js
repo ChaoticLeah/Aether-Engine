@@ -5,7 +5,7 @@ import {
   globalOffsetY,
   setGlobalOffsetX,
   setGlobalOffsetY,
-} from "../../Objects/object.js";
+} from "../../Objects/Object.js";
 import {
   convertToScreenCoords,
   getObject,

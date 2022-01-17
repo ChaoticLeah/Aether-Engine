@@ -8,7 +8,7 @@ import {
   isTabActive,
   leaveCurrentTab,
   setActiveTab,
-} from "./TabManager.js";
+} from "./tabManager.js";
 
 let tabIdCounter = 0;
 

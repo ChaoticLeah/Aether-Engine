@@ -8,7 +8,7 @@ import { gameVisualEditor } from "./tabCode/gameVisualEditor.js";
 import { imageViewTab } from "./tabCode/imageViewTab.js";
 import { jsCodeEditor } from "./tabCode/jsCodeEditor.js";
 import { welcomeMessageTab } from "./tabCode/welcomeMessageTab.js";
-import { TabType } from "./TabType.js";
+import { TabType } from "./tabType.js";
 
 export let defualtTab = "EditorId";
 

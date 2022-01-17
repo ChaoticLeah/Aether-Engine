@@ -1,7 +1,7 @@
 /**
  * @description - The point of this file is to contain the class that will define each possible tab type. Example: You can define a welcome screen with this class
  **/
-import { addTabType } from "./TabManager.js";
+import { addTabType } from "./tabManager.js";
 
 //This is the class that shows and hides the elements when swapping tabs
 export class TabType {

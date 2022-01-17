@@ -6,7 +6,7 @@ import {
 } from "../AssetPanel/fileManager.js";
 import { editorData } from "../editorData.js";
 import { getComponentByName } from "../Objects/Components/componentAdder.js";
-import { GameObject } from "../Objects/object.js";
+import { GameObject } from "../Objects/Object.js";
 import { addObject, getObject } from "../Objects/ObjectManager.js";
 import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
 import { getAssetsAsJSON, getDirectorysAsJSON } from "./assetDataJSONifyer.js";

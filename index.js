@@ -11,7 +11,7 @@ import {
   getPopup,
   getPopupByName,
 } from "./scripts/Popups/popupManager.js";
-import { initRightClickMenuManager } from "./scripts/RightClickMenu/RightClickMenuManager.js";
+import { initRightClickMenuManager } from "./scripts/RightClickMenu/rightClickMenuManager.js";
 import { setupSaveButtonHandlers } from "./scripts/SaveProject/saveProjectButtonManager.js";
 import { init as initTabManager } from "./scripts/Tabs/tabManager.js";
 import { runTabs } from "./scripts/Tabs/tabRunner.js";

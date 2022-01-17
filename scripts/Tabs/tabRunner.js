@@ -9,7 +9,7 @@ import {
   getActiveTabLoopFunction,
   getActiveTabMetadata,
   getOpenTab,
-} from "./TabManager.js";
+} from "./tabManager.js";
 
 let tick = 0;
 

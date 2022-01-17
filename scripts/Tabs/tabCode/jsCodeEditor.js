@@ -1,7 +1,7 @@
 import { getFile, setFileData } from "../../AssetPanel/fileManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
 import { addInfoPopup, popupTypes } from "../../Popups/popupManager.js";
-import { openTabMetadata } from "../TabManager.js";
+import { openTabMetadata } from "../tabManager.js";
 
 let change = false;
 let saveFile = false;

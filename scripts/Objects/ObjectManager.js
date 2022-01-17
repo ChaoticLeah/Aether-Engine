@@ -1,5 +1,5 @@
 import { getCanvasSize } from "../Canvas/canvasSizer.js";
-import { GameObject } from "./object.js";
+import { GameObject } from "./Object.js";
 
 export let objects = new Map();
 
