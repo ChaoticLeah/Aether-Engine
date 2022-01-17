@@ -135,12 +135,15 @@ function selectObj(x, y) {
 let leftPanelCanvas = document.getElementById("ObjectTreeCanvas");
 export let leftPanelW, leftPanelH;
 function resize() {
-  leftPanelW =
-    leftPanelCanvas.style.width != ""
-      ? leftPanelCanvas.style.width
-      : leftPanelCanvas.offsetWidth;
+  leftPanelW = leftPanelCanvas.parentElement.offsetWidth;
+
   leftPanelH = leftPanelCanvas.offsetHeight;
   //If the size changed, resize the canvas
+  console.log(
+    context.canvas.width,
+    leftPanelW,
+    leftPanelCanvas.parentElement.offsetWidth
+  );
   if (context.canvas.width != leftPanelW) {
     context.canvas.width = leftPanelW;
     context.canvas.height = leftPanelH;
