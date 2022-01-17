@@ -34,6 +34,11 @@
   overflow: hidden;
 }
 
+#ObjectTreeHolder {
+  overflow: hidden;
+  height: 100%;
+}
+
 #bottomPanel {
   background-color: var(--background-panel);
   position: absolute;
