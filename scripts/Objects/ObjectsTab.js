@@ -139,11 +139,7 @@ function resize() {
 
   leftPanelH = leftPanelCanvas.offsetHeight;
   //If the size changed, resize the canvas
-  console.log(
-    context.canvas.width,
-    leftPanelW,
-    leftPanelCanvas.parentElement.offsetWidth
-  );
+
   if (context.canvas.width != leftPanelW) {
     context.canvas.width = leftPanelW;
     context.canvas.height = leftPanelH;

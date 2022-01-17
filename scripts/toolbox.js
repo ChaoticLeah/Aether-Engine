@@ -122,6 +122,10 @@ export let game = {
       );
     }
     //this.interval = setInterval(updateGameArea, Math.round(1000 / 60));
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+    reCalculateSize(width, height);
   },
   clear: function () {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
