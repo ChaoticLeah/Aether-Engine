@@ -46,7 +46,7 @@ export class EditorTab {
 
     tab.className = "navbarTab";
     tab.addEventListener("click", (e) => {
-      let elm = e.path[0];
+      let elm = e.target;
       //If X was clicked, ignore it
       if (elm.innerHTML != "X") {
         //When swapping tabs run the code to swap them

@@ -83,7 +83,8 @@ body {
   overflow: hidden;
 }
 
-button {
+button,
+.button {
   cursor: pointer;
   border-radius: 3px;
   background-color: var(--ui);

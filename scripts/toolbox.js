@@ -743,8 +743,12 @@ export function calculateDecimalRatio(num_1, num_2) {
   return ratio;
 }
 
-export function UploadFile(callback) {
+export function UploadFile(callback, filetype) {
   let fileUploader = document.createElement("input");
+
+  //allow only .txt files
+  if (filetype) fileUploader.setAttribute("accept", filetype);
+
   fileUploader.type = "file";
   fileUploader.multiple = true;
   fileUploader.click();

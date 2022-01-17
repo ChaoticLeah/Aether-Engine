@@ -12,6 +12,7 @@ import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
 import { getAssetsAsJSON, getDirectorysAsJSON } from "./assetDataJSONifyer.js";
 import { getObjectsAsJSON } from "./objectDataJSONifyer.js";
 import { download } from "../toolbox.js";
+import { createUI } from "./loadProjectUI.js";
 
 let saveName = "";
 export function saveProject(overideName, downloadFile = false) {
@@ -66,9 +67,12 @@ export function saveProject(overideName, downloadFile = false) {
 
 export async function loadProject(data = undefined) {
   if (data == undefined) {
-    let name = prompt("What project would you like to load?");
+    createUI();
+    return;
+
+    //let name = prompt("What project would you like to load?");
     //Get the data
-    data = Flatted.parse(localStorage.getItem(`AetherEngineSave-${name}`));
+    //data = Flatted.parse(localStorage.getItem(`AetherEngineSave-${name}`));
   }
   //Load all the directories
   removeAllDirectories();

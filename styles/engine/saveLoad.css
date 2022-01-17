@@ -1,0 +1,149 @@
+#loadBoxContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 30em;
+  height: 40em;
+  z-index: 100000;
+  background-color: var(--background);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#titleLoadDivContainer {
+  height: 3em;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#titleLoadDivContainer > h2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 10px;
+}
+
+#closeLoadBox {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-right: 1em;
+}
+
+#uploadFile {
+  width: 100%;
+  height: 10%;
+  border: none;
+  background-color: var(--ui);
+  color: var(--text);
+  font-size: 100%;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+#loadBoxInput {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  display: inline-block;
+  width: 90%;
+  height: 60%;
+  border: none;
+  background-color: var(--highlight1);
+  color: var(--text);
+  font-size: 100%;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+#oldSaves {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 80%;
+  width: 100%;
+  border-radius: 3px;
+  background-color: var(--background-panel);
+}
+
+.saveContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  background-color: var(--ui);
+  padding: 3px;
+}
+
+.saveContainer:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.loadSave {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-right: 1em;
+  background-color: var(--highlight1);
+}
+
+.saveLoaderTitleHolder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+/*# sourceMappingURL=saveLoad.css.map */
