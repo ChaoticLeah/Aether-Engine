@@ -32,7 +32,7 @@ export class GameObject {
       this,
       this.name,
       this.enabled,
-      this.getX(),
+      this.#x,
       this.#y,
       this.#w,
       this.#h
@@ -88,6 +88,14 @@ export class GameObject {
   getY() {
     return convertToScreenCoords(0, Number(this.#y)).y + globalOffsetY;
   }
+
+  getXWithoutEditorOffset() {
+    return convertToScreenCoords(Number(this.#x), 0).x;
+  }
+  getYWithoutEditorOffset() {
+    return convertToScreenCoords(0, Number(this.#y)).y;
+  }
+
   getW() {
     return convertToScreenCoords(0, 0, Number(this.#w), 0).w;
   }
