@@ -7,7 +7,7 @@ import {
 } from "../../Objects/Components/componentAdder.js";
 import { getObject } from "../../Objects/ObjectManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
-import { defualtTab, setActiveTab } from "../TabManager.js";
+import { defualtTab, setActiveTab } from "../tabManager.js";
 import { addInfoPopup, popupTypes } from "../../Popups/popupManager.js";
 
 let requestClose = false;

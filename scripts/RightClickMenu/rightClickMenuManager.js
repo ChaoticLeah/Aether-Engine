@@ -5,7 +5,7 @@ import {
 } from "../AssetPanel/fileManager.js";
 import { getObject } from "../Objects/ObjectManager.js";
 import { selectedObject } from "../Objects/ObjectsTab.js";
-import { openTabMetadata } from "../Tabs/TabManager.js";
+import { openTabMetadata } from "../Tabs/tabManager.js";
 import { RightClickMenuButton } from "./rightClickMenuButton.js";
 
 let rightClickOptions = new Map();
