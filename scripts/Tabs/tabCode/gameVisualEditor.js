@@ -114,6 +114,7 @@ export let gameVisualEditor = {
 
       if (
         mouseDown &&
+        mouseButton == "LEFT" &&
         inArea(
           relativeCoords.x,
           relativeCoords.y,
@@ -130,7 +131,10 @@ export let gameVisualEditor = {
         //Need to convert pixel coords to relative coords(0-100)
 
         setCursor("grab");
-        let relativeCoords = removeCanvasOffset(mouseX, mouseY);
+        let relativeCoords = removeCanvasOffset(
+          mouseX - globalOffsetX,
+          mouseY - globalOffsetY
+        );
 
         let coords = convertToGameCoords(relativeCoords.x, relativeCoords.y);
 
