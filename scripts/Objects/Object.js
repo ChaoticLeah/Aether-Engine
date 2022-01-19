@@ -96,6 +96,13 @@ export class GameObject {
     return convertToScreenCoords(0, Number(this.#y)).y;
   }
 
+  getXWithoutEditorOffsetScreenCoords() {
+    return Number(this.#x);
+  }
+  getYWithoutEditorOffsetScreenCoords() {
+    return Number(this.#y);
+  }
+
   getW() {
     return convertToScreenCoords(0, 0, Number(this.#w), 0).w;
   }

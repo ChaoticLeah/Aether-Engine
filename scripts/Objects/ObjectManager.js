@@ -76,6 +76,33 @@ export function convertToScreenCoords(x, y, w, h) {
   };
 }
 
+//reverse convertToScreenCoords
+export function convertToGameCoords(x, y, w, h) {
+  let fullWidthNumber = 100;
+
+  let canvasSize = getCanvasSize();
+
+  //Get the shortest side
+  let isWidthShorter = true;
+  let shortestSide = canvasSize.w;
+  //Number is from aspect ratio calculation of height / width of a 16:9 aspect ratio
+  if (shortestSide * 0.5625 > canvasSize.h) {
+    isWidthShorter = false;
+    shortestSide = canvasSize.h;
+  }
+
+  let missingSide = isWidthShorter
+    ? getHeight(shortestSide)
+    : getWidth(shortestSide);
+
+  return {
+    x: (x / (isWidthShorter ? shortestSide : missingSide)) * fullWidthNumber,
+    y: (y / (isWidthShorter ? missingSide : shortestSide)) * fullWidthNumber,
+    w: w / (shortestSide / fullWidthNumber),
+    h: h / (shortestSide / fullWidthNumber),
+  };
+}
+
 function getWidth(height) {
   //16:9
   return (height / 9) * 16;

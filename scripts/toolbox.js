@@ -1283,3 +1283,73 @@ export function getDirFiles(dir, callback) {
   xhttp.open("GET", dir, true);
   xhttp.send();
 }
+//removeCanvasOffset
+export function removeCanvasOffset(x, y) {
+  return {
+    x: x - game.canvas.offsetLeft,
+    y: y - game.canvas.offsetTop,
+  };
+}
+
+export function getCanvasOffset() {
+  return {
+    x: game.canvas.offsetLeft,
+    y: game.canvas.offsetTop,
+  };
+}
+
+//Classes
+
+export class DragRect {
+  x;
+  y;
+  offsetX = 0;
+  offsetY = 0;
+  w;
+  h;
+  color;
+  callback;
+  locked;
+
+  constructor(x, y, w, h, color, draggableCallback) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.color = color;
+    this.callback = draggableCallback;
+  }
+
+  run() {
+    fill(this.color);
+    rect(this.x + this.offsetX, this.y + this.offsetY, this.w, this.h);
+
+    if (mouseDown) {
+      if (
+        inArea(
+          mouseX - game.canvas.offsetLeft,
+          mouseY - game.canvas.offsetTop,
+          this.x + this.offsetX,
+          this.y + this.offsetY,
+          this.w,
+          this.h
+        )
+      ) {
+        this.locked = true;
+      }
+    } else {
+      this.locked = false;
+    }
+
+    if (this.locked) {
+      this.x = mouseX - game.canvas.offsetLeft - this.offsetX;
+      this.y = mouseY - game.canvas.offsetTop - this.offsetY;
+      this.callback(this.x, this.y, this);
+    }
+  }
+
+  setOffset(x, y) {
+    this.offsetX = x;
+    this.offsetY = y;
+  }
+}

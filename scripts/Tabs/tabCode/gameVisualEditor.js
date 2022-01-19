@@ -7,14 +7,17 @@ import {
   setGlobalOffsetY,
 } from "../../Objects/Object.js";
 import {
+  convertToGameCoords,
   convertToScreenCoords,
   getObject,
   objects,
 } from "../../Objects/ObjectManager.js";
 import { selectedObject } from "../../Objects/ObjectsTab.js";
 import {
+  DragRect,
   fill,
   game,
+  inArea,
   mouseButton,
   mouseDown,
   mousePressed,
@@ -23,6 +26,7 @@ import {
   pressedMouseStartX,
   pressedMouseStartY,
   rect,
+  removeCanvasOffset,
   setCursor,
 } from "../../toolbox.js";
 const outlineWidth = 2;
@@ -30,6 +34,27 @@ const outlineWidth = 2;
 //for helping you drag around the objects in the editor
 let dragoffsetXSave = 0;
 let dragoffsetYSave = 0;
+
+let objectDragOffsetX = 0;
+let objectDragOffsetY = 0;
+
+let cornerTopLeftDragHandle = new DragRect(
+  0,
+  0,
+  10,
+  10,
+  "red",
+  (x, y, parent) => {
+    //set the selected objects x
+    console.log(x);
+    getObject(selectedObject).setX(x / 10);
+    //set the selected objects y
+    //getObject(selectedObject).setY(y);
+
+    //parent.x = 0;
+    //parent.y = 0;
+  }
+);
 
 export let gameVisualEditor = {
   init: () => {},
@@ -82,6 +107,75 @@ export let gameVisualEditor = {
         parseInt(selectedObj.getW()),
         parseInt(selectedObj.getH())
       );
+
+      //for grabbing and dragging the object
+
+      let relativeCoords = removeCanvasOffset(mouseX, mouseY);
+
+      if (
+        mouseDown &&
+        inArea(
+          relativeCoords.x,
+          relativeCoords.y,
+          selectedObj.getX(),
+          selectedObj.getY(),
+          selectedObj.getW(),
+          selectedObj.getH()
+        )
+      ) {
+        if (mousePressed) {
+          objectDragOffsetX = selectedObj.getXWithoutEditorOffsetScreenCoords();
+          objectDragOffsetY = selectedObj.getYWithoutEditorOffsetScreenCoords();
+        }
+        //Need to convert pixel coords to relative coords(0-100)
+
+        setCursor("grab");
+        let relativeCoords = removeCanvasOffset(mouseX, mouseY);
+
+        let coords = convertToGameCoords(relativeCoords.x, relativeCoords.y);
+
+        getObject(selectedObject).setX(coords.x);
+        getObject(selectedObject).setY(coords.y);
+      }
+
+      /*//put a rectangle on each corner of the object
+      let outlineWidth = 10;
+
+      cornerTopLeftDragHandle.run();
+
+      //TOP LEFT
+      cornerTopLeftDragHandle.setOffset(
+        parseInt(selectedObj.getX()) - outlineWidth,
+        parseInt(selectedObj.getY()) - outlineWidth
+      );
+      /*
+      rect(
+        parseInt(selectedObj.getX()) - outlineWidth,
+        parseInt(selectedObj.getY()) - outlineWidth,
+        outlineWidth,
+        outlineWidth
+      );
+      //TOP RIGHT
+      rect(
+        parseInt(selectedObj.getX() + selectedObj.getW()),
+        parseInt(selectedObj.getY()) - outlineWidth,
+        outlineWidth,
+        outlineWidth
+      );
+      //BOTTOM LEFT
+      rect(
+        parseInt(selectedObj.getX()) - outlineWidth,
+        parseInt(selectedObj.getY() + selectedObj.getH()),
+        outlineWidth,
+        outlineWidth
+      );
+      //BOTTOM RIGHT
+      rect(
+        parseInt(selectedObj.getX() + selectedObj.getW()),
+        parseInt(selectedObj.getY() + selectedObj.getH()),
+        outlineWidth,
+        outlineWidth
+      );*/
     }
     objects.forEach((object) => {
       object.render();
