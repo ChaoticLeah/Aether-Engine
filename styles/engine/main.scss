@@ -90,6 +90,21 @@ button,
   font-size: 100%;
 }
 
+.orangeText {
+  background: linear-gradient(180deg, #ffbe5d 0%, #ff715d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.orangeButton {
+  background: linear-gradient(180deg, #ffbe5d 0%, #ff715d 100%);
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.bigButton {
+  padding: 10px;
+}
+
 input[type="text"] {
   font-size: 16px;
   padding: 5px 10px 5px 10px;
