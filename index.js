@@ -17,6 +17,8 @@ import { init as initTabManager } from "./scripts/Tabs/tabManager.js";
 import { runTabs } from "./scripts/Tabs/tabRunner.js";
 import { game, setLoopFunc } from "./scripts/toolbox.js";
 import {} from "./scripts/flatted.min.js";
+import { compileCurrentProject } from "./scripts/Compiler/compilerManager.js";
+import { loadProject } from "./scripts/SaveProject/saveManager.js";
 
 game.start();
 
@@ -33,6 +35,32 @@ document.getElementById("AddObject").addEventListener("click", () => {
 });
 document.getElementById("more").addEventListener("click", () => {
   document.getElementById("dropdownMenu").classList.toggle("hidden");
+});
+
+window.onload = () => {
+  //automatically click the load button and click the top one
+  document.getElementById("welcomeLoad").click();
+  //loop though all the loadsaves
+  [...document.getElementsByClassName("loadSave")]
+    .filter((button) => {
+      try {
+        if (button.getAttribute("loadName") == "AetherEngineSave-Demo")
+          return true;
+      } catch (e) {}
+      return false;
+    })[0]
+    .click();
+};
+
+document.getElementById("play").addEventListener("click", () => {
+  //launch a new window and inject the game
+  compileCurrentProject();
+  return;
+  const win = window.open("", "", "width=1280,height=720");
+  win.document.write(
+    `TODO: PUT THE GAME HERE
+    `
+  );
 });
 /*
 addInfoPopup(

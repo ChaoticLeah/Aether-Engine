@@ -22,7 +22,6 @@
 #navbar #navbarContainer {
   width: calc(100% - 60px);
   overflow-y: hidden;
-  overflow-x: scroll;
 }
 
 .navbarTab {

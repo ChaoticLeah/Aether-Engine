@@ -37,7 +37,8 @@ export let jsCodeEditor = {
     }
     if (saveFile) {
       //Put the data into the tab element
-      tab.setData(getCode());
+      tab.setPartOfData("data", getCode());
+
       //Save it to the file
       setFileData(extraData.dir, getCode());
       tab.hideDot();

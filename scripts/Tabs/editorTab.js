@@ -110,6 +110,10 @@ export class EditorTab {
     return this.data;
   }
 
+  setPartOfData(name, data) {
+    this.data[name] = data;
+  }
+
   setData(data) {
     this.data = data;
   }

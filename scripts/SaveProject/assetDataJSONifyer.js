@@ -1,6 +1,6 @@
 import { getFiles, getFile, getDirectorys } from "../AssetPanel/fileManager.js";
 
-export function getAssetsAsJSON() {
+export function getAssetsAsJSON(containFile = false) {
   /*
     {
         "assetName": {type: "file", data:"..."}
@@ -16,6 +16,7 @@ export function getAssetsAsJSON() {
     returningJSON[fileKey] = {
       type: file.type,
       rawData: file.rawData,
+      file: containFile ? file : undefined,
     };
   });
 
