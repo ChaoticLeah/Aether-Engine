@@ -15,7 +15,7 @@ import { initRightClickMenuManager } from "./scripts/RightClickMenu/rightClickMe
 import { setupSaveButtonHandlers } from "./scripts/SaveProject/saveProjectButtonManager.js";
 import { init as initTabManager } from "./scripts/Tabs/tabManager.js";
 import { runTabs } from "./scripts/Tabs/tabRunner.js";
-import { game, setLoopFunc } from "./scripts/toolbox.js";
+import { download, game, setLoopFunc } from "./scripts/toolbox.js";
 import {} from "./scripts/flatted.min.js";
 import { compileCurrentProject } from "./scripts/Compiler/compilerManager.js";
 import { loadProject } from "./scripts/SaveProject/saveManager.js";
@@ -52,15 +52,13 @@ window.onload = () => {
     .click();
 };
 
-document.getElementById("play").addEventListener("click", () => {
+document.getElementById("play").addEventListener("click", async () => {
   //launch a new window and inject the game
-  compileCurrentProject();
-  return;
+
   const win = window.open("", "", "width=1280,height=720");
-  win.document.write(
-    `TODO: PUT THE GAME HERE
-    `
-  );
+  let code = await compileCurrentProject();
+  //download(code, "AetherEngineSave-Demo.html");
+  win.document.write(code);
 });
 /*
 addInfoPopup(

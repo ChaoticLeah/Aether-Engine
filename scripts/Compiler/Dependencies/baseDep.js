@@ -27,3 +27,7 @@ let objects = new Map();
 function loop() {
   //LOOP HERE
 }
+
+setLoopFunc(loop);
+
+game.start();

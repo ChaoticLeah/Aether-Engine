@@ -1,0 +1,12 @@
+//typing //@EXCLUDE_FROM_BUILD right before a function will exclude it from the build
+//toolbox
+scripts/toolbox.js
+//All the Components
+scripts/Objects/Components/component.js
+scripts/Objects/Components/coreObjectComponent.js
+scripts/Objects/Components/rectangleComponent.js
+scripts/Objects/Components/scriptComponent.js
+scripts/Objects/Components/textComponent.js
+scripts/Objects/Components/imageComponent.js
+//Might not need
+scripts/Objects/Components/componentAdder.js

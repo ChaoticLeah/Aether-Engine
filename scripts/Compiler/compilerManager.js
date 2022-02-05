@@ -38,6 +38,29 @@ function removeComments(str) {
   return str;
 }
 
+function removeImports(str) {
+  str = str.replace(/import.*/g, "");
+  return str;
+}
+//for making the file smaller
+function removeUnusedFunctions(str) {
+  //locate all the function names
+  let funcNames = str.match(/function.*?\(/g);
+
+  for (let fname of funcNames) {
+    //remove the function name from the string
+    fname = fname.replace("function ", "").replace("(", "");
+
+    //test to see how many uses the function has
+    let uses = str.match(new RegExp(fname, "g"));
+    if (uses < 2) {
+      //if the function is unused, remove it
+      str = str.replace(new RegExp(fname, "g"), "");
+    }
+  }
+  return str;
+}
+
 export async function compileCurrentProject() {
   let compiledCode = ``;
 
@@ -96,6 +119,25 @@ export async function compileCurrentProject() {
     "./scripts/Compiler/Dependencies/baseDep.js"
   );
 
+  //Get those dependencies and put it all together
+  let dependencies = await readTextFile(
+    "./scripts/Compiler/Dependencies/depList.txt"
+  );
+  dependencies = await dependencies
+    .replace(/\r/g, "")
+    .split("\n")
+    .filter((l) => !l.startsWith("//"));
+
+  //add all the dependencies to the compiled code
+  let dependenciesCode = ``;
+  for (let dep of dependencies) {
+    dependenciesCode += `\n${removeImports(
+      await readTextFile(`./${dep}`)
+    ).replace(/export /g, "")}`;
+  }
+
+  baseCodeLib = baseCodeLib.replace("//DEPENDENCIES HERE", dependenciesCode);
+
   baseCodeLib = baseCodeLib.replace("//INITIALIZATION HERE", compiledCode);
   //baseCode = baseCode.replace("//LOOP HERE", "loop();");
 
@@ -106,7 +148,7 @@ export async function compileCurrentProject() {
 
   console.log(templateHTMLFile);
 
-  return;
+  return templateHTMLFile;
 
   let otherDependencies = await readTextFile(
     "./Dependencies/depList.txt"
