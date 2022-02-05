@@ -53,7 +53,8 @@ function removeUnusedFunctions(str) {
 
     //test to see how many uses the function has
     let uses = str.match(new RegExp(fname, "g"));
-    if (uses < 2) {
+
+    if (uses.length < 2) {
       //if the function is unused, remove it
       str = str.replace(new RegExp(fname, "g"), "");
     }
@@ -126,7 +127,7 @@ export async function compileCurrentProject() {
   dependencies = await dependencies
     .replace(/\r/g, "")
     .split("\n")
-    .filter((l) => !l.startsWith("//"));
+    .filter((l) => !l.startsWith("//") && l.length > 0);
 
   //add all the dependencies to the compiled code
   let dependenciesCode = ``;
@@ -137,6 +138,7 @@ export async function compileCurrentProject() {
   }
 
   baseCodeLib = baseCodeLib.replace("//DEPENDENCIES HERE", dependenciesCode);
+  console.log(dependencies);
 
   baseCodeLib = baseCodeLib.replace("//INITIALIZATION HERE", compiledCode);
   //baseCode = baseCode.replace("//LOOP HERE", "loop();");
@@ -146,7 +148,8 @@ export async function compileCurrentProject() {
   );
   templateHTMLFile = templateHTMLFile.replace("//CODE HERE", baseCodeLib);
 
-  console.log(templateHTMLFile);
+  //add credit comment
+  templateHTMLFile += `\n<!-- Created with the Aether Engine -->`;
 
   return templateHTMLFile;
 
