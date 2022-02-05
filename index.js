@@ -37,20 +37,20 @@ document.getElementById("more").addEventListener("click", () => {
   document.getElementById("dropdownMenu").classList.toggle("hidden");
 });
 
-window.onload = () => {
-  //automatically click the load button and click the top one
-  document.getElementById("welcomeLoad").click();
-  //loop though all the loadsaves
-  [...document.getElementsByClassName("loadSave")]
-    .filter((button) => {
-      try {
-        if (button.getAttribute("loadName") == "AetherEngineSave-Demo")
-          return true;
-      } catch (e) {}
-      return false;
-    })[0]
-    .click();
-};
+// window.onload = () => {
+//   //automatically click the load button and click the top one
+//   document.getElementById("welcomeLoad").click();
+//   //loop though all the loadsaves
+//   [...document.getElementsByClassName("loadSave")]
+//     .filter((button) => {
+//       try {
+//         if (button.getAttribute("loadName") == "AetherEngineSave-Demo")
+//           return true;
+//       } catch (e) {}
+//       return false;
+//     })[0]
+//     .click();
+// };
 
 document.getElementById("play").addEventListener("click", async () => {
   //launch a new window and inject the game
