@@ -1,16 +1,18 @@
 //typing //@EXCLUDE_FROM_BUILD right before a function will exclude it from the build
 //toolbox
-scripts/toolbox.js
+scripts/Compiler/Dependencies/toolbox.js
 //Objects
 //NEED TO MAKE CUSTOM OBJ., NOT MEANT TO WORK WITH THIS: scripts/Objects/Object.js
 //All the Components
-scripts/ObjectEditorTab/propertyTypes.js
-scripts/Objects/Components/component.js
-scripts/Objects/Components/coreObjectComponent.js
-scripts/Objects/Components/rectangleComponent.js
-scripts/Objects/Components/scriptComponent.js
-scripts/Objects/Components/textComponent.js
-scripts/Objects/Components/imageComponent.js
+//TODO add rect component
+//scripts/ObjectEditorTab/propertyTypes.js
+//scripts/Objects/Components/component.js
+//scripts/Objects/Components/coreObjectComponent.js
+//scripts/Objects/Components/rectangleComponent.js
+//scripts/Objects/Components/scriptComponent.js
+//scripts/Objects/Components/textComponent.js
+//scripts/Objects/Components/imageComponent.js
 //Might not need
 scripts/Objects/Components/componentAdder.js
-//Misc
+//Under /Dependencies
+scripts/Compiler/Dependencies/object.js

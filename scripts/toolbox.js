@@ -103,24 +103,12 @@ export let game = {
       keyReleased = true;
       currentKeypress = -1;
     });
-    try {
-      window.addEventListener("resize", function (e) {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        reCalculateSize(width, height);
-      });
-      /*$(window).resize(function () {
-        //resize just happened, pixels changed
-        width = window.innerWidth;
-        height = window.innerHeight;
-        document.getElementById("canvas").width = width;
-        document.getElementById("canvas").height = height;
-      });*/
-    } catch (error) {
-      alert(
-        "JQuery does not want to load, the game may behave unexpectedly without it"
-      );
-    }
+    window.addEventListener("resize", function (e) {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      reCalculateSize(width, height);
+    });
+
     //this.interval = setInterval(updateGameArea, Math.round(1000 / 60));
 
     width = window.innerWidth;

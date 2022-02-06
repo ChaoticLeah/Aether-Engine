@@ -39,10 +39,9 @@ function loop() {
   lastRender = Date.now();
   fps = Math.round(1 / delta);
 
-  console.log(objects);
-  //console.log(mousePressed);
-  for (let i = 0; i < objects.length; i++) {
-    //objects[i].update();
+  //loop though all the objects
+  for (let [key, value] of objects) {
+    value.update(delta);
   }
 
   resetMousePressed();
@@ -50,6 +49,7 @@ function loop() {
   var delta = (Date.now() - lastRender) / 1000;
   lastRender = Date.now();
   frame++;
+
   //LOOP HERE
 }
 

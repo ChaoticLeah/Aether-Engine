@@ -141,48 +141,9 @@ export let gameVisualEditor = {
         getObject(selectedObject).setX(coords.x);
         getObject(selectedObject).setY(coords.y);
       }
-
-      /*//put a rectangle on each corner of the object
-      let outlineWidth = 10;
-
-      cornerTopLeftDragHandle.run();
-
-      //TOP LEFT
-      cornerTopLeftDragHandle.setOffset(
-        parseInt(selectedObj.getX()) - outlineWidth,
-        parseInt(selectedObj.getY()) - outlineWidth
-      );
-      /*
-      rect(
-        parseInt(selectedObj.getX()) - outlineWidth,
-        parseInt(selectedObj.getY()) - outlineWidth,
-        outlineWidth,
-        outlineWidth
-      );
-      //TOP RIGHT
-      rect(
-        parseInt(selectedObj.getX() + selectedObj.getW()),
-        parseInt(selectedObj.getY()) - outlineWidth,
-        outlineWidth,
-        outlineWidth
-      );
-      //BOTTOM LEFT
-      rect(
-        parseInt(selectedObj.getX()) - outlineWidth,
-        parseInt(selectedObj.getY() + selectedObj.getH()),
-        outlineWidth,
-        outlineWidth
-      );
-      //BOTTOM RIGHT
-      rect(
-        parseInt(selectedObj.getX() + selectedObj.getW()),
-        parseInt(selectedObj.getY() + selectedObj.getH()),
-        outlineWidth,
-        outlineWidth
-      );*/
     }
     objects.forEach((object) => {
-      object.render();
+      if (object.getParentObjectId() == "root") object.render();
     });
   },
   onChange: (tabId, tabName, extraData) => {
