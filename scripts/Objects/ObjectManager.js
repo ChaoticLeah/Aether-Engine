@@ -13,15 +13,19 @@ export function getObject(id) {
 export function getObjects() {
   return objects;
 }
+export let rootObject;
 
-export let rootObject = new GameObject(0, 0, 10, 10);
-rootObject.id = "root";
-addObject(rootObject, "none");
+function init() {
+  rootObject = new GameObject(0, 0, 10, 10);
+  rootObject.id = "root";
+  addObject(rootObject, "none");
 
-let camera = addEmptyObject("root");
-console.log(camera.components[0].properties);
-camera.setName("Camera");
-camera.setSize(178, 100);
+  let camera = addEmptyObject("root");
+  console.log(camera.components[0].properties);
+  camera.setName("Camera");
+  camera.setSize(178, 100);
+}
+init();
 
 export function addObject(object, parentObjectId) {
   try {
@@ -110,4 +114,8 @@ function getWidth(height) {
 function getHeight(width) {
   //16:9
   return (width / 16) * 9;
+}
+export function clearObjects() {
+  objects.clear();
+  init();
 }

@@ -7,7 +7,11 @@ import {
 import { editorData } from "../editorData.js";
 import { getComponentByName } from "../Objects/Components/componentAdder.js";
 import { GameObject } from "../Objects/Object.js";
-import { addObject, getObject } from "../Objects/ObjectManager.js";
+import {
+  addObject,
+  clearObjects,
+  getObject,
+} from "../Objects/ObjectManager.js";
 import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
 import { getAssetsAsJSON, getDirectorysAsJSON } from "./assetDataJSONifyer.js";
 import { getObjectsAsJSON } from "./objectDataJSONifyer.js";
@@ -66,6 +70,7 @@ export function saveProject(overideName, downloadFile = false) {
 }
 
 export async function loadProject(data = undefined) {
+  clearObjects();
   if (data == undefined) {
     createUI();
     return;
