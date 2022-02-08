@@ -35,6 +35,8 @@ export function onObjectSelect(objectId, object) {
       let propertyKey = propertyKeys[j];
       let propertyType = propertyTypes[propertyKey];
       let property = properties[propertyKey];
+      //loop over it if its something internal that shouldnt be shown
+      if (propertyType == undefined) continue;
 
       let innerDiv = document.createElement("div");
       innerDiv.classList.add("propertyInnerDiv");

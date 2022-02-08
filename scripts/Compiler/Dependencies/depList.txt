@@ -2,17 +2,15 @@
 //toolbox
 scripts/Compiler/Dependencies/toolbox.js
 //Objects
-//NEED TO MAKE CUSTOM OBJ., NOT MEANT TO WORK WITH THIS: scripts/Objects/Object.js
+scripts/Objects/Object.js
 //All the Components
 //TODO add rect component
-//scripts/ObjectEditorTab/propertyTypes.js
-//scripts/Objects/Components/component.js
-//scripts/Objects/Components/coreObjectComponent.js
-//scripts/Objects/Components/rectangleComponent.js
-//scripts/Objects/Components/scriptComponent.js
-//scripts/Objects/Components/textComponent.js
-//scripts/Objects/Components/imageComponent.js
-//Might not need
-scripts/Objects/Components/componentAdder.js
-//Under /Dependencies
-scripts/Compiler/Dependencies/object.js
+scripts/ObjectEditorTab/propertyTypes.js
+scripts/Objects/Components/component.js
+scripts/Objects/Components/coreObjectComponent.js
+scripts/Objects/Components/rectangleComponent.js
+scripts/Objects/Components/scriptComponent.js
+scripts/Objects/Components/textComponent.js
+scripts/Objects/Components/imageComponent.js
+//needed
+scripts/Objects/ObjectManager.js

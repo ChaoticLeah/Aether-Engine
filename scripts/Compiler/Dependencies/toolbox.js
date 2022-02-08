@@ -19,75 +19,90 @@ let keyboard = {
 
 let game = {
   canvas: {
+    width: window.innerWidth,
     height: window.innerHeight,
     canvas: document.createElement("canvas"),
     context: undefined,
-    init: function () {
-      this.canvas.width = width;
-      this.canvas.height = height;
-      this.canvas.id = "canvas";
-      this.context = this.canvas.getContext("2d");
-      document.getElementById("canvasHolder").appendChild(this.canvas);
 
-      window.addEventListener("mousedown", function (e) {
-        mouse.currentlyPressed = true;
-        mouse.clicked = true;
-
-        //for which button was pressed
-        if (e.which == null)
-          /* IE case */
-          mouse.which =
-            e.button < 2
-              ? mouse.LEFT
-              : e.button == 4
-              ? mouse.MIDDLE
-              : mouse.RIGHT;
-        /* All others */ else
-          mouse.which =
-            e.which < 2
-              ? mouse.LEFT
-              : e.which == 2
-              ? mouse.MIDDLE
-              : mouse.RIGHT;
-      });
-
-      window.addEventListener("mouseup", function (e) {
-        mouse.which = -1;
-        mouse.currentlyPressed = false;
-      });
-
-      window.addEventListener("mousemove", function (e) {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-      });
-
-      window.addEventListener("wheel", function (e) {
-        mouse.scroll = e.deltaY;
-      });
-
-      window.addEventListener("keydown", function (e) {
-        let keyCode = getCode(e.key);
-        keyboard.keys[keyCode] = true;
-        keyboard.keyPressed = keyCode;
-      });
-
-      window.addEventListener("keyup", function (e) {
-        let keyCode = getCode(e.key);
-        keyboard.keys[keyCode] = false;
-        keyboard.keyReleased = keyCode;
-      });
-
-      window.addEventListener("resize", function (e) {
-        width = window.innerWidth;
-        height = window.innerHeight;
-      });
+    start: function () {
+      init();
     },
+    init: function () {},
   },
+
+  setLoopFunc: function (func) {
+    updateGameArea = func;
+    game.interval = setInterval(updateGameArea, Math.round(1000 / 60));
+  },
+
+  resetMousePressed: function () {
+    mouse.clicked = false;
+  },
+
   clear: function () {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 };
 
+game.canvas.id = "canvas";
+game.context = game.canvas.canvas.getContext("2d");
+document.getElementById("canvasHolder").appendChild(game.canvas.canvas);
+
+window.addEventListener("mousedown", function (e) {
+  mouse.currentlyPressed = true;
+  mouse.clicked = true;
+
+  //for which button was pressed
+  if (e.which == null)
+    /* IE case */
+    mouse.which =
+      e.button < 2 ? mouse.LEFT : e.button == 4 ? mouse.MIDDLE : mouse.RIGHT;
+  /* All others */ else
+    mouse.which =
+      e.which < 2 ? mouse.LEFT : e.which == 2 ? mouse.MIDDLE : mouse.RIGHT;
+});
+
+window.addEventListener("mouseup", function (e) {
+  mouse.which = -1;
+  mouse.currentlyPressed = false;
+});
+
+window.addEventListener("mousemove", function (e) {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+window.addEventListener("wheel", function (e) {
+  mouse.scroll = e.deltaY;
+});
+
+window.addEventListener("keydown", function (e) {
+  let keyCode = getCode(e.key);
+  keyboard.keys[keyCode] = true;
+  keyboard.keyPressed = keyCode;
+});
+
+window.addEventListener("keyup", function (e) {
+  let keyCode = getCode(e.key);
+  keyboard.keys[keyCode] = false;
+  keyboard.keyReleased = keyCode;
+});
+
+window.addEventListener("resize", function (e) {
+  resize();
+});
+
+function resize() {
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  game.canvas.canvas.width = width;
+  game.canvas.canvas.height = height;
+
+  game.canvas.canvas.style.width = width;
+  game.canvas.canvas.style.height = height;
+}
+resize();
 let renderer = {
   setContext: function (context) {
     this.context = context;
@@ -187,7 +202,7 @@ Array.prototype.equals = function (a, b) {
   return true;
 };
 
-Math.prototype.seededRandom = function (seed) {
+Math.seededRandom = function (seed) {
   seed = ((seed * 9301 + 49297) % 233280) + "";
   for (var i = 0, h = 1779033703 ^ seed.length; i < seed.length; i++) {
     h = Math.imul(h ^ seed.charCodeAt(i), 3432918353);

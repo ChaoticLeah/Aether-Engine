@@ -6,7 +6,8 @@ export class RectangleComponent extends Component {
   componentName = Component.RectangleComponent;
 
   constructor(parentObject, color) {
-    super(parentObject, { color: color });
+    if (typeof color != "object") color = { color: color };
+    super(parentObject, color);
     this.objectPropertyTypes = {
       color: propertyTypes.COLOR_SELECT,
     };

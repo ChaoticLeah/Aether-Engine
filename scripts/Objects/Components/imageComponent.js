@@ -10,7 +10,9 @@ export class ImageComponent extends Component {
 
   //image = undefined;
   constructor(parentObject, image) {
-    super(parentObject, { image: image });
+    if (typeof image != "object") image = { image: image };
+
+    super(parentObject, image);
     this.objectPropertyTypes = {
       image: propertyTypes.FILE_INPUT,
     };

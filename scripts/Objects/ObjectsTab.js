@@ -30,8 +30,8 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
     parentObjId = "root";
   }
   let parent = getObject(parentObjId);
-  for (let i = 0; i < parent.childrenObjectIds.length; i++) {
-    const objId = parent.childrenObjectIds[i];
+  for (let i = 0; i < parent.getProperties().childrenObjectIds.length; i++) {
+    const objId = parent.getProperties().childrenObjectIds[i];
     const obj = getObject(objId);
 
     //Select the object
@@ -46,14 +46,14 @@ function renderChildrenObjectText(parentObjId, depth = 0) {
     if (selectedObject == objId) fill(themeColors["warning-highlight"]);
     else fill("white");
     text(
-      obj.name,
+      obj.getProperties().name,
       4 - depth * indentAmount,
       (textSize + 4) * (counter + 1) + scrollY
     );
 
     counter++;
     //Render the child text
-    if (obj.childrenObjectIds.length > 0) {
+    if (obj.getProperties().childrenObjectIds.length > 0) {
       renderChildrenObjectText(objId, depth - 1);
     }
   }
@@ -66,8 +66,8 @@ function detectClickedObjectEvent(parentObjId, depth = 0, y) {
   }
   let parent = getObject(parentObjId);
 
-  for (let i = 0; i < parent.childrenObjectIds.length; i++) {
-    const objId = parent.childrenObjectIds[i];
+  for (let i = 0; i < parent.getProperties().childrenObjectIds.length; i++) {
+    const objId = parent.getProperties().childrenObjectIds[i];
     const obj = getObject(objId);
     let done = false;
 
@@ -76,7 +76,7 @@ function detectClickedObjectEvent(parentObjId, depth = 0, y) {
       (textSize + 4) * clickcounter + scrollY < y &&
       (textSize + 4) * (clickcounter + 1) + scrollY > y
     ) {
-      selectedObject = obj.id;
+      selectedObject = obj.getProperties().id;
       done = true;
       fill("red");
       rect(
@@ -96,7 +96,7 @@ function detectClickedObjectEvent(parentObjId, depth = 0, y) {
 
     clickcounter++;
     //Render the child text
-    if (obj.childrenObjectIds.length > 0 && !done) {
+    if (obj.getProperties().childrenObjectIds.length > 0 && !done) {
       detectClickedObjectEvent(objId, depth - 1, y);
     }
   }

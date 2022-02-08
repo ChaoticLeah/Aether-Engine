@@ -10,6 +10,7 @@ import {
   addPopup,
   getPopup,
   getPopupByName,
+  popupTypes,
 } from "./scripts/Popups/popupManager.js";
 import { initRightClickMenuManager } from "./scripts/RightClickMenu/rightClickMenuManager.js";
 import { setupSaveButtonHandlers } from "./scripts/SaveProject/saveProjectButtonManager.js";
@@ -60,6 +61,7 @@ document.getElementById("play").addEventListener("click", async () => {
   //download(code, "AetherEngineSave-Demo.html");
   win.document.write(code);
 });
+
 /*
 addInfoPopup(
   "Rick Roll!",
