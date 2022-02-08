@@ -59,7 +59,9 @@ document.getElementById("play").addEventListener("click", async () => {
   const win = window.open("", "", "width=1280,height=720");
   let code = await compileCurrentProject();
   //download(code, "AetherEngineSave-Demo.html");
+  win.document.open();
   win.document.write(code);
+  win.document.close();
 });
 
 /*
