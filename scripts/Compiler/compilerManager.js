@@ -86,6 +86,9 @@ function replaceRenderCode(str) {
   //replace the fill with renderer.fill and the rect with renderer.rect
   str = str.replace(/fill\(/g, "renderer.fill(");
   str = str.replace(/rect\(/g, "renderer.rect(");
+  str = str.replace(/renderImage\(/g, "renderer.image(");
+  str = str.replace(/setFontSize\(/g, "renderer.setFontSize(");
+  str = str.replace(/textWraped\(/g, "renderer.textWrapped(");
   return str;
 }
 

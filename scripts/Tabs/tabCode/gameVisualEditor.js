@@ -148,8 +148,10 @@ export let gameVisualEditor = {
   },
   onChange: (tabId, tabName, extraData) => {
     document.getElementById("GameEditorPanel").style.display = "inline";
-    setDir("");
-    calcSize();
+    setTimeout(() => {
+      setDir("");
+      calcSize();
+    }, 1);
   },
   onLeave: (tabId, tabName, extraData) => {
     document.getElementById("GameEditorPanel").style.display = "none";

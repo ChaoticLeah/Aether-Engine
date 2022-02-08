@@ -126,6 +126,10 @@ let renderer = {
     game.context.font = font;
   },
 
+  setFontSize: function (size, font) {
+    game.context.font = size + "px " + font;
+  },
+
   text: function (text, x, y) {
     game.context.font = font;
     game.context.fillText(text, x, y);
