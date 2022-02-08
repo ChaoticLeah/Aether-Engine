@@ -151,7 +151,7 @@ export let gameVisualEditor = {
     setTimeout(() => {
       setDir("");
       calcSize();
-    }, 1);
+    }, 10);
   },
   onLeave: (tabId, tabName, extraData) => {
     document.getElementById("GameEditorPanel").style.display = "none";
