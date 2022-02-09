@@ -1289,40 +1289,37 @@ export function getCanvasOffset() {
 //Classes
 
 export class DragRect {
-  x;
-  y;
   offsetX = 0;
   offsetY = 0;
-  w;
-  h;
+
   color;
   callback;
   locked;
 
-  constructor(x, y, w, h, color, draggableCallback) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
+  constructor(color, draggableCallback) {
     this.color = color;
     this.callback = draggableCallback;
   }
 
-  run() {
+  run(x, y, w, h) {
     fill(this.color);
-    rect(this.x + this.offsetX, this.y + this.offsetY, this.w, this.h);
+    rect(x, y, w, h);
 
     if (mouseDown) {
       if (
         inArea(
           mouseX - game.canvas.offsetLeft,
           mouseY - game.canvas.offsetTop,
-          this.x + this.offsetX,
-          this.y + this.offsetY,
-          this.w,
-          this.h
+          x,
+          y,
+          w,
+          h
         )
       ) {
+        if (!this.locked) {
+          this.offsetX = mouseX - x;
+          this.offsetY = mouseY - y;
+        }
         this.locked = true;
       }
     } else {
@@ -1330,8 +1327,9 @@ export class DragRect {
     }
 
     if (this.locked) {
-      this.x = mouseX - game.canvas.offsetLeft - this.offsetX;
-      this.y = mouseY - game.canvas.offsetTop - this.offsetY;
+      console.log(game.canvas.offsetLeft);
+      this.x = mouseX - this.offsetX;
+      this.y = mouseY - this.offsetY;
       this.callback(this.x, this.y, this);
     }
   }
@@ -1339,5 +1337,9 @@ export class DragRect {
   setOffset(x, y) {
     this.offsetX = x;
     this.offsetY = y;
+  }
+
+  setCallback(callback) {
+    this.callback = callback;
   }
 }
