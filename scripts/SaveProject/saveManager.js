@@ -75,7 +75,6 @@ export async function loadProject(data = undefined) {
     createUI();
     return;
   }
-  console.log(data);
 
   //Load all the directories
   removeAllDirectories();
