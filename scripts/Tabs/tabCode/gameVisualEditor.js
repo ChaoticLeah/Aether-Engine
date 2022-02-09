@@ -12,7 +12,10 @@ import {
   getObject,
   objects,
 } from "../../Objects/ObjectManager.js";
-import { selectedObject } from "../../Objects/ObjectsTab.js";
+import {
+  reloadObjectSelection,
+  selectedObject,
+} from "../../Objects/ObjectsTab.js";
 import {
   DragRect,
   fill,
@@ -38,23 +41,18 @@ let dragoffsetYSave = 0;
 let objectDragOffsetX = 0;
 let objectDragOffsetY = 0;
 
-let cornerTopLeftDragHandle = new DragRect(
-  0,
-  0,
-  10,
-  10,
-  "red",
-  (x, y, parent) => {
-    //set the selected objects x
-    console.log(x);
-    getObject(selectedObject).setX(x / 10);
-    //set the selected objects y
-    //getObject(selectedObject).setY(y);
+let cornerTopLeftDragHandle = new DragRect("red", (x, y, parent) => {
+  //set the selected objects x
+  let gameCoords = convertToGameCoords(x, y);
+  getObject(selectedObject).setX(gameCoords.x);
+  getObject(selectedObject).setY(gameCoords.y);
+  reloadObjectSelection();
+  //set the selected objects y
+  //getObject(selectedObject).setY(y);
 
-    //parent.x = 0;
-    //parent.y = 0;
-  }
-);
+  //parent.x = 0;
+  //parent.y = 0;
+});
 
 export let gameVisualEditor = {
   init: () => {},
@@ -112,44 +110,26 @@ export let gameVisualEditor = {
 
       let relativeCoords = removeCanvasOffset(mouseX, mouseY);
 
-      if (
-        mouseDown &&
-        mouseButton == "LEFT" &&
-        inArea(
-          relativeCoords.x,
-          relativeCoords.y,
-          selectedObj.getX(),
-          selectedObj.getY(),
-          selectedObj.getW(),
-          selectedObj.getH()
-        )
-      ) {
-        if (mousePressed) {
-          objectDragOffsetX = selectedObj.getXWithoutEditorOffsetScreenCoords();
-          objectDragOffsetY = selectedObj.getYWithoutEditorOffsetScreenCoords();
-        }
-        //Need to convert pixel coords to relative coords(0-100)
-
-        setCursor("grab");
-        let relativeCoords = removeCanvasOffset(
-          mouseX - globalOffsetX,
-          mouseY - globalOffsetY
-        );
-
-        let coords = convertToGameCoords(relativeCoords.x, relativeCoords.y);
-
-        getObject(selectedObject).setX(coords.x);
-        getObject(selectedObject).setY(coords.y);
-      }
+      cornerTopLeftDragHandle.run(
+        selectedObj.getX(),
+        selectedObj.getY(),
+        selectedObj.getW(),
+        selectedObj.getH()
+      );
     }
+
+    //render the root, this will render all the children
+    //getObject("root").render();
+
     objects.forEach((object) => {
       if (object.getParentObjectId() == "root") object.render();
     });
   },
   onChange: (tabId, tabName, extraData) => {
     document.getElementById("GameEditorPanel").style.display = "inline";
-    setDir("");
-    calcSize();
+    setTimeout(() => {
+      calcSize();
+    }, 10);
   },
   onLeave: (tabId, tabName, extraData) => {
     document.getElementById("GameEditorPanel").style.display = "none";

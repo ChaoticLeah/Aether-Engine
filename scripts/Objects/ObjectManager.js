@@ -16,8 +16,16 @@ export function getObjects() {
 export let rootObject;
 
 function init() {
-  rootObject = new GameObject(0, 0, 10, 10);
-  rootObject.id = "root";
+  rootObject = new GameObject({
+    x: 0,
+    y: 0,
+    w: 10,
+    h: 10,
+    name: "Object",
+    enabled: true,
+    parentObjectId: undefined,
+    id: "root",
+  });
   addObject(rootObject, "none");
 
   let camera = addEmptyObject("root");
@@ -32,9 +40,10 @@ export function addObject(object, parentObjectId) {
     if (parentObjectId == undefined) {
       parentObjectId = "root";
     }
-    object.parentObjectId = parentObjectId.toString();
-    if (parentObjectId != "none") getObject(parentObjectId).addChild(object.id);
-    objects.set(object.id, object);
+    object.getProperties().parentObjectId = parentObjectId.toString();
+    if (parentObjectId != "none")
+      getObject(parentObjectId).addChild(object.getProperties().id);
+    objects.set(object.getProperties().id, object);
     return true;
   } catch (err) {
     return false;
@@ -42,13 +51,32 @@ export function addObject(object, parentObjectId) {
 }
 
 export function addEmptyObject(parentObject) {
-  let obj = new GameObject(0, 0, 10, 10);
+  let obj = new GameObject({
+    x: 0,
+    y: 0,
+    w: 10,
+    h: 10,
+    name: "Object",
+    enabled: true,
+    parentObjectId: "root",
+  });
   addObject(obj, parentObject);
   return obj;
 }
 
 export function addObjectMetadata(parentObject) {
-  addObject(new GameObject(0, 0, 10, 10), parentObject);
+  addObject(
+    new GameObject({
+      x: 0,
+      y: 0,
+      w: 10,
+      h: 10,
+      name: "Object",
+      enabled: true,
+      parentObjectId: "root",
+    }),
+    parentObject
+  );
 }
 
 export function convertToScreenCoords(x, y, w, h) {

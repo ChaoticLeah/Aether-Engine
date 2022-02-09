@@ -9,7 +9,9 @@ export class TextComponent extends Component {
   componentName = Component.TextComponent;
   font;
   constructor(parentObject, color) {
-    super(parentObject, { color: color });
+    if (typeof color != "object") color = { color: color };
+
+    super(parentObject, color);
     this.objectPropertyTypes = {
       text: propertyTypes.TEXT_INPUT,
       fontsize: propertyTypes.NUMBER_INPUT,

@@ -9,43 +9,23 @@ export let globalOffsetX = 0;
 export let globalOffsetY = 0;
 
 export class GameObject {
-  name = "Object";
-  enabled = true;
-
-  id;
-  #x = 0;
-  #y = 0;
-  #w = 10;
-  #h = 10;
-  parentObjectId = undefined;
-
   components = [];
-  childrenObjectIds = [];
-  constructor(x, y, w, h) {
-    this.#x = x;
-    this.#y = y;
-    this.#w = w;
-    this.#h = h;
-    this.id = idCounter++;
+  constructor(properties) {
     let coreObjComp = new CoreObjectComponent(this);
-    coreObjComp.init(
-      this,
-      this.name,
-      this.enabled,
-      this.#x,
-      this.#y,
-      this.#w,
-      this.#h
-    );
+    if (properties.id == undefined) properties.id = idCounter++;
+    if (properties.childrenObjectIds == undefined)
+      properties.childrenObjectIds = [];
+
+    coreObjComp.init(this, properties);
     this.addComponent(coreObjComp);
   }
 
   render() {
-    if (!this.enabled) return;
+    if (!this.getProperties().enabled) return;
 
     // Render children
-    this.childrenObjectIds.forEach((child) => {
-      let childObject = getObject(child);
+    this.getProperties().childrenObjectIds.forEach((child) => {
+      let childObject = getObject(child + "");
       if (childObject) childObject.render();
     });
 
@@ -59,26 +39,24 @@ export class GameObject {
   }
 
   addChild(child) {
-    this.childrenObjectIds.push(child);
+    this.getProperties().childrenObjectIds.push(child);
   }
 
   addComponent(component) {
+    //if the parent object is not set then set it
+    if (component.parentObject == undefined) {
+      component.parentObject = this;
+    }
     this.components.push(component);
-  }
 
-  setCoreComponentValues(name, enabled, x, y, w, h) {
-    this.components[0].init(this, name, enabled, x, y, w, h);
+    return this;
   }
 
   setName(name) {
-    this.name = name;
     this.components[0].properties.name = name;
   }
   setSize(w, h) {
-    this.#w = w;
     this.components[0].properties.w = w;
-
-    this.#h = h;
     this.components[0].properties.h = h;
   }
 
@@ -90,49 +68,69 @@ export class GameObject {
   }
 
   getX() {
-    return convertToScreenCoords(Number(this.#x), 0).x + globalOffsetX;
+    return (
+      convertToScreenCoords(Number(this.components[0].properties.x), 0).x +
+      globalOffsetX
+    );
   }
   getY() {
-    return convertToScreenCoords(0, Number(this.#y)).y + globalOffsetY;
+    return (
+      convertToScreenCoords(0, Number(this.components[0].properties.y)).y +
+      globalOffsetY
+    );
   }
 
   getXWithoutEditorOffset() {
-    return convertToScreenCoords(Number(this.#x), 0).x;
+    return convertToScreenCoords(Number(this.components[0].properties.x), 0).x;
   }
   getYWithoutEditorOffset() {
-    return convertToScreenCoords(0, Number(this.#y)).y;
+    return convertToScreenCoords(0, Number(this.components[0].properties.y)).y;
   }
 
   getXWithoutEditorOffsetScreenCoords() {
-    return Number(this.#x);
+    return Number(this.components[0].properties.x);
   }
   getYWithoutEditorOffsetScreenCoords() {
-    return Number(this.#y);
+    return Number(this.components[0].properties.y);
   }
 
   getW() {
-    return convertToScreenCoords(0, 0, Number(this.#w), 0).w;
+    return convertToScreenCoords(
+      0,
+      0,
+      Number(this.components[0].properties.w),
+      0
+    ).w;
   }
   getH() {
-    return convertToScreenCoords(0, 0, 0, Number(this.#h)).h;
+    return convertToScreenCoords(
+      0,
+      0,
+      0,
+      Number(this.components[0].properties.h)
+    ).h;
   }
 
   getParentObjectId() {
-    return this.parentObjectId;
+    return this.components[0].properties.parentObjectId;
   }
 
   setX(x) {
-    this.#x = x;
+    this.components[0].properties.x = x;
   }
   setY(y) {
-    this.#y = y;
+    this.components[0].properties.y = y;
   }
 
   setW(w) {
-    this.#w = w;
+    this.components[0].properties.w = w;
   }
   setH(h) {
-    this.#h = h;
+    this.components[0].properties.h = h;
+  }
+
+  getProperties() {
+    return this.components[0].properties;
   }
 }
 

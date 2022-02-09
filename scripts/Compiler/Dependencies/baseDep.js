@@ -20,14 +20,32 @@ class File {
 }
 
 function reCalculateSize(tabWidth, tabHeight) {
-  let canvas = document.getElementById("canvas");
+  let canvas = document.getElementsByTagName("canvas")[0];
   canvas.width = tabWidth;
   canvas.height = tabHeight;
 }
 
+function getCanvasSize() {
+  let canvas = document.getElementsByTagName("canvas")[0];
+
+  let w = canvas != null ? canvas.offsetWidth : 0;
+  let h = canvas != null ? canvas.offsetHeight : 0;
+
+  return { w: w, h: h };
+}
+
+let assets = new Map();
+function getFile(path) {
+  return assets.get(path);
+}
+
 //DEPENDENCIES HERE
 
-let objects = new Map();
+//let objects = new Map();
+
+// function getObject(id) {
+//   return objects.get(id);
+// }
 //INITIALIZATION HERE
 
 let frame = 0,
@@ -39,12 +57,11 @@ function loop() {
   lastRender = Date.now();
   fps = Math.round(1 / delta);
 
-  //loop though all the objects
-  for (let [key, value] of objects) {
-    value.update(delta);
-  }
+  //get the root game object
+  let root = objects.get("root");
+  root.render();
 
-  resetMousePressed();
+  game.resetMousePressed();
   //updateGameController();
   var delta = (Date.now() - lastRender) / 1000;
   lastRender = Date.now();
@@ -53,6 +70,6 @@ function loop() {
   //LOOP HERE
 }
 
-setLoopFunc(loop);
+game.setLoopFunc(loop);
 
-game.start();
+//game.start();

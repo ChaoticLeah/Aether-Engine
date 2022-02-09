@@ -4,8 +4,10 @@ import { Component } from "./component.js";
 export class CoreObjectComponent extends Component {
   componentName = "Core Component";
 
-  constructor(parentObject) {
-    super(parentObject, {});
+  constructor(parentObject, data = {}) {
+    if (typeof data != "object") data = { data: data };
+
+    super(parentObject, data);
     this.objectPropertyTypes = {
       name: propertyTypes.TEXT_INPUT,
       enabled: propertyTypes.TOGGLE_INPUT,
@@ -16,9 +18,9 @@ export class CoreObjectComponent extends Component {
     };
   }
 
-  init(parentObject, name, enabled, x, y, w, h) {
+  init(parentObject, properties) {
     this.parentObject = parentObject;
-    this.properties = { name: name, enabled: enabled, x: x, y: y, w: w, h: h };
+    this.properties = properties;
   }
 
   initValues() {

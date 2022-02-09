@@ -36,6 +36,7 @@ export function saveProject(overideName, downloadFile = false) {
     directorys: getDirectorysAsJSON(),
     objects: getObjectsAsJSON(),
   });
+  console.log(str);
 
   if (downloadFile) {
     download(str, `${name}.aether`, "AEFile");
@@ -70,15 +71,11 @@ export function saveProject(overideName, downloadFile = false) {
 }
 
 export async function loadProject(data = undefined) {
-  clearObjects();
   if (data == undefined) {
     createUI();
     return;
-
-    //let name = prompt("What project would you like to load?");
-    //Get the data
-    //data = Flatted.parse(localStorage.getItem(`AetherEngineSave-${name}`));
   }
+
   //Load all the directories
   removeAllDirectories();
   let directorys = data.directorys.sort(function (a, b) {
@@ -103,60 +100,42 @@ export async function loadProject(data = undefined) {
   }
   reloadDirectory();
 
+  //clear all the objects
+  clearObjects();
+
   //Load all the objects
 
   let objects = data.objects;
-  let objectKeys = Object.keys(objects).reverse();
-  let objectsToAdd = [];
+  let objectKeys = Object.keys(objects);
 
   for await (const objectKey of objectKeys) {
-    const object = objects[objectKey];
+    let object = objects[objectKey];
+    let components = object.components;
 
-    let gameObject = new GameObject(0, 0, 10, 10);
-    gameObject.id = objectKey;
-
-    //Add all the components
-
-    for await (const component of object.components) {
+    let newGameObject = new GameObject(components[0].properties);
+    //start at object 1 so we skip the core component since it was already put into the game object.
+    for (let i = 1; i < components.length; i++) {
+      let component = components[i];
       let componentName = component.componentName;
-      //For the core components we add them differently
-      if (componentName == "Core Component") {
-        Object.assign(gameObject.components[0], component);
-        gameObject.components[0].parentObject = gameObject;
-        gameObject.components[0].initValues();
+      let componentProperties = component.properties;
+      let newcomponent = getComponentByName(componentName);
+      //if the component doesnt exist, skip it
+      if (newcomponent == undefined) {
+        addInfoPopup(
+          "Error",
+          `Could not find component ${componentName}`,
+          popupTypes.ERROR
+        );
         continue;
       }
-      //Otherwise just make new components
-      let componentObj = getComponentByName(componentName);
-      //Set all the components values
-      Object.assign(componentObj, component);
-      componentObj.parentObject = gameObject;
-      componentObj.initValues();
-      //add the component to the object
-      gameObject.addComponent(componentObj);
-    }
-    if (object.parentObjectId == "none") {
-      addObject(gameObject, object.parentObjectId);
-    } else
-      objectsToAdd.push({ obj: gameObject, parent: object.parentObjectId });
-  }
-  objectsToAdd = objectsToAdd.reverse();
-  let ticker = 0;
-  while (objectsToAdd.length > 0) {
-    if (
-      addObject(
-        objectsToAdd[ticker % objectsToAdd.length].obj,
-        objectsToAdd[ticker % objectsToAdd.length].parent
-      )
-    ) {
-      //console.log(objectsToAdd[ticker % objectsToAdd.length].parent);
-      objectsToAdd.splice(ticker % objectsToAdd.length, 1);
-    } else {
-    }
-    //console.log(getObject("root"));
 
-    ticker++;
-  }
+      //set the newcomponents properties
+      newcomponent.properties = componentProperties;
+      //add the new component to the game object
+      newGameObject.addComponent(newcomponent, componentProperties);
+    }
 
-  //    addObject(gameObject, object.parentObjectId);
+    //add the object
+    addObject(newGameObject, components[0].properties.parentObjectId);
+  }
 }

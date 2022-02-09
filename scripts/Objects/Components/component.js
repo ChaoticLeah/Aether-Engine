@@ -6,7 +6,7 @@ export class Component {
   enabled = true;
   componentId = 0;
   constructor(parentObject, properties, id = componentIdCounter++) {
-    parentObject = parentObject;
+    //this.parentObject = parentObject;
     this.properties = properties;
     this.componentId = id;
   }
@@ -22,5 +22,9 @@ export class Component {
   }
   set setProperties(properties) {
     this.properties = properties;
+  }
+
+  set setParentObject(parentObject) {
+    this.parentObject = parentObject;
   }
 }

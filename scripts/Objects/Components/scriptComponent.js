@@ -9,7 +9,9 @@ export class ScriptComponent extends Component {
   componentName = Component.ScriptComponent;
 
   constructor(parentObject, script) {
-    super(parentObject, { script: script });
+    if (typeof script != "object") script = { script: script };
+
+    super(parentObject, script);
     this.objectPropertyTypes = {
       script: propertyTypes.FILE_INPUT,
     };

@@ -18,7 +18,6 @@ export function runTabs() {
 
   let activeTab = getActiveTabLoopFunction();
   if (!!activeTab) activeTab(tick, getActiveTabMetadata(), getOpenTab());
-  else {
-  }
+
   resetMousePressed();
 }

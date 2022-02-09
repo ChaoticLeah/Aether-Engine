@@ -62,6 +62,36 @@ function removeUnusedFunctions(str) {
   return str;
 }
 
+function removeFunctionsWithIgnoreComment(str) {
+  //scan mutiple lines until you find the stop ignoring comment
+  let lines = str.split("\n");
+  let ignore = false;
+  let finalString = "";
+  lines.forEach((l) => {
+    l = l.trim();
+    if (l.includes("//ignore")) {
+      ignore = true;
+    }
+    if (l.includes("//stopIgnore")) {
+      ignore = false;
+    }
+    if (!ignore) {
+      finalString += l + "\n";
+    }
+  });
+  return finalString;
+}
+
+function replaceRenderCode(str) {
+  //replace the fill with renderer.fill and the rect with renderer.rect
+  str = str.replace(/fill\(/g, "renderer.fill(");
+  str = str.replace(/rect\(/g, "renderer.rect(");
+  str = str.replace(/renderImage\(/g, "renderer.image(");
+  str = str.replace(/setFontSize\(/g, "renderer.setFontSize(");
+  str = str.replace(/textWraped\(/g, "renderer.textWrapped(");
+  return str;
+}
+
 export async function compileCurrentProject() {
   let compiledCode = ``;
 
@@ -94,7 +124,7 @@ export async function compileCurrentProject() {
     }
   }
   //add the compiled assets to the compiled code
-  compiledCode += `let assets = new Map();\n${compiledAssets}\n`;
+  compiledCode += `\n${compiledAssets}\n`;
 
   //Add the objects to the compiled code
   for (let object of objects) {
@@ -104,20 +134,27 @@ export async function compileCurrentProject() {
     let objectEnabled = object.enabled;
     let objectName = object.name;
     let objectComponents = object.components;
-    let objectCreator = `new GameObject({"id": "${objectId}", "parentObjectId": "${parentObjectId}", "enabled": ${objectEnabled}, "name": "${objectName}"})`;
-
+    let coreComponent;
+    let componentCreator = "";
     //loop though the objects components
     for (let component of objectComponents) {
       let componentData = JSON.stringify(component.properties);
-      objectCreator += `.addComponent(new ${component.constructor.name}(${componentData}))`;
+
+      if (component.constructor.name == "CoreObjectComponent") {
+        coreComponent = componentData;
+      } else
+        componentCreator += `.addComponent(new ${component.constructor.name}(null, ${componentData}))`;
     }
+
+    let objectCreator = `new GameObject(${coreComponent})${componentCreator}`;
+
     //add the object to the compiled code
     compiledCode += `objects.set("${objectId}", ${objectCreator});\n`;
   }
 
   //add the assets
-  let baseCodeLib = await readTextFile(
-    "./scripts/Compiler/Dependencies/baseDep.js"
+  let baseCodeLib = removeFunctionsWithIgnoreComment(
+    await readTextFile("./scripts/Compiler/Dependencies/baseDep.js")
   );
 
   //Get those dependencies and put it all together
@@ -132,9 +169,11 @@ export async function compileCurrentProject() {
   //add all the dependencies to the compiled code
   let dependenciesCode = ``;
   for (let dep of dependencies) {
-    dependenciesCode += `\n${removeImports(
-      await readTextFile(`./${dep}`)
-    ).replace(/export /g, "")}`;
+    dependenciesCode += `\n${replaceRenderCode(
+      removeImports(
+        removeFunctionsWithIgnoreComment(await readTextFile(`./${dep}`))
+      ).replace(/export /g, "")
+    )}`;
   }
 
   baseCodeLib = baseCodeLib.replace("//DEPENDENCIES HERE", dependenciesCode);
