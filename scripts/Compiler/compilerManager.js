@@ -124,7 +124,7 @@ export async function compileCurrentProject() {
     }
   }
   //add the compiled assets to the compiled code
-  compiledCode += `let assets = new Map();\n${compiledAssets}\n`;
+  compiledCode += `\n${compiledAssets}\n`;
 
   //Add the objects to the compiled code
   for (let object of objects) {

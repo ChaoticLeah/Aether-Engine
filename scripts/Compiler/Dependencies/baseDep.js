@@ -34,6 +34,11 @@ function getCanvasSize() {
   return { w: w, h: h };
 }
 
+let assets = new Map();
+function getFile(path) {
+  return assets.get(path);
+}
+
 //DEPENDENCIES HERE
 
 //let objects = new Map();

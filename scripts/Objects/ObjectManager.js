@@ -65,7 +65,18 @@ export function addEmptyObject(parentObject) {
 }
 
 export function addObjectMetadata(parentObject) {
-  addObject(new GameObject(0, 0, 10, 10), parentObject);
+  addObject(
+    new GameObject({
+      x: 0,
+      y: 0,
+      w: 10,
+      h: 10,
+      name: "Object",
+      enabled: true,
+      parentObjectId: "root",
+    }),
+    parentObject
+  );
 }
 
 export function convertToScreenCoords(x, y, w, h) {
