@@ -1,4 +1,4 @@
-import { setDir } from "../../AssetPanel/fileManager.js";
+import { reloadDirectory, setDir } from "../../AssetPanel/fileManager.js";
 import { calcSize } from "../../Canvas/canvasSizer.js";
 import {
   globalOffsetX,
@@ -129,6 +129,7 @@ export let gameVisualEditor = {
     document.getElementById("GameEditorPanel").style.display = "inline";
     setTimeout(() => {
       calcSize();
+      reloadDirectory();
     }, 10);
   },
   onLeave: (tabId, tabName, extraData) => {
