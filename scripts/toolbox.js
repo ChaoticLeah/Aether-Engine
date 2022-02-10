@@ -1327,7 +1327,6 @@ export class DragRect {
     }
 
     if (this.locked) {
-      console.log(game.canvas.offsetLeft);
       this.x = mouseX - this.offsetX;
       this.y = mouseY - this.offsetY;
       this.callback(this.x, this.y, this);
