@@ -103,19 +103,37 @@ export async function compileCurrentProject() {
   //Add the assets to the compiled code
   for (let assetName of assetNames) {
     if (assetsJSON[assetName].type == "text/javascript") {
+      let scriptName = assetsJSON[assetName].file.directory
+        .replace(/\//g, "_")
+        .replace(/\./, "_");
       //add the scripts to the compiled code
       let finalScript =
-        `class ${assetsJSON[assetName].file.directory
-          .replace(/\//g, "_")
-          .replace(/\./, "_")} { type = "script";` +
+        `class ${scriptName} { 
+        constructor() {}
+          hasInited = false;
+          type = "script";` +
         removeComments(
           removeOutterLetsAndVars(assetsJSON[assetName].rawData)
         ).replace(/function /g, "") +
-        `run(parent){${
-          assetsJSON[assetName].file.rawData.includes("function update")
-            ? "this.update(parent);}"
-            : ""
-        } }\n`;
+        `display(parent){
+
+          ${
+            assetsJSON[assetName].file.rawData.includes("function onStart")
+              ? `          if(!this.hasInited){
+                this.onStart(parent);
+                this.hasInited = true;
+              }`
+              : ""
+          } 
+
+
+          ${
+            assetsJSON[assetName].file.rawData.includes("function update")
+              ? "this.update(parent);}"
+              : "}"
+          } 
+      
+      }\n`;
 
       compiledAssets += finalScript;
     } else {
@@ -142,6 +160,12 @@ export async function compileCurrentProject() {
 
       if (component.constructor.name == "CoreObjectComponent") {
         coreComponent = componentData;
+      } else if (component.constructor.name == "ScriptComponent") {
+        let script = component.properties.script;
+        let scriptName = script.replace(/\//g, "_").replace(/\./, "_");
+
+        console.log(scriptName);
+        componentCreator += `.addComponent(new ${scriptName}())`;
       } else
         componentCreator += `.addComponent(new ${component.constructor.name}(null, ${componentData}))`;
     }

@@ -32,9 +32,9 @@ export class GameObject {
     for (let i = 0; i < this.components.length; i++) {
       let component = this.components[i];
       if (!inEditor) {
-        component.update();
+        component.update(this);
       }
-      component.display();
+      component.display(this);
     }
   }
 
