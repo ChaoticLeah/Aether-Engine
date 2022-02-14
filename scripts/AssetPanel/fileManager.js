@@ -1,4 +1,5 @@
 import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
+import { loadWorld, readTextFile } from "../toolbox.js";
 import { Directory } from "./directory.js";
 import { File } from "./file.js";
 
@@ -11,6 +12,11 @@ let directories = new Map();
 export let currentDir = "";
 
 let currentDraggingFile = "";
+
+let defaultFile;
+(async () => {
+  defaultFile = await readTextFile(`scripts/AssetPanel/defaultFile.txt`);
+})();
 
 addDirectory("");
 addDirectory("/assets");
@@ -67,6 +73,12 @@ export function removeAllDirectories() {
 export function addFile(fileData, fileName, type, filePath = currentDir) {
   let path = filePath + "/" + fileName;
   directories.get(filePath).addChildFile(path);
+
+  if (type == File.TYPE.SCRIPT) {
+    //init the file data
+    fileData = fileData == "" ? defaultFile : fileData;
+  }
+
   //Its ok to use new File() here, deprication was only added to make people use this instead of new File()
   files.set(path, new File(path, type, fileData));
 }
