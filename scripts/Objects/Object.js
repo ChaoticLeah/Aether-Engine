@@ -8,6 +8,10 @@ export let inEditor = true;
 export let globalOffsetX = 0;
 export let globalOffsetY = 0;
 
+function calcMovementPer60Frames(speed) {
+  return (60 / (fps | 60)) * speed;
+}
+
 export class GameObject {
   components = [];
   constructor(properties) {
@@ -32,9 +36,9 @@ export class GameObject {
     for (let i = 0; i < this.components.length; i++) {
       let component = this.components[i];
       if (!inEditor) {
-        component.update();
+        component.update(this);
       }
-      component.display();
+      component.display(this);
     }
   }
 
@@ -131,6 +135,28 @@ export class GameObject {
 
   getProperties() {
     return this.components[0].properties;
+  }
+
+  //incrementers
+  incrementX(x) {
+    this.setX(
+      Number(this.components[0].properties.x) + calcMovementPer60Frames(x)
+    );
+  }
+  incrementY(y) {
+    this.setY(
+      Number(this.components[0].properties.y) + calcMovementPer60Frames(y)
+    );
+  }
+  incrementW(w) {
+    this.setW(
+      Number(this.components[0].properties.w) + calcMovementPer60Frames(w)
+    );
+  }
+  incrementH(h) {
+    this.setH(
+      Number(this.components[0].properties.h) + calcMovementPer60Frames(h)
+    );
   }
 }
 

@@ -7,7 +7,6 @@ import { Component } from "./component.js";
 
 export class ScriptComponent extends Component {
   componentName = Component.ScriptComponent;
-
   constructor(parentObject, script) {
     if (typeof script != "object") script = { script: script };
 
@@ -37,10 +36,4 @@ export class ScriptComponent extends Component {
       return;
     }
   }
-
-  //This one is ran in the editor
-  display() {}
-
-  //This one isnt ran in the editor
-  update() {}
 }

@@ -56,6 +56,7 @@ function loop() {
   var delta = (Date.now() - lastRender) / 1000;
   lastRender = Date.now();
   fps = Math.round(1 / delta);
+  game.clear();
 
   //get the root game object
   let root = objects.get("root");
