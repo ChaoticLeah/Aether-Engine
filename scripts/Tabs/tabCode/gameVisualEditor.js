@@ -43,7 +43,8 @@ let objectDragOffsetY = 0;
 
 let cornerTopLeftDragHandle = new DragRect("red", (x, y, parent) => {
   //set the selected objects x
-  let gameCoords = convertToGameCoords(x, y);
+  let gameCoords = convertToGameCoords(x - globalOffsetX, y - globalOffsetY);
+
   getObject(selectedObject).setX(gameCoords.x);
   getObject(selectedObject).setY(gameCoords.y);
   reloadObjectSelection();
