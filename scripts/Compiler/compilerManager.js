@@ -192,24 +192,40 @@ export async function compileCurrentProject() {
 
   //add all the dependencies to the compiled code
   let dependenciesCode = ``;
+  let addToUpdateQueue = ``;
   for (let dep of dependencies) {
+    let depCode = await readTextFile(`./${dep}`);
+
+    //read the top of the file to see if it has a comment
+    let top = depCode.split("\n")[0];
+    let comment = top.includes("/**");
+    if (comment) {
+      //TODO add a more permanent solution for this
+      //get the second line
+      let updateDep = depCode.split("\n")[1].split("- ")[1];
+      addToUpdateQueue += updateDep;
+    }
+
     dependenciesCode += `\n${replaceRenderCode(
-      removeImports(
-        removeFunctionsWithIgnoreComment(await readTextFile(`./${dep}`))
-      ).replace(/export /g, "")
+      removeImports(removeFunctionsWithIgnoreComment(depCode)).replace(
+        /export /g,
+        ""
+      )
     )}`;
   }
 
   baseCodeLib = baseCodeLib.replace("//DEPENDENCIES HERE", dependenciesCode);
-  console.log(dependencies);
 
   baseCodeLib = baseCodeLib.replace("//INITIALIZATION HERE", compiledCode);
-  //baseCode = baseCode.replace("//LOOP HERE", "loop();");
+
+  //baseCodeLib = baseCodeLib.replace("//LOOP HERE", addToUpdateQueue);
 
   let templateHTMLFile = await readTextFile(
     "./scripts/Compiler/Dependencies/baseDep.html"
   );
+
   templateHTMLFile = templateHTMLFile.replace("//CODE HERE", baseCodeLib);
+  //baseCode = baseCode.replace("//LOOP HERE", "loop();");
 
   //add credit comment
   templateHTMLFile += `\n<!-- Created with the Aether Engine -->`;

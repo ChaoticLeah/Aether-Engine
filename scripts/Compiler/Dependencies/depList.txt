@@ -13,3 +13,5 @@ scripts/Objects/Components/textComponent.js
 scripts/Objects/Components/imageComponent.js
 //needed
 scripts/Objects/ObjectManager.js
+//extra
+scripts/Compiler/Dependencies/gamepad.js

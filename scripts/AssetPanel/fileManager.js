@@ -24,6 +24,7 @@ addDirectory("/scripts");
 
 document.getElementById("createNewFile").addEventListener("click", () => {
   let name = prompt("Please name your script. Dont use any special characters");
+  if (!name) return;
   //Dont allow fancy characters in the name
   if (name.match(/[^a-zA-Z0-9_-]/g)) {
     addInfoPopup("Error", "Dont use any special characters", popupTypes.ERROR);
@@ -95,6 +96,14 @@ export function addDirectory(fullDir) {
   if (fullDir != "") directories.get(parentDir).addChildDirectory(fullDir);
   directories.set(fullDir, dir);
 }
+
+function postHTTPSrequest(url, data) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.send(JSON.stringify(data));
+}
+
 /**
  * @description - Reload the currend directory to show any new files/folders
  */

@@ -1,3 +1,5 @@
+let updaters = [];
+
 class File {
   /**
    *
@@ -68,6 +70,9 @@ function loop() {
   lastRender = Date.now();
   frame++;
 
+  updaters.forEach((updater) => {
+    updater();
+  });
   //LOOP HERE
 }
 
