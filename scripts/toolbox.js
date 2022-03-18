@@ -1354,11 +1354,15 @@ export class DragRect {
           this.initialMouseY - mouseY,
         ];
 
-        //only drag in the axis that is most distant from the mouse
+        fill("yellow");
+
+        //only drag in the axis that is most distant from the mouse (Snap to axis)
         if (Math.abs(dragDist[0]) > Math.abs(dragDist[1])) {
           this.y = this.initialY;
+          rect(this.initialX + w / 2 - w * 2, this.initialY + h / 2, w * 4, 2);
         } else {
           this.x = this.initialX;
+          rect(this.initialX + w / 2, this.initialY + h / 2 - w * 2, 2, h * 4);
         }
       }
 
