@@ -111,8 +111,8 @@ export let game = {
 
     //warn the user before the window is closed
     window.addEventListener("beforeunload", function (e) {
-      e.preventDefault();
-      e.returnValue = "";
+      //e.preventDefault();
+      //e.returnValue = "";
     });
 
     //this.interval = setInterval(updateGameArea, Math.round(1000 / 60));
@@ -197,10 +197,6 @@ export function scrollImageBackground(img, individualImageSize) {
       );
     }
   }
-}
-
-export function disolveImage(img) {
-  console.log(img);
 }
 
 let resets = 0;
@@ -1298,6 +1294,11 @@ export class DragRect {
   offsetX = 0;
   offsetY = 0;
 
+  initialX = 0;
+  initialY = 0;
+  initialMouseX = 0;
+  initialMouseY = 0;
+
   color;
   callback;
   locked;
@@ -1310,7 +1311,6 @@ export class DragRect {
   run(x, y, w, h) {
     fill(this.color);
     rect(x, y, w, h);
-
     if (mouseDown) {
       if (
         inArea(
@@ -1322,20 +1322,46 @@ export class DragRect {
           h
         )
       ) {
-        if (!this.locked) {
-          this.offsetX = mouseX - x;
-          this.offsetY = mouseY - y;
-        }
         this.locked = true;
       }
     } else {
       this.locked = false;
+
+      this.offsetX = mouseX - x;
+      this.offsetY = mouseY - y;
+      this.initialX = x;
+      this.initialY = y;
+      this.initialMouseX = mouseX;
+      this.initialMouseY = mouseY;
     }
 
     if (this.locked) {
-      console.log(game.canvas.offsetLeft);
+      //console.log(this.offsetX - mouseX, this.offsetY - mouseY);
       this.x = mouseX - this.offsetX;
       this.y = mouseY - this.offsetY;
+
+      //check if cntrl is pressed
+      if (keys[67]) {
+        //draw the lines along the x and y axis
+        fill("white");
+
+        //lines
+        rect(this.initialX + w / 2 - w * 2, this.initialY + h / 2, w * 4, 2);
+        rect(this.initialX + w / 2, this.initialY + h / 2 - w * 2, 2, h * 4);
+
+        let dragDist = [
+          this.initialMouseX - mouseX,
+          this.initialMouseY - mouseY,
+        ];
+
+        //only drag in the axis that is most distant from the mouse
+        if (Math.abs(dragDist[0]) > Math.abs(dragDist[1])) {
+          this.y = this.initialY;
+        } else {
+          this.x = this.initialX;
+        }
+      }
+
       this.callback(this.x, this.y, this);
     }
   }
