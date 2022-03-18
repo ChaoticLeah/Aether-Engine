@@ -54,7 +54,6 @@ let cornerTopLeftDragHandle = new DragRect("red", (x, y, parent) => {
   //parent.x = 0;
   //parent.y = 0;
 });
-
 export let gameVisualEditor = {
   init: () => {},
   loop: (tick) => {

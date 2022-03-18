@@ -24,7 +24,10 @@ import {
 } from "./scripts/toolbox.js";
 import {} from "./scripts/flatted.min.js";
 import { compileCurrentProject } from "./scripts/Compiler/compilerManager.js";
-import { loadProject } from "./scripts/SaveProject/saveManager.js";
+import {
+  initSaveManager,
+  loadProject,
+} from "./scripts/SaveProject/saveManager.js";
 
 game.start();
 
@@ -35,6 +38,7 @@ initRightClickMenuManager();
 initCanvasSizer();
 initAssetManager();
 setupSaveButtonHandlers();
+initSaveManager();
 
 document.getElementById("AddObject").addEventListener("click", () => {
   addEmptyObject(selectedObject);

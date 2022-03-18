@@ -19,7 +19,22 @@ import { download } from "../toolbox.js";
 import { createUI } from "./loadProjectUI.js";
 
 let saveName = "";
-export function saveProject(overideName, downloadFile = false) {
+initSaveManager();
+export function initSaveManager() {
+  //when cntrl + s is pressed
+  document.addEventListener("keydown", (e) => {
+    e.preventDefault();
+    if (e.ctrlKey && e.key == "s") {
+      if (saveName == "") {
+        saveProject();
+      } else {
+        saveProject(saveName);
+      }
+    }
+  });
+}
+
+export function saveProject(overideName, options = { downloadFile: false }) {
   //return;
   //If its already been saved, use that name
   if (overideName == undefined && saveName == "")
@@ -38,7 +53,7 @@ export function saveProject(overideName, downloadFile = false) {
   });
   console.log(str);
 
-  if (downloadFile) {
+  if (options.downloadFile) {
     download(str, `${name}.aether`, "AEFile");
   }
   //Get access to storage

@@ -5,6 +5,7 @@ import { openTabMetadata } from "../tabManager.js";
 
 let change = false;
 let saveFile = false;
+
 export let jsCodeEditor = {
   init: () => {
     document
@@ -13,12 +14,6 @@ export let jsCodeEditor = {
         //console.log(cMirror.getValue());
         change = true;
       });
-    document.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.key == "s") {
-        e.preventDefault();
-        saveFile = true;
-      }
-    });
 
     document.getElementById("addComponent").addEventListener("click", () => {
       if (selectedObject == undefined)
@@ -32,10 +27,6 @@ export let jsCodeEditor = {
   },
   loop: (tick, extraData, tab) => {
     if (change) {
-      tab.showDot();
-      change = false;
-    }
-    if (saveFile) {
       //Put the data into the tab element
       tab.setPartOfData("data", getCode());
 
@@ -43,6 +34,8 @@ export let jsCodeEditor = {
       setFileData(extraData.dir, getCode());
       tab.hideDot();
       saveFile = false;
+      //tab.showDot();
+      change = false;
     }
   },
   onChange: (tabId, tabName, extraData) => {

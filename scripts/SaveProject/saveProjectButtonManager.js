@@ -47,7 +47,7 @@ export function setupSaveButtonHandlers() {
 
   downloadButtons.forEach((e) => {
     e.addEventListener("click", (evnt) => {
-      saveProject("project", true);
+      saveProject("project", { downloadFile: true });
     });
   });
 

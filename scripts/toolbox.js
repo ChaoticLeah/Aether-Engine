@@ -109,6 +109,12 @@ export let game = {
       reCalculateSize(width, height);
     });
 
+    //warn the user before the window is closed
+    window.addEventListener("beforeunload", function (e) {
+      e.preventDefault();
+      e.returnValue = "";
+    });
+
     //this.interval = setInterval(updateGameArea, Math.round(1000 / 60));
 
     width = window.innerWidth;
