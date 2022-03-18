@@ -93,7 +93,8 @@ export function createUI() {
 
     loadSave.addEventListener("click", (e) => {
       loadProject(
-        Flatted.parse(localStorage.getItem(e.target.getAttribute("loadName")))
+        Flatted.parse(localStorage.getItem(e.target.getAttribute("loadName"))),
+        { name: saveName }
       );
       document.body.removeChild(ui);
     });

@@ -85,7 +85,9 @@ export function saveProject(overideName, options = { downloadFile: false }) {
       });
 }
 
-export async function loadProject(data = undefined) {
+export async function loadProject(data = undefined, options) {
+  if (options == undefined) options = {};
+  if (options.name != undefined) saveName = options.name;
   if (data == undefined) {
     createUI();
     return;
@@ -96,7 +98,7 @@ export async function loadProject(data = undefined) {
   let directorys = data.directorys.sort(function (a, b) {
     return (a.match(/\//g) || []).length - (b.match(/\//g) || []).length;
   });
-  console.log(directorys);
+
   for await (const directory of directorys) {
     addDirectory(directory);
   }
