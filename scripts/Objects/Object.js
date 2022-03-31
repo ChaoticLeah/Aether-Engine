@@ -71,6 +71,13 @@ export class GameObject {
     reloadObjectSelection();
   }
 
+  getComponent(componentName) {
+    for (let i = 0; i < array.length; i++) {
+      const component = this.components[i];
+      if (component.componentName == componentName) return component;
+    }
+  }
+
   getX() {
     return (
       convertToScreenCoords(Number(this.components[0].properties.x), 0).x +
