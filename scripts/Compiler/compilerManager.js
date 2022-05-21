@@ -139,7 +139,7 @@ export async function compileCurrentProject() {
       compiledAssets += finalScript;
     } else {
       //add all the other assets to the compiled code
-      compiledAssets += `  assets.set("${assetsJSON[assetName].file.directory}", new ${assetsJSON[assetName].file.constructor.name}("${assetsJSON[assetName].file.rawData}"));  `;
+      compiledAssets += `  setAsset("${assetsJSON[assetName].file.directory}", new ${assetsJSON[assetName].file.constructor.name}("${assetsJSON[assetName].file.rawData}"));  `;
     }
   }
   //add the compiled assets to the compiled code

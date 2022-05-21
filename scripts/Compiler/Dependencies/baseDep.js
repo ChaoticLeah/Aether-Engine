@@ -14,8 +14,29 @@ class File {
       this.data = new Image();
       this.data.src = rawData;
     } else {
-      this.data = rawData;
+      if (rawData.includes("base64")) {
+        //Probably a font
+      } else this.data = rawData;
     }
+  }
+}
+
+function setAsset(path, data) {
+  assets.set(path, data);
+
+  //If its a font load it
+  if (path.endsWith(".ttf")) {
+    data.data = new FontFace(
+      path.replace(/ /g, "-").replace(/\//g, "-").replace(/\./, "-"),
+      `url(${data.rawData})`
+    );
+
+    data.data.load().then(() => {
+      // add font to document
+      document.fonts.add(data.data);
+      // enable font with CSS class
+      document.body.classList.add("fonts-loaded");
+    });
   }
 }
 
