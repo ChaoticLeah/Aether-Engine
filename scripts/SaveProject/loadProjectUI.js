@@ -1,5 +1,11 @@
 import { readFile } from "../AssetPanel/FileUpload/uploadSaver.js";
 import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
+import {
+  closeTab,
+  getOpenTab,
+  getOpenTabId,
+  setActiveTab,
+} from "../Tabs/tabManager.js";
 import { UploadFile } from "../toolbox.js";
 import { loadProject } from "./saveManager.js";
 
@@ -95,6 +101,12 @@ export function createUI() {
       loadProject(
         Flatted.parse(localStorage.getItem(e.target.getAttribute("loadName")))
       );
+      console.log("Loaded project");
+      //close the welcome tab and switch to the project tab
+      getOpenTab().close();
+      setActiveTab("EditorId");
+
+      setActiveTab(getOpenTabId());
       document.body.removeChild(ui);
     });
   });

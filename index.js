@@ -14,7 +14,11 @@ import {
 } from "./scripts/Popups/popupManager.js";
 import { initRightClickMenuManager } from "./scripts/RightClickMenu/rightClickMenuManager.js";
 import { setupSaveButtonHandlers } from "./scripts/SaveProject/saveProjectButtonManager.js";
-import { init as initTabManager } from "./scripts/Tabs/tabManager.js";
+import {
+  getOpenTab,
+  init as initTabManager,
+  setActiveTab,
+} from "./scripts/Tabs/tabManager.js";
 import { runTabs } from "./scripts/Tabs/tabRunner.js";
 import {
   download,
@@ -57,6 +61,12 @@ document.getElementById("more").addEventListener("click", () => {
 //     })[0]
 //     .click();
 // };
+
+document.getElementById("newProject").addEventListener("click", () => {
+  //close the welcome tab and switch to the project tab
+  getOpenTab().close();
+  setActiveTab("EditorId");
+});
 
 document.getElementById("play").addEventListener("click", async () => {
   //launch a new window and inject the game
