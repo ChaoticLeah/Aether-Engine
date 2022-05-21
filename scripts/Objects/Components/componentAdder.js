@@ -1,18 +1,15 @@
+//ignore
 import { getObject } from "../ObjectManager.js";
 import { Component } from "./component.js";
 import { ImageComponent } from "./imageComponent.js";
 import { RectangleComponent } from "./rectangleComponent.js";
 import { ScriptComponent } from "./scriptComponent.js";
 import { TextComponent } from "./textComponent.js";
+//stopignore
 
 let components = new Map();
 init();
 function init() {
-  Component.RectangleComponent = "Rectangle Component";
-  Component.ImageComponent = "Image Component";
-  Component.TextComponent = "Text Component";
-  Component.ScriptComponent = "Script Component";
-
   components.set(Component.RectangleComponent, new RectangleComponent());
   components.set(Component.ImageComponent, new ImageComponent());
   components.set(Component.TextComponent, new TextComponent());

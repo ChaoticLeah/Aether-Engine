@@ -28,3 +28,8 @@ export class Component {
     this.parentObject = parentObject;
   }
 }
+
+Component.RectangleComponent = "Rectangle Component";
+Component.ImageComponent = "Image Component";
+Component.TextComponent = "Text Component";
+Component.ScriptComponent = "Script Component";

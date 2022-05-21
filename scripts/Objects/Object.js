@@ -71,11 +71,21 @@ export class GameObject {
     reloadObjectSelection();
   }
 
-  getComponent(componentName) {
-    for (let i = 0; i < array.length; i++) {
-      const component = this.components[i];
+  getFirstComponent(componentName) {
+    for (let i = 0; i < this.components.length; i++) {
+      let component = this.components[i];
       if (component.componentName == componentName) return component;
     }
+  }
+
+  getComponent(componentName) {
+    let componentsToReturn = [];
+    for (let i = 0; i < this.components.length; i++) {
+      let component = this.components[i];
+      if (component.componentName == componentName)
+        componentsToReturn.push(component);
+    }
+    return componentsToReturn;
   }
 
   getX() {

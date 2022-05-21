@@ -6,7 +6,7 @@ import { fill, rect, renderImage } from "../../toolbox.js";
 import { Component } from "./component.js";
 
 export class ScriptComponent extends Component {
-  componentName = Component.ScriptComponent;
+  componentName = Component.ScriptComponent || "Script Component";
   constructor(parentObject, script) {
     if (typeof script != "object") script = { script: script };
 

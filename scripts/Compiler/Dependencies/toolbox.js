@@ -12,6 +12,79 @@ let mouse = {
 
 let keyboard = {
   keys: new Array(255),
+  KEY: {
+    SPACE: 32,
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+    A: 65,
+    B: 66,
+    C: 67,
+    D: 68,
+    E: 69,
+    F: 70,
+    G: 71,
+    H: 72,
+    I: 73,
+    J: 74,
+    K: 75,
+    L: 76,
+    M: 77,
+    N: 78,
+    O: 79,
+    P: 80,
+    Q: 81,
+    R: 82,
+    S: 83,
+    T: 84,
+    U: 85,
+    V: 86,
+    W: 87,
+    X: 88,
+    Y: 89,
+    Z: 90,
+    SHIFT: 16,
+    CTRL: 17,
+    ALT: 18,
+    ESC: 27,
+    TAB: 9,
+    ENTER: 13,
+    BACKSPACE: 8,
+    DELETE: 46,
+    F1: 112,
+    F2: 113,
+    F3: 114,
+    F4: 115,
+    F5: 116,
+    F6: 117,
+    F7: 118,
+    F8: 119,
+    F9: 120,
+    F10: 121,
+    F11: 122,
+    F12: 123,
+    NUM0: 48,
+    NUM1: 49,
+    NUM2: 50,
+    NUM3: 51,
+    NUM4: 52,
+    NUM5: 53,
+    NUM6: 54,
+    NUM7: 55,
+    NUM8: 56,
+    NUM9: 57,
+    NUMPAD0: 96,
+    NUMPAD1: 97,
+    NUMPAD2: 98,
+    NUMPAD3: 99,
+    NUMPAD4: 100,
+    NUMPAD5: 101,
+    NUMPAD6: 102,
+    NUMPAD7: 103,
+    NUMPAD8: 104,
+    NUMPAD9: 105,
+  },
   currentlyPressed: false,
   keyPressed: -1,
   keyReleased: -1,
@@ -78,13 +151,13 @@ window.addEventListener("wheel", function (e) {
 
 window.addEventListener("keydown", function (e) {
   let keyCode = getCode(e.key);
-  keyboard.keys[keyCode] = true;
+  keyboard.keys[getCode(e.key.toUpperCase())] = true;
   keyboard.keyPressed = keyCode;
 });
 
 window.addEventListener("keyup", function (e) {
   let keyCode = getCode(e.key);
-  keyboard.keys[keyCode] = false;
+  keyboard.keys[getCode(e.key.toUpperCase())] = false;
   keyboard.keyReleased = keyCode;
 });
 

@@ -108,7 +108,8 @@ export async function compileCurrentProject() {
         .replace(/\./, "_");
       //add the scripts to the compiled code
       let finalScript =
-        `class ${scriptName} { 
+        `class ${scriptName} {
+          componentName = Component.ScriptComponent 
         constructor() {}
           hasInited = false;
           type = "script";` +

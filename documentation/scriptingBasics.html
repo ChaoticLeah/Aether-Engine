@@ -90,9 +90,9 @@
         You can get components of an object with the
         <codeSnippet>getComponent(str)</codeSnippet> method. This will return an
         array of components relevant to the type you asked for.
-        <codeSnippet>parent.getComponent("Script")</codeSnippet> would return an
-        array of all the scripts on the parent object. If you want to get all
-        the components you can just use
+        <codeSnippet>parent.getComponent("Script Component")</codeSnippet> would
+        return an array of all the scripts on the parent object. If you want to
+        get all the components you can just use
         <codeSnippet>parent.components</codeSnippet>, this is an array of all
         the object's components. An example of this can be seen below:
       </p>
@@ -105,15 +105,41 @@
         </h3>
         <div class="codeField" script="basics/getComponents.js"></div>
       </div>
+
+      <p class="desc">
+        you can also get the first component with
+        <codeSnippet>getFirstComponent(str)</codeSnippet>. This either returns
+        the component or undefined if there is no component of that type.
+      </p>
+
+      <h2>Fun Little Project With all the stuff we learned:</h2>
+      <div id="scriptHolder">
+        <h3>
+          script.js
+          <button class="copyCode" script="basics/rainbowCube.js">Copy</button>
+        </h3>
+        <div class="codeField" script="basics/rainbowCube.js"></div>
+        <div>
+          <h3 class="desc">If all went well it should look like this:</h3>
+          <iframe
+            src="./codeSnippets/basics/rainbowCube.html"
+            width="100%"
+            height="500"
+            frameborder="0"
+            title="rainbowCube"
+          ></iframe>
+        </div>
+      </div>
+
       <h2>A list of all the names of objects:</h2>
 
       <p class="desc">
         <codeSnippet>parent.getComponent("Rectangle Component")</codeSnippet> -
         This returns all the Rectangle Components.<br />
-        <codeSnippet>parent.getComponent("Script")</codeSnippet> - This returns
-        all the Script Components.<br />
-        <codeSnippet>parent.getComponent("Textured Component")</codeSnippet> -
-        This returns all the Texture Components.<br />
+        <codeSnippet>parent.getComponent("Script Component")</codeSnippet> -
+        This returns all the Script Components.<br />
+        <codeSnippet>parent.getComponent("Image Component")</codeSnippet> - This
+        returns all the Image Components.<br />
       </p>
     </div>
   </body>
