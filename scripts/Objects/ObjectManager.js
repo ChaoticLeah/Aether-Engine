@@ -10,6 +10,15 @@ export function getObject(id) {
   return objects.get(id);
 }
 
+function getObjectByName(name) {
+  for (let object of objects.values()) {
+    if (object.components[0].properties.name == name) {
+      return object;
+    }
+  }
+  return undefined;
+}
+
 export function getObjects() {
   return objects;
 }
