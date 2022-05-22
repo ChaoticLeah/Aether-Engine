@@ -3,26 +3,51 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Documentation - Aether Engine</title>
+    <title>Docs - Aether Engine</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap"
       rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="indexStyle.css"
     />
-    <script src="main.js"></script>
-    <script>
-      fetch("sidebar.html")
-        .then((req) => req.text())
-        .then((html) => (document.getElementById("sidebar").innerHTML = html));
-    </script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../styles/engine/main.css"
+    />
   </head>
   <body>
-    <div id="sidebar"></div>
-
-    <div id="PageContent">
-      <h1>Documentation</h1>
+    <div id="welcomeScreenBackground">
+      <div id="topSlice">
+        <div>
+          <h1 class="orangeText" id="welcomeTitle">Aether Engine Docs</h1>
+          <p id="motto">Web-game development for the web, in the web</p>
+        </div>
+        <div>
+          <input type="text" id="searchBar" placeholder="Search..." />
+        </div>
+      </div>
+      <div id="categories">
+        <div class="category" link="">
+          <img src="../EngineAssets/Logo.svg" alt="Game" />
+          <h1>Engine Help</h1>
+        </div>
+        <div class="category" link="./code/index.html">
+          <img src="../EngineAssets/Logo.svg" alt="Game" />
+          <h1>Scripting Help</h1>
+        </div>
+      </div>
     </div>
   </body>
+  <script>
+    //loop though all the categories and add the click event to redirect to the correct page
+    var categories = document.getElementsByClassName("category");
+    for (var i = 0; i < categories.length; i++) {
+      categories[i].addEventListener("click", function () {
+        window.location.href = this.getAttribute("link");
+      });
+    }
+  </script>
 </html>
