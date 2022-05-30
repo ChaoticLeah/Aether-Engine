@@ -24,4 +24,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  //every sub element should filter to green
+  > {
+    color: var(--text);
+  }
 }

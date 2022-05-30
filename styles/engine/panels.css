@@ -33,6 +33,22 @@
   overflow: hidden;
 }
 
+.dragover > #uploadSign {
+  display: inline-block !important;
+  z-index: 10000;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: 5px dashed white;
+}
+
+#uploadSign {
+  -webkit-transition: .6s ease;
+  transition: .6s ease;
+  border: 5px dashed transparent;
+}
+
 #bottomPanel {
   background-color: var(--background-panel);
   position: absolute;
@@ -63,6 +79,10 @@
 #bottomPanel #bottomPanelBar * {
   padding: 3px;
   cursor: pointer;
+}
+
+#bottomPanel > #uploadSign {
+  display: none;
 }
 
 #rightPanel {

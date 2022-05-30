@@ -40,20 +40,27 @@ let dragoffsetYSave = 0;
 
 let objectDragOffsetX = 0;
 let objectDragOffsetY = 0;
+//get a css variable
+function getCssVariable(variable) {
+  return getComputedStyle(document.documentElement).getPropertyValue(variable);
+}
 
-let cornerTopLeftDragHandle = new DragRect("red", (x, y, parent) => {
-  //set the selected objects x
-  let gameCoords = convertToGameCoords(x - globalOffsetX, y - globalOffsetY);
+let cornerTopLeftDragHandle = new DragRect(
+  getCssVariable("--highlight1"),
+  (x, y, parent) => {
+    //set the selected objects x
+    let gameCoords = convertToGameCoords(x - globalOffsetX, y - globalOffsetY);
 
-  getObject(selectedObject).setX(gameCoords.x);
-  getObject(selectedObject).setY(gameCoords.y);
-  reloadObjectSelection();
-  //set the selected objects y
-  //getObject(selectedObject).setY(y);
+    getObject(selectedObject).setX(gameCoords.x);
+    getObject(selectedObject).setY(gameCoords.y);
+    reloadObjectSelection();
+    //set the selected objects y
+    //getObject(selectedObject).setY(y);
 
-  //parent.x = 0;
-  //parent.y = 0;
-});
+    //parent.x = 0;
+    //parent.y = 0;
+  }
+);
 
 export let gameVisualEditor = {
   init: () => {},
@@ -91,7 +98,7 @@ export let gameVisualEditor = {
     let selectedObj = getObject(selectedObject);
     //Selection outline
     if (selectedObj != undefined) {
-      fill("red");
+      fill(getCssVariable("--highlight1"));
 
       /*rect(
         parseInt(selectedObj.getX()) - outlineWidth,
@@ -101,10 +108,10 @@ export let gameVisualEditor = {
       );*/
 
       rect(
-        parseInt(selectedObj.getX()),
-        parseInt(selectedObj.getY()),
-        parseInt(selectedObj.getW()),
-        parseInt(selectedObj.getH())
+        parseInt(selectedObj.getX() - 4),
+        parseInt(selectedObj.getY() - 4),
+        parseInt(selectedObj.getW() + 8),
+        parseInt(selectedObj.getH() + 8)
       );
 
       //for grabbing and dragging the object

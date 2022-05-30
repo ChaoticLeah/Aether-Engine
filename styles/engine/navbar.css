@@ -33,8 +33,11 @@
   margin: 4px;
   display: inline-block;
   background-color: var(--ui);
+  border-radius: 3px;
   cursor: pointer;
   white-space: nowrap;
+  -webkit-transition: .6s ease;
+  transition: .6s ease;
 }
 
 .navbarTab p {
@@ -45,6 +48,11 @@
 
 .navbarTab .extraText {
   pointer-events: none;
+}
+
+.navbarTab:hover {
+  -webkit-filter: brightness(1.5);
+          filter: brightness(1.5);
 }
 
 .ButtonToggledOn {

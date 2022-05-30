@@ -29,4 +29,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+#assetHolder > {
+  color: var(--text);
+}
 /*# sourceMappingURL=assetHolder.css.map */
