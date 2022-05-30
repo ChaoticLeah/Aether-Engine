@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Documentation - Aether Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <script src="main.js"></script>
+    <script>
+      fetch("sidebar.html")
+        .then((req) => req.text())
+        .then((html) => (document.getElementById("sidebar").innerHTML = html));
+    </script>
+  </head>
+  <body>
+    <div id="sidebar"></div>
+
+    <div id="PageContent">
+      <h1>Documentation</h1>
+    </div>
+  </body>
+</html>

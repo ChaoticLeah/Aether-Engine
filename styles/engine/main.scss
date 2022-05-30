@@ -28,6 +28,12 @@ canvas,
   /* IE                            */
   image-rendering: optimizeSpeed;
 }
+
+.blur{
+    //blur the background with a filter
+    backdrop-filter: blur(10px);
+}
+
 .forumCodeWrapper {
   position: absolute;
   top: 60px;
@@ -63,6 +69,15 @@ canvas,
   --highlight1: #a6b1e1;
   --highlight2: #dcd6f7;
   --text: white;
+  //make transparent versions of the above colors
+  --background-transparent: rgba(8, 15, 15, 0.5);
+  --background-panel-transparent: rgba(25, 28, 28, 0.5);
+  --ui-transparent: rgba(41, 41, 41, 0.5);
+  --warning-highlight-transparent: rgba(235, 90, 71, 0.5);
+  --highlight1-transparent: rgba(166, 177, 225, 0.5);
+  --highlight2-transparent: rgba(220, 214, 247, 0.5);
+  --text-transparent: rgba(255, 255, 255, 0.5);
+
 }
 
 * {
