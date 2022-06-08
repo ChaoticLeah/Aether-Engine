@@ -94,6 +94,10 @@ export function leaveCurrentTab() {
   });
 }
 
+export function switchToDefaultTab() {
+  setActiveTab(defualtTab, openTabs.get(defualtTab).type);
+}
+
 export function isTabActive(id) {
   return activeTab == id;
 }

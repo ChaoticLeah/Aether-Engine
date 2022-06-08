@@ -1,6 +1,6 @@
 import { EditorTab } from "../Tabs/editorTab.js";
 import { getFontAwesomeElem } from "../toolbox.js";
-import { addFileElem } from "./fileManager.js";
+import { addFileElem, getFile } from "./fileManager.js";
 import {
   readFile,
   readFileBase64,
@@ -70,12 +70,13 @@ export class File {
           dir,
           (data) => {
             //Open the file
-            new EditorTab(
-              dir,
-              File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)].editorType,
-              true,
-              { dir: dir, data: data }
-            );
+            // new EditorTab(
+            //   dir,
+            //   File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)].editorType,
+            //   true,
+            //   { dir: dir, data: data }
+            // );
+            openFile(dir);
           },
           getFontAwesomeElem(
             File.FILE_OPEN_EVENT_FUNC[getTypeReverse(this.type)].fontAwesome
@@ -140,3 +141,14 @@ File.FILE_OPEN_EVENT_FUNC = {
     editorType: "JsCodeEditor",
   },
 };
+
+export function openFile(dir) {
+  let file = getFile(dir);
+  //Open the file
+  new EditorTab(
+    dir,
+    File.FILE_OPEN_EVENT_FUNC[getTypeReverse(file.type)].editorType,
+    true,
+    { dir: dir, data: file.rawData }
+  );
+}

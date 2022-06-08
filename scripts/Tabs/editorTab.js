@@ -8,6 +8,7 @@ import {
   isTabActive,
   leaveCurrentTab,
   setActiveTab,
+  switchToDefaultTab,
 } from "./tabManager.js";
 
 let tabIdCounter = 0;
@@ -74,11 +75,17 @@ export class EditorTab {
   }
 
   close() {
+    console.log("Closing tab");
     const tabObj = this.tabObject;
-    $(this.tabObject).effect("explode", { pieces: 10 }, function () {
+
+    $(this.tabObject).effect("fade", {}, 100, function () {
       tabObj.setAttribute("style", "");
       //Animation is over
-      if (isTabActive(tabObj.id)) leaveCurrentTab();
+      //check if the closing tab is the active tab
+      if (isTabActive(tabObj.id)) {
+        leaveCurrentTab();
+        switchToDefaultTab();
+      }
       tabObj.remove();
       closeTab(tabObj.id);
     });

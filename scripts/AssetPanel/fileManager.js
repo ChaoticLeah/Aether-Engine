@@ -33,6 +33,17 @@ document.getElementById("createNewFile").addEventListener("click", () => {
   reloadDirectory();
 });
 
+document.getElementById("createNewFolder").addEventListener("click", () => {
+  let name = prompt("Please name your folder. Dont use any special characters");
+  //Dont allow fancy characters in the name
+  if (name.match(/[^a-zA-Z0-9_-]/g)) {
+    addInfoPopup("Error", "Dont use any special characters", popupTypes.ERROR);
+    return;
+  }
+  addDirectory(currentDir + "/" + name);
+  reloadDirectory();
+});
+
 export function removeFile(filePath) {
   if (getFile(filePath) == undefined) return;
 

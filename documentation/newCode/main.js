@@ -72,7 +72,7 @@ var docs = fetch("docs.json")
     //if the doc is found
     if (doc) {
       //create the html
-      var html = `<h1>${doc.Name}</h1>
+      var html = `<h1 id = "docName">${doc.Name}</h1>
         <p>${doc.description}</p>
         <p>${doc.content}</p>`;
       //insert the html

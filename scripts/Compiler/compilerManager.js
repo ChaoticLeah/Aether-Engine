@@ -30,7 +30,8 @@ function removeOutterLetsAndVars(str) {
   return finalString;
 }
 
-function removeComments(str) {
+function removeComments(str, shouldRemove) {
+  if (!shouldRemove) return str;
   //remove the double slash comments from the code
   str = str.replace(/\/\/.*/g, "");
   //remove the single slash comments from the code
@@ -69,10 +70,31 @@ function removeFunctionsWithIgnoreComment(str) {
   let finalString = "";
   lines.forEach((l) => {
     l = l.trim();
-    if (l.includes("//ignore")) {
+    if (l.includes("//ignore\n")) {
       ignore = true;
     }
-    if (l.includes("//stopIgnore")) {
+    if (l.includes("//stopIgnore\n")) {
+      ignore = false;
+    }
+    if (!ignore) {
+      finalString += l + "\n";
+    }
+  });
+  return finalString;
+}
+
+function removeFunctionsWithProductionIgnoreComment(str, shouldRemove) {
+  //scan mutiple lines until you find the stop ignoring comment
+  let lines = str.split("\n");
+  let ignore = false;
+  let finalString = "";
+
+  lines.forEach((l) => {
+    l = l.trim();
+    if (l.includes("//ignoreForProduction\n")) {
+      if (shouldRemove) ignore = true;
+    }
+    if (l.includes("//stopIgnoreForProduction\n")) {
       ignore = false;
     }
     if (!ignore) {
@@ -92,7 +114,7 @@ function replaceRenderCode(str) {
   return str;
 }
 
-export async function compileCurrentProject() {
+export async function compileCurrentProject(isProduction = true) {
   let compiledCode = ``;
 
   let objects = getObjects();
@@ -105,16 +127,18 @@ export async function compileCurrentProject() {
     if (assetsJSON[assetName].type == "text/javascript") {
       let scriptName = assetsJSON[assetName].file.directory
         .replace(/\//g, "_")
-        .replace(/\./, "_");
+        .replace(/\./, "$");
       //add the scripts to the compiled code
       let finalScript =
         `class ${scriptName} {
           componentName = Component.ScriptComponent 
         constructor() {}
           hasInited = false;
-          type = "script";` +
+          type = "script";
+          ` +
         removeComments(
-          removeOutterLetsAndVars(assetsJSON[assetName].rawData)
+          removeOutterLetsAndVars(assetsJSON[assetName].rawData),
+          isProduction
         ).replace(/function /g, "") +
         `display(parent){
 
@@ -163,7 +187,7 @@ export async function compileCurrentProject() {
         coreComponent = componentData;
       } else if (component.constructor.name == "ScriptComponent") {
         let script = component.properties.script;
-        let scriptName = script.replace(/\//g, "_").replace(/\./, "_");
+        let scriptName = script.replace(/\//g, "_").replace(/\./, "$");
 
         console.log(scriptName);
         componentCreator += `.addComponent(new ${scriptName}())`;
@@ -178,8 +202,11 @@ export async function compileCurrentProject() {
   }
 
   //add the assets
-  let baseCodeLib = removeFunctionsWithIgnoreComment(
-    await readTextFile("./scripts/Compiler/Dependencies/baseDep.js")
+  let baseCodeLib = removeFunctionsWithProductionIgnoreComment(
+    removeFunctionsWithIgnoreComment(
+      await readTextFile("./scripts/Compiler/Dependencies/baseDep.js")
+    ),
+    isProduction
   );
 
   //Get those dependencies and put it all together
@@ -196,7 +223,10 @@ export async function compileCurrentProject() {
   for (let dep of dependencies) {
     dependenciesCode += `\n${replaceRenderCode(
       removeImports(
-        removeFunctionsWithIgnoreComment(await readTextFile(`./${dep}`))
+        removeFunctionsWithProductionIgnoreComment(
+          removeFunctionsWithIgnoreComment(await readTextFile(`./${dep}`)),
+          isProduction
+        )
       ).replace(/export /g, "")
     )}`;
   }

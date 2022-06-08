@@ -1,3 +1,5 @@
+let paused = false;
+
 class File {
   /**
    *
@@ -68,7 +70,6 @@ function getFile(path) {
 //   return objects.get(id);
 // }
 //INITIALIZATION HERE
-
 let frame = 0,
   fps,
   delta,
@@ -81,15 +82,30 @@ function loop() {
 
   //get the root game object
   let root = objects.get("root");
-  root.render();
+
+  try {
+    //IgnoreForProduction
+    if (!paused) {
+      //stopIgnoreForProduction
+
+      root.render();
+      //IgnoreForProduction
+    }
+    //stopIgnoreForProduction
+  } catch (error) {
+    //relay error to the parent window(for debugging in the engine)
+    //ignoreForProduction
+    sendError(error);
+    //stopIgnoreForProduction
+
+    throw error;
+  }
 
   game.resetMousePressed();
   //updateGameController();
   var delta = (Date.now() - lastRender) / 1000;
   lastRender = Date.now();
   frame++;
-
-  //LOOP HERE
 }
 
 game.setLoopFunc(loop);

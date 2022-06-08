@@ -29,6 +29,8 @@ import {
 import {} from "./scripts/flatted.min.js";
 import { compileCurrentProject } from "./scripts/Compiler/compilerManager.js";
 import { loadProject } from "./scripts/SaveProject/saveManager.js";
+import { listenForErrors } from "./scripts/Compiler/errorManager.js";
+import { playTestGame } from "./scripts/Compiler/GameTesterWindowManager.js";
 
 game.start();
 
@@ -67,17 +69,30 @@ document.getElementById("newProject").addEventListener("click", () => {
   getOpenTab().close();
   setActiveTab("EditorId");
 });
-
+let win;
 document.getElementById("play").addEventListener("click", async () => {
-  //launch a new window and inject the game
+  playTestGame();
+  // //launch a new window and inject the game
+  // if (win) win.close();
+  // //console.log(win.closed);
+  // win = window.open("", "", "width=1280,height=720");
+  // let code = await compileCurrentProject(false);
+  // //download(code, "AetherEngineSave-Demo.html");
+  // win.document.open();
+  // win.document.write(code);
+  // win.document.close();
 
-  const win = window.open("", "", "width=1280,height=720");
-  let code = await compileCurrentProject();
-  //download(code, "AetherEngineSave-Demo.html");
-  win.document.open();
-  win.document.write(code);
-  win.document.close();
+  // //make a loop checking that its still open
+  // setInterval(() => {
+  //   if (!win.closed) {
+  //   } else {
+  //     //cancel the interval
+  //     clearInterval(this);
+  //   }
+  // }, 1000);
 });
+
+listenForErrors();
 
 window.onload = async () => {
   let urlParts = window.location.href.split("/")[3].substring(1).split("#");

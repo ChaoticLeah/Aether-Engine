@@ -21,6 +21,9 @@ import {
   fill,
   game,
   inArea,
+  isKeyPressed,
+  keyDown,
+  keyPressed,
   mouseButton,
   mouseDown,
   mousePressed,
@@ -80,6 +83,23 @@ export let gameVisualEditor = {
         setGlobalOffsetX(dragoffsetXSave + (mouseX - pressedMouseStartX));
         setGlobalOffsetY(dragoffsetYSave + (mouseY - pressedMouseStartY));
       }
+    }
+
+    //detect key press
+    if (keyDown) {
+      //console.log(keyPressed);
+
+      //The numpad 0 key OR ` key
+      if (keyPressed == 73 || keyPressed == 96) {
+        // reset the offset to 0,0
+        setGlobalOffsetX(0);
+        setGlobalOffsetY(0);
+      }
+      //if (isKeyPressed("")) {
+      //delete the selected object
+      //objects.delete(selectedObject);
+      //reloadObjectSelection();
+      //}
     }
 
     fill(

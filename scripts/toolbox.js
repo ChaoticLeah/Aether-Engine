@@ -120,6 +120,10 @@ export let game = {
   },
 };
 
+export function isKeyPressed(key) {
+  return keys[getCode(key)];
+}
+
 export function getFontAwesomeElem(elemClasses) {
   let elem = document.createElement("i");
   elem.className = elemClasses;
