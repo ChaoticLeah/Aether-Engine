@@ -72,6 +72,7 @@
   <link rel="stylesheet" href="./styles/engine/componentSelector.css" />
   <link rel="stylesheet" href="./styles/engine/saveLoad.css" />
   <link rel="stylesheet" href="./styles/engine/welcomeScreen.css" />
+  <link rel="stylesheet" href="./styles/engine/consoleHolder.css" />
 
   <head>
     <link rel="shortcut icon" id="Icon" href="./EngineAssets/Logo.svg" />
@@ -251,6 +252,9 @@
         </form>
         <script src="./textEditorSetup.js"></script>
       </article>
+
+      <!--Project Settings-->
+      <div id="projectSettings"></div>
     </div>
     <div id="dropdownMenu" class="hidden">
       <button id="saveProjectMenu" class="saveProject">Save Project</button>
@@ -261,7 +265,12 @@
 
       <button id="exportProject" class="">Export Project (For Playing)</button>
 
-      <button id="button1">Add Library (Coming Soon)</button>
+      <button id="projectSettingsButton">Project Settings</button>
+    </div>
+    <!--Debug Console-->
+
+    <div id="consoleTab">
+      <div id="consoleHolder"></div>
     </div>
 
     <div id="popupHolder"></div>

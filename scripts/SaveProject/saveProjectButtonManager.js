@@ -1,6 +1,7 @@
 import { readFile, uploadFile } from "../AssetPanel/FileUpload/uploadSaver.js";
 import { compileCurrentProject } from "../Compiler/compilerManager.js";
 import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
+import { setupProjectSettingsBindings } from "../settings/projectSettings.js";
 import { download } from "../toolbox.js";
 import { loadProject, saveProject } from "./saveManager.js";
 
@@ -54,7 +55,11 @@ export function setupSaveButtonHandlers() {
   document
     .getElementById("exportProject")
     .addEventListener("click", async () => {
-      let code = await compileCurrentProject();
+      let code = await compileCurrentProject(
+        localStorage.getItem("exportProduction") == "false"
+      );
       download(code, `Test.html`, "HTML FILE");
     });
+
+  setupProjectSettingsBindings();
 }

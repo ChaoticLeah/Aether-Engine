@@ -41,7 +41,6 @@ initRightClickMenuManager();
 initCanvasSizer();
 initAssetManager();
 setupSaveButtonHandlers();
-
 document.getElementById("AddObject").addEventListener("click", () => {
   addEmptyObject(selectedObject);
 });

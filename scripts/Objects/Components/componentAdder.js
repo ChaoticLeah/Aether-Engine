@@ -2,6 +2,7 @@
 import { getObject } from "../ObjectManager.js";
 import { Component } from "./component.js";
 import { ImageComponent } from "./imageComponent.js";
+import { ParticleComponent } from "./particleComponent.js";
 import { RectangleComponent } from "./rectangleComponent.js";
 import { ScriptComponent } from "./scriptComponent.js";
 import { TextComponent } from "./textComponent.js";
@@ -14,6 +15,7 @@ function init() {
   components.set(Component.ImageComponent, new ImageComponent());
   components.set(Component.TextComponent, new TextComponent());
   components.set(Component.ScriptComponent, new ScriptComponent());
+  components.set(Component.ParticleComponent, new ParticleComponent());
 }
 
 export function getComponents() {

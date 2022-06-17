@@ -4,9 +4,11 @@
 
 import { EditorTab } from "./editorTab.js";
 import { addComponent } from "./tabCode/addComponent.js";
+import { consoleTab } from "./tabCode/consoleTab.js";
 import { gameVisualEditor } from "./tabCode/gameVisualEditor.js";
 import { imageViewTab } from "./tabCode/imageViewTab.js";
 import { jsCodeEditor } from "./tabCode/jsCodeEditor.js";
+import { projectSettingsTab } from "./tabCode/projectSettingsEditor.js";
 import { welcomeMessageTab } from "./tabCode/welcomeMessageTab.js";
 import { TabType } from "./tabType.js";
 
@@ -23,6 +25,8 @@ export function init() {
   new TabType("AddComponent").setFile(addComponent).pushType();
   new TabType("welcomeMessageTab").setFile(welcomeMessageTab).pushType();
   new TabType("imageViewTab").setFile(imageViewTab).pushType();
+  new TabType("projectSettingsTab").setFile(projectSettingsTab).pushType();
+  new TabType("consoleTab").setFile(consoleTab).pushType();
 
   //Add the tabs
   new EditorTab("Editor", "GameVisualEditor", false, undefined, defualtTab);
@@ -44,7 +48,7 @@ export function addOpenTab(tab) {
 }
 
 export function openTab(tabName, tabId) {
-  addOpenTab(new EditorTab(tabName, tabId));
+  addOpenTab(new EditorTab(tabName, consoleTab));
 }
 
 export function openTabMetadata(tabName, tabId, metadata) {

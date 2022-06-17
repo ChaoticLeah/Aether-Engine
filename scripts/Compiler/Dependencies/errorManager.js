@@ -5,8 +5,26 @@ function sendMessageToParent(message) {
 }
 
 function sendError(error) {
-  const lineCol = error.stack.split("\n")[0].split("injectedScript:")[1];
-  const line = Number(lineCol.split(":")[0]) - 3;
+  //get the browser brand
+  //let browser = navigator.userAgent.toLowerCase();
+
+  let lineCol;
+  //default is 3
+  let lineOffset = 3;
+
+  if (error.stack.split("\n")[0].split("injectedScript:")[1] == undefined) {
+    //For all chrome browsers:
+    lineCol = error.stack.split("\n")[1].split("<anonymous>:")[1].split(")")[0];
+
+    //find the first script tag line because these browsers dont include this in part of the line number
+    lineOffset +=
+      -document.documentElement.innerHTML.split("<script")[0].split("\n")
+        .length - 1;
+  } else {
+    //For firefox:
+    lineCol = error.stack.split("\n")[0].split("injectedScript:")[1];
+  }
+  const line = Number(lineCol.split(":")[0]) - lineOffset;
   const col = Number(lineCol.split(":")[1]) - 1;
   const parentDoc = document.documentElement.outerHTML;
   const parentDocLines = parentDoc.split("\n");
@@ -20,11 +38,7 @@ function sendError(error) {
   // let classLines = parentDocLines
   //   .slice(classNameLine, endOfClassLine + 1)
   //   .join("\n");
-
-  let closestFunc = parentDoc
-    .split("\n")
-    [closestFuncLine].split("(parent)")[0]
-    .trim();
+  let closestFunc = parentDocLines[closestFuncLine].split("(parent)")[0].trim();
   let actualLineNumber = line - classNameLine - 4;
 
   let niceMessage = `(${fileName}) ${error.message} in function ${closestFunc} line ${actualLineNumber}:${col}`;

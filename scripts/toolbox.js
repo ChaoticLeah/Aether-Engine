@@ -134,6 +134,10 @@ export function setCursor(cursor) {
   document.body.style.cursor = cursor;
 }
 
+export function getCursor() {
+  return document.body.style.cursor;
+}
+
 export function getCode(char) {
   return char.charCodeAt(0);
 }
@@ -1299,6 +1303,7 @@ export class DragRect {
   color;
   callback;
   locked;
+  showMoveCursorIfIn = false;
 
   constructor(color, draggableCallback) {
     this.color = color;
@@ -1309,17 +1314,28 @@ export class DragRect {
     fill(this.color);
     rect(x, y, w, h);
 
+    let isIn = inArea(
+      mouseX - game.canvas.offsetLeft,
+      mouseY - game.canvas.offsetTop,
+      x,
+      y,
+      w,
+      h
+    );
+
+    if (isIn) {
+      if (this.showMoveCursorIfIn && getCursor() == "default")
+        setCursor("move");
+      this.showMoveCursorIfIn = false;
+    } else {
+      if (!this.showMoveCursorIfIn && !isIn) {
+        setCursor("default");
+        this.showMoveCursorIfIn = true;
+      }
+    }
+
     if (mouseDown) {
-      if (
-        inArea(
-          mouseX - game.canvas.offsetLeft,
-          mouseY - game.canvas.offsetTop,
-          x,
-          y,
-          w,
-          h
-        )
-      ) {
+      if (isIn) {
         if (!this.locked) {
           this.offsetX = mouseX - x;
           this.offsetY = mouseY - y;
@@ -1333,6 +1349,8 @@ export class DragRect {
     if (this.locked) {
       this.x = mouseX - this.offsetX;
       this.y = mouseY - this.offsetY;
+      this.showMoveCursorIfIn = true;
+
       this.callback(this.x, this.y, this);
     }
   }
