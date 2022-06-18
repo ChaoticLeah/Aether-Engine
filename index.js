@@ -36,6 +36,12 @@ import {
 import { playTestGame } from "./scripts/Compiler/GameTesterWindowManager.js";
 import { clearConsole } from "./scripts/Tabs/tabCode/consoleTab.js";
 
+//Version: major.minor.patch
+const version = "0.2.4";
+
+console.info(`Aether Engine v${version}`);
+console.info("Github: https://github.com/KevinWh0/Aether-Engine");
+
 game.start();
 
 initTabManager();
