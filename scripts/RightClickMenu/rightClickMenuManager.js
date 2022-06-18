@@ -5,6 +5,7 @@ import {
 } from "../AssetPanel/fileManager.js";
 import { getObject } from "../Objects/ObjectManager.js";
 import { selectedObject } from "../Objects/ObjectsTab.js";
+import { addInfoPopup, popupTypes } from "../Popups/popupManager.js";
 import { openTabMetadata } from "../Tabs/tabManager.js";
 import { RightClickMenuButton } from "./rightClickMenuButton.js";
 
@@ -54,6 +55,18 @@ export function initRightClickMenuManager() {
           })
           .replace("componentid:", "");
         let id = Number(cls);
+
+        if (
+          getObject(selectedObject).getComponentById(id).componentName ==
+          "Core Component"
+        ) {
+          addInfoPopup(
+            "Error",
+            "Cannot delete core component",
+            popupTypes.ERROR
+          );
+          return;
+        }
         getObject(selectedObject).removeComponent(id);
       },
       "componentTitle",

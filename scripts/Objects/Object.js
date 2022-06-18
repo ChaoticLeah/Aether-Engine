@@ -88,6 +88,12 @@ export class GameObject {
     return componentsToReturn;
   }
 
+  getComponentById(index) {
+    return this.components.find((component, i) => {
+      if (component.componentId == index) return this.components[i];
+    });
+  }
+
   getX() {
     return (
       convertToScreenCoords(Number(this.components[0].properties.x), 0).x +
