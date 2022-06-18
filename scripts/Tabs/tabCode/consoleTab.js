@@ -18,12 +18,15 @@ export let consoleTab = {
 };
 
 export function addError(error) {
+  //replace \n with <br>
+  error = error.replace(/\n/g, "<br>");
+
   let consoleHolder = document.getElementById("consoleHolder");
 
   //check the last child to see if its the same error, then add a xamt to it
   if (
     consoleHolder.lastChild != null &&
-    consoleHolder.lastChild.innerText == error
+    consoleHolder.lastChild.getAttribute("error") == error
   ) {
     consoleHolder.lastChild.setAttribute(
       "stackamt",
@@ -35,6 +38,11 @@ export function addError(error) {
 
   let errorElement = document.createElement("error-element");
   errorElement.classList.add("consoleError");
+  errorElement.setAttribute("stackamt", 1);
   errorElement.setAttribute("error", error);
   consoleHolder.appendChild(errorElement);
+}
+
+export function clearConsole() {
+  document.getElementById("consoleHolder").innerHTML = "";
 }

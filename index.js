@@ -29,8 +29,12 @@ import {
 import {} from "./scripts/flatted.min.js";
 import { compileCurrentProject } from "./scripts/Compiler/compilerManager.js";
 import { loadProject } from "./scripts/SaveProject/saveManager.js";
-import { listenForErrors } from "./scripts/Compiler/errorManager.js";
+import {
+  listenForErrors,
+  resetErrorManager,
+} from "./scripts/Compiler/errorManager.js";
 import { playTestGame } from "./scripts/Compiler/GameTesterWindowManager.js";
+import { clearConsole } from "./scripts/Tabs/tabCode/consoleTab.js";
 
 game.start();
 
@@ -70,6 +74,8 @@ document.getElementById("newProject").addEventListener("click", () => {
 });
 let win;
 document.getElementById("play").addEventListener("click", async () => {
+  clearConsole();
+  resetErrorManager();
   playTestGame();
   // //launch a new window and inject the game
   // if (win) win.close();

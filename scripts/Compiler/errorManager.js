@@ -1,6 +1,6 @@
 import { openFile } from "../AssetPanel/file.js";
 import { EditorTab } from "../Tabs/editorTab.js";
-import { addError } from "../Tabs/tabCode/consoleTab.js";
+import { addError, clearConsole } from "../Tabs/tabCode/consoleTab.js";
 import { getCurrentTab, getOpenTab, openTab } from "../Tabs/tabManager.js";
 
 let runType = "";
@@ -12,6 +12,10 @@ let runTypes = {
 
 let hasErrored = false;
 let errorTab;
+
+export function resetErrorManager() {
+  hasErrored = false;
+}
 
 export function listenForErrors() {
   // event handler will listen for messages from the child

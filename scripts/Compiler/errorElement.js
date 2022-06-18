@@ -1,7 +1,4 @@
 export function setup() {
-  //create a custom html element for displaying errors
-  console.log("a");
-
   class ErrorElement extends HTMLElement {
     constructor() {
       super();
@@ -19,7 +16,10 @@ export function setup() {
     connectedCallback() {
       // browser calls this method when the element is added to the document
       // (can be called many times if an element is repeatedly added/removed)
-      this.render();
+      if (!this.rendered) {
+        this.render();
+        this.rendered = true;
+      }
     }
 
     disconnectedCallback() {
@@ -29,14 +29,15 @@ export function setup() {
 
     static get observedAttributes() {
       return [
+        /* array of attribute names to monitor for changes */
         `error`,
-        `stackamt` /* array of attribute names to monitor for changes */,
+        `stackamt`,
       ];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
       // called when one of attributes listed above is modified
-      // set the innerHTML of the element to the new value
+      //console.log(name, oldValue, newValue);
       this.render();
     }
 
@@ -48,8 +49,6 @@ export function setup() {
     // there can be other element methods and properties
   }
 
-  customElements.define("error-element", ErrorElement, { extends: "div" });
+  // let the browser know that <my-element> is served by our new class
+  customElements.define("error-element", ErrorElement);
 }
-customElements.whenDefined("error-element").then(() => {
-  console.log("error-element defined");
-});
