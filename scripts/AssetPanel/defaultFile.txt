@@ -1,7 +1,0 @@
-function onStart(parent) {
-    //This will only run once
-}
-        
-function update(parent) {
-    //This will run every frame
-}
