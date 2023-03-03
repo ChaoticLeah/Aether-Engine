@@ -1,29 +1,35 @@
-<script lang="ts">
-  import Folder from "./Folder.svelte";
+<script>
+  // from https://svelte.dev/repl/82b00644720a4ca2bdb89c6a653ec987
+  import Object from "./Object.svelte";
 
-  let root = [
-    {
-      name: "Important work stuff",
-      files: [{ name: "quarterly-results.xlsx" }],
-    },
-    {
-      name: "Animal GIFs",
-      files: [
-        {
-          name: "Dogs",
-          files: [{ name: "treadmill.gif" }, { name: "rope-jumping.gif" }],
-        },
-        {
-          name: "Goats",
-          files: [{ name: "parkour.gif" }, { name: "rampage.gif" }],
-        },
-        { name: "cat-roomba.gif" },
-        { name: "duck-shuffle.gif" },
-        { name: "monkey-on-a-pig.gif" },
-      ],
-    },
-    { name: "TODO.md" },
-  ];
+  const tree = {
+    label: "USA",
+    children: [
+      {
+        label: "Florida",
+        children: [
+          { label: "Jacksonville" },
+          {
+            label: "Orlando",
+            children: [
+              { label: "Disney World" },
+              { label: "Universal Studio" },
+              { label: "Sea World" },
+            ],
+          },
+          { label: "Miami" },
+        ],
+      },
+      {
+        label: "California",
+        children: [
+          { label: "San Francisco" },
+          { label: "Los Angeles" },
+          { label: "Sacramento" },
+        ],
+      },
+    ],
+  };
 </script>
 
-<Folder name="Home" files={root} expanded />
+<Object {tree} />
