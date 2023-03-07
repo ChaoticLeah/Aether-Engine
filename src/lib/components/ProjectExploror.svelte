@@ -1,35 +1,53 @@
-<script>
-  // from https://svelte.dev/repl/82b00644720a4ca2bdb89c6a653ec987
+<script lang="ts">
   import Object from "./Object.svelte";
+  import type { TreeData } from "./TreeType";
 
-  const tree = {
-    label: "USA",
-    children: [
-      {
-        label: "Florida",
-        children: [
-          { label: "Jacksonville" },
-          {
-            label: "Orlando",
-            children: [
-              { label: "Disney World" },
-              { label: "Universal Studio" },
-              { label: "Sea World" },
-            ],
-          },
-          { label: "Miami" },
-        ],
-      },
-      {
-        label: "California",
-        children: [
-          { label: "San Francisco" },
-          { label: "Los Angeles" },
-          { label: "Sacramento" },
-        ],
-      },
-    ],
+  // let root = [
+  //   {
+  //     name: "Important work stuff",
+  //     files: [{ name: "quarterly-results.xlsx" }],
+  //   },
+  //   {
+  //     name: "Animal GIFs",
+  //     files: [
+  //       {
+  //         name: "Dogs",
+  //         files: [{ name: "treadmill.gif" }, { name: "rope-jumping.gif" }],
+  //       },
+  //       {
+  //         name: "Goats",
+  //         files: [{ name: "parkour.gif" }, { name: "rampage.gif" }],
+  //       },
+  //       { name: "cat-roomba.gif" },
+  //       { name: "duck-shuffle.gif" },
+  //       { name: "monkey-on-a-pig.gif" },
+  //     ],
+  //   },
+  //   { name: "TODO.md" },
+  // ];
+
+  let data: TreeData = {
+    root: {
+      opened: false,
+      parent: "root",
+      label: "Root",
+      children: ["0"],
+    },
+    "0": {
+      opened: false,
+      parent: "root",
+      label: "00",
+      children: ["1"],
+    },
+    "1": {
+      opened: false,
+      parent: "0",
+      label: "01",
+      children: [],
+    },
   };
 </script>
 
-<Object {tree} />
+<!-- <Folder name="Home" files={root} expanded /> -->
+
+<Object Tree={data} id="root" />

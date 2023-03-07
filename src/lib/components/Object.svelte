@@ -1,63 +1,51 @@
-<script context="module" lang="ts">
-  // retain module scoped expansion state for each tree node
-  const _expansionState: any = {
-    /* treeNodeId: expanded <boolean> */
-  };
+<script lang="ts">
+  import type { TreeData } from "./TreeType";
+
+  export let id: string;
+  export let Tree: TreeData;
+
+  function toggle() {
+    Tree[id].opened = !Tree[id].opened;
+  }
 </script>
 
-<script>
-  //	import { slide } from 'svelte/transition'
-  export let tree;
-  const { label, children } = tree;
+<button on:click={toggle}>{Tree[id].label}</button>
 
-  let expanded = _expansionState[label] || false;
-  const toggleExpansion = () => {
-    expanded = _expansionState[label] = !expanded;
-  };
-  $: arrowDown = expanded;
-</script>
-
-<ul>
-  <!-- transition:slide -->
-  <li>
-    {#if children}
-      <!-- Arrow not toggled -->
-      <span on:click={toggleExpansion}>
-        <span class="arrow" class:arrowDown>&#x25b6</span>
-        {label}
-      </span>
-      <!-- Render tree if toggled recursivly -->
-      {#if expanded}
-        {#each children as child}
-          <svelte:self tree={child} />
-        {/each}
-      {/if}
-    {:else}
-      <!-- Otherwise just render the name -->
-      <span>
-        <span class="no-arrow" />
-        {label}
-      </span>
-    {/if}
-  </li>
-</ul>
+{#if Tree[id].opened}
+  <ul>
+    {#each Tree[id].children as child}
+      <li>
+        {#if Tree[child].children}
+          <svelte:self id={child} {Tree} />
+        {/if}
+      </li>
+    {/each}
+  </ul>
+{/if}
 
 <style>
-  ul {
-    margin: 0;
-    list-style: none;
-    padding-left: 1.2rem;
-    user-select: none;
-  }
-  .no-arrow {
-    padding-left: 1rem;
-  }
-  .arrow {
+  button {
+    padding: 0 0 0 1.5em;
+    background: url(/tutorial/icons/folder.svg) 0 0.1em no-repeat;
+    background-size: 1em 1em;
+    font-weight: bold;
     cursor: pointer;
-    display: inline-block;
-    /* transition: transform 200ms; */
+    border: none;
+    margin: 0;
   }
-  .arrowDown {
-    transform: rotate(90deg);
+
+  .expanded {
+    background-image: url(/tutorial/icons/folder-open.svg);
+  }
+
+  ul {
+    padding: 0.2em 0 0 0.5em;
+    margin: 0 0 0 0.5em;
+    list-style: none;
+    border-left: 1px solid #eee;
+  }
+
+  li {
+    padding: 0.2em 0;
   }
 </style>
