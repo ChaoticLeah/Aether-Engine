@@ -50,4 +50,11 @@
 
 <!-- <Folder name="Home" files={root} expanded /> -->
 
-<Object Tree={data} id="root" />
+<Object
+  Tree={data}
+  id="root"
+  treeChanged={(newTree) => {
+    data = NewTree;
+    console.log(data);
+  }}
+/>

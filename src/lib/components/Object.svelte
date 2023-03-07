@@ -3,9 +3,11 @@
 
   export let id: string;
   export let Tree: TreeData;
+  export let treeChanged: (newTree: TreeData) => void;
 
   function toggle() {
     Tree[id].opened = !Tree[id].opened;
+    treeChanged(Tree);
   }
 </script>
 
@@ -16,7 +18,7 @@
     {#each Tree[id].children as child}
       <li>
         {#if Tree[child].children}
-          <svelte:self id={child} {Tree} />
+          <svelte:self id={child} {Tree} {treeChanged} />
         {/if}
       </li>
     {/each}
