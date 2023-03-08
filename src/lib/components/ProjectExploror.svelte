@@ -61,6 +61,5 @@
   id="root"
   treeChanged={(newTree) => {
     data = newTree;
-    console.log(data);
   }}
 />

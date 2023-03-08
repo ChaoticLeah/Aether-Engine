@@ -40,19 +40,22 @@ function isParent(elemId: string, TargetId: string): boolean {
 
 function drop(ev : DragEvent) {
   ev.preventDefault();
-  var id = ev.dataTransfer?.getData("dragTreeData").toString();
-  const newParentId = (ev?.target as HTMLButtonElement).parentElement?.parentElement?.firstElementChild?.id.substring("treeNode_".length);
+  let id = ev.dataTransfer?.getData("dragTreeData").toString();
+  let newParentId = (ev?.target as HTMLButtonElement).parentElement?.parentElement?.firstElementChild?.id.substring("treeNode_".length);
+
+  // If its dragged onto the top div then it should pair
+  const shouldParent = ev?.target == (ev?.target as HTMLButtonElement).parentElement?.firstElementChild;
+
+  if(!shouldParent){
+    newParentId = Tree[newParentId ? newParentId : ""].parent;
+  }
+
   // If we are parenting to ourself, dont
   if(newParentId == id) return;
   
   //Dont pair a parent to a child. Eg dont pare root to a child
   if(isParent(newParentId ? newParentId : "", id ? id : "")) return;
 
-  
-
-  // if(Tree[id ? id : ""].depth < Tree[newParentId ? newParentId : ""].depth){
-  //   return;
-  // }
 
   // Remove the child from the parents list
   const oldParentId = Tree[id ? id : ""].parent;
@@ -71,12 +74,13 @@ function drop(ev : DragEvent) {
 }	
 </script>
 
-<button class={(Tree[id].opened ? "expanded" : "") + " -mb-2"} on:click={toggle} draggable="true" on:dragstart={drag} id={`treeNode_${id}`}>{Tree[id].label}</button>
+<button class={(Tree[id].opened ? "expanded" : "") + " -mb-4"} on:click={toggle} draggable="true" on:dragstart={drag} id={`treeNode_${id}`}>{Tree[id].label}</button>
 
-<div class="flex">
-  <div class="bg-red-700 w-9 p-1" on:dragover={allowDrop} on:drop={drop}></div>
-  <div class="bg-blue-700 flex-1 p-1" on:dragover={allowDrop} on:drop={drop}></div>
-  
+<div class="m-0">
+  <div class="flex-1 p-1 border-b-slate-600 border-b" on:dragover={allowDrop} on:drop={drop}></div>
+  {#if id != "root"}
+    <div class="flex-1 p-1" on:dragover={allowDrop} on:drop={drop}></div>
+  {/if}
 </div>
 
 {#if Tree[id].opened}
