@@ -29,9 +29,9 @@
   let data: TreeData = {
     root: {
       opened: false,
-      parent: "root",
+      parent: "core",
       label: "Root",
-      children: ["0"],
+      children: ["0", "2"],
     },
     "0": {
       opened: false,
@@ -43,6 +43,12 @@
       opened: false,
       parent: "0",
       label: "01",
+      children: [],
+    },
+    "2": {
+      opened: false,
+      parent: "root",
+      label: "02",
       children: [],
     },
   };
