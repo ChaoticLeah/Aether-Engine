@@ -10,85 +10,129 @@
     treeChanged(Tree);
   }
 
+  function allowDrop(ev: DragEvent) {
+    ev.preventDefault();
+  }
 
-function allowDrop(ev : DragEvent) {
-  ev.preventDefault();
-}
+  function drag(ev: DragEvent) {
+    ev.dataTransfer?.setData(
+      "dragTreeData",
+      (ev?.target as HTMLButtonElement).id.substring("treeNode_".length)
+    );
+  }
 
-function drag(ev : DragEvent) {
-  ev.dataTransfer?.setData("dragTreeData", (ev?.target as HTMLButtonElement).id.substring("treeNode_".length));
-}
+  function isParent(elemId: string, TargetId: string): boolean {
+    let currentNode = Tree[elemId];
 
-function isParent(elemId: string, TargetId: string): boolean {
-  let currentNode = Tree[elemId];
-  
-  while (currentNode) {
-    if (currentNode.parent === TargetId) {
-      return true;
+    while (currentNode) {
+      if (currentNode.parent === TargetId) {
+        return true;
+      } else if (currentNode.parent == "core" || currentNode.parent == "root") {
+        return false;
+      }
+
+      currentNode = Tree[currentNode.parent];
     }
 
-    else if(currentNode.parent == "core"){
-      return false;
+    return false;
+  }
+
+  function drop(ev: DragEvent) {
+    ev.preventDefault();
+    let id = ev.dataTransfer?.getData("dragTreeData").toString();
+    let newParentId = (ev?.target as HTMLButtonElement)?.id.substring(
+      "dropZone_".length
+    );
+
+    // If its dragged onto the top div then it should pair
+    const shouldParent = (ev?.target as HTMLElement).tagName == "BUTTON";
+
+    if (!shouldParent) {
+      newParentId = Tree[newParentId ? newParentId : ""].parent;
     }
+
+    // If we are parenting to ourself, dont
+    if (newParentId == id) return;
+    console.log(Tree[newParentId ? newParentId : ""]);
+
+    //Dont pair a parent to a child. Eg dont pare root to a child
+    if (isParent(newParentId ? newParentId : "", id ? id : "")) return;
+
+    // Remove the child from the parents list
+    const oldParentId = Tree[id ? id : ""].parent;
+    Tree[oldParentId].children = Tree[oldParentId].children.filter((value) => {
+      return value != id;
+    });
+
+    // Set the new parent
+    Tree[id ? id : ""].parent = newParentId ? newParentId : "";
+
+    // Add the new child
+    //TODO: ADD IT IN BETWEEN THE NEW SPOTS, AND NOT AT THE END
+    // if (shouldParent)
+      Tree[newParentId ? newParentId : ""].children.push(id ? id : "");
+    // else {
+    //   const parentAfterId = (ev?.target as HTMLButtonElement).parentElement?.id;
+    //   // ADD id after parentAfterId in Tree
+
+    //   let newTree = [];
+    //   if(parentAfterId == "none") newTree.push(id ? id : "")
+    //   for (const child of Tree[newParentId ? newParentId : ""].children) {
+    //     newTree.push(child);
+    //     if(parentAfterId == child){
+    //       newTree.push(id ? id : "");
+    //     }
+    //   }
+
+    //   Tree[newParentId ? newParentId : ""].children = newTree;
+    // }
     
-    currentNode = Tree[currentNode.parent];
+
+    // Update the tree
+    treeChanged(Tree);
   }
-  
-  return false;
-}
-
-
-function drop(ev : DragEvent) {
-  ev.preventDefault();
-  let id = ev.dataTransfer?.getData("dragTreeData").toString();
-  let newParentId = (ev?.target as HTMLButtonElement).parentElement?.parentElement?.firstElementChild?.id.substring("treeNode_".length);
-
-  // If its dragged onto the top div then it should pair
-  const shouldParent = ev?.target == (ev?.target as HTMLButtonElement).parentElement?.firstElementChild;
-
-  if(!shouldParent){
-    newParentId = Tree[newParentId ? newParentId : ""].parent;
-  }
-
-  // If we are parenting to ourself, dont
-  if(newParentId == id) return;
-  
-  //Dont pair a parent to a child. Eg dont pare root to a child
-  if(isParent(newParentId ? newParentId : "", id ? id : "")) return;
-
-
-  // Remove the child from the parents list
-  const oldParentId = Tree[id ? id : ""].parent;
-  Tree[oldParentId].children = Tree[oldParentId].children.filter((value)=>{
-    return value != id
-  }) 
-
-  // Set the new parent
-  Tree[id ? id : ""].parent = newParentId ? newParentId : "";
-
-  // Add the new child 
-  Tree[newParentId ? newParentId : ""].children.push(id ? id : "");
-  
-  // Update the tree
-  treeChanged(Tree);
-}	
 </script>
 
-<button class={(Tree[id].opened ? "expanded" : "") + " -mb-4"} on:click={toggle} draggable="true" on:dragstart={drag} id={`treeNode_${id}`}>{Tree[id].label}</button>
+<button
+  class={(Tree[id].opened ? "expanded" : "") + " -mb-4"}
+  on:click={toggle}
+  draggable="true"
+  on:dragstart={drag}
+  on:dragover={allowDrop}
+  on:drop={drop}
+  id={`dropZone_${id}`}>{Tree[id].label}</button
+>
 
 <div class="m-0">
-  <div class="flex-1 p-1 border-b-slate-600 border-b" on:dragover={allowDrop} on:drop={drop}></div>
+  <!-- <div class="flex-1 p-1 border-b-slate-600 " on:dragover={drop} on:drop={drop}></div> 
   {#if id != "root"}
-    <div class="flex-1 p-1" on:dragover={allowDrop} on:drop={drop}></div>
-  {/if}
+    <div class="flex-1 p-1" on:dragover={drop} on:drop={drop}></div>
+  {/if} -->
 </div>
 
 {#if Tree[id].opened}
   <ul>
+    <!-- The First Top Bar -->
+    <li id = "none">
+      <div
+        class="flex-1 p-1 border-b-slate-600 last:border-b"
+        on:dragover={allowDrop}
+        on:drop={drop}
+        id={`dropZone_${id}`}
+      />
+    </li>
+
     {#each Tree[id].children as child}
-      <li>
+    <!-- The id represents the inner elements id -->
+      <li id = {child}>
         {#if Tree[child].children}
           <svelte:self id={child} {Tree} {treeChanged} />
+          <div
+            class="flex-1 p-1 border-b-slate-600 last:border-b"
+            on:dragover={allowDrop}
+            on:drop={drop}
+            id={`dropZone_${id}`}
+          />
         {/if}
       </li>
     {/each}
@@ -96,7 +140,7 @@ function drop(ev : DragEvent) {
 {/if}
 
 <style>
- button {
+  button {
     padding: 0 0 0 1.5em;
     background: url($lib/engine-assets/Icon-Closed.svg) 0 0.1em no-repeat;
     background-size: 1em 1em;
