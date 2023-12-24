@@ -11,7 +11,7 @@ export function renderObjects() {}
  * @returns {GameObject}
  */
 export function getObject(id) {
-  return objects.get(id);
+  return objects.get(id + "");
 }
 
 function getObjectByName(name) {

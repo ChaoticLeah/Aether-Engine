@@ -16,7 +16,7 @@ export class GameObject {
   components = [];
   constructor(properties) {
     let coreObjComp = new CoreObjectComponent(this);
-    if (properties.id == undefined) properties.id = idCounter++;
+    if (properties.id == undefined) properties.id = (idCounter++).toString();
     if (properties.childrenObjectIds == undefined)
       properties.childrenObjectIds = [];
 
@@ -29,7 +29,7 @@ export class GameObject {
 
     // Render children
     this.getProperties().childrenObjectIds.forEach((child) => {
-      let childObject = getObject(child + "");
+      let childObject = getObject(child);
       if (childObject) childObject.render();
     });
 
