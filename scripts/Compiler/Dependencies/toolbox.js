@@ -326,7 +326,7 @@ function emitEvent(name, parameters) {
   if(event){
     event(parameters)
   }else{
-    throw Error(`No such Event \"${name}\"`)
+    console.error(`No such Event \"${name}\"`)
   }
 }
 
