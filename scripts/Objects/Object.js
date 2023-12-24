@@ -48,13 +48,13 @@ export class GameObject {
 
   addChildAtIndex(child, index) {
     const childrenObjectIds = this.getProperties().childrenObjectIds;
-  
+    
     // Ensure the index is within valid bounds
     if (index >= 0 && index <= childrenObjectIds.length) {
       childrenObjectIds.splice(index, 0, child); // Insert the child at the specified index
       return true; // Child added successfully
     }
-  
+    this.addChild(child)
     return false; // Invalid index
   }
 
