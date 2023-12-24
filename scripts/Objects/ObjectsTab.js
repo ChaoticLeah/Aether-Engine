@@ -161,7 +161,8 @@ panel.onmousedown = (e) => {
 function parentChild(oldParentObjectId, draggingObjectId, newParentId, index = -1) {
   // Remove child from old parent
   const oldParentObject = getObject(oldParentObjectId)
-  oldParentObject.removeChild(draggingObjectId);
+  if(oldParentObject != undefined)
+    oldParentObject.removeChild(draggingObjectId);
 
   // Set new parent for the dragging object
   const draggingObject = getObject(draggingObjectId);
@@ -202,11 +203,22 @@ panel.onmouseup = (e) => {
   }else{
     //TODO it fails to reorder because the index thats passed in is the total index not accounting for indent
     if(oldParentObjectId == undefined) return;
-    // console.log(oldParentObjectId, dragging_object_id, getObject(newParent).getParentObjectId())
+    // getObject(oldParentObjectId).removeChild(dragging_object_id);
+    //TODO might be a problem where when it counts upwards it counts itself
+    const mouseYObjectIndex = Math.round(getUnroundedObjectSidebarY(y)) + 1
     const orderedObjectArray = getOrderedObjectArray()
-    let startingDepth = orderedObjectArray[Math.round(getUnroundedObjectSidebarY(y)) + 1].depth
-    let backCounter = 0
-    for (let i = Math.round(getUnroundedObjectSidebarY(y)) + 1; i > 0; i--) {
+    
+
+    // console.log(oldParentObjectId, dragging_object_id, getObject(newParent).getParentObjectId())
+    // console.log(orderedObjectArray)
+    //Issue here? 
+    console.log(getObject(oldParentObjectId).getChildIndex(getObject(dragging_object_id)), mouseYObjectIndex)
+    let startingDepth = orderedObjectArray[
+      Math.round(getUnroundedObjectSidebarY(y)) + 1
+    ].depth
+    let backCounter = -1 - 
+    getObject(oldParentObjectId).getChildIndex() > mouseYObjectIndex ? 1 : 0
+    for (let i = Math.round(getUnroundedObjectSidebarY(y)) + 1; i >= 0; i--) {
       const obj = orderedObjectArray[i];
       console.log(obj.depth, startingDepth)
       
@@ -218,6 +230,7 @@ panel.onmouseup = (e) => {
       }
     }
     console.info(backCounter)
+    backCounter = Math.round(getUnroundedObjectSidebarY(y)) + 1
 
     if(getObject(getObject(newParent).getParentObjectId()) != undefined)
       parentChild(oldParentObjectId, dragging_object_id, getObject(newParent).getParentObjectId(), backCounter)

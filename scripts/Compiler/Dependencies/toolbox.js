@@ -309,3 +309,24 @@ function getCode(char) {
 function setCursor(cursor) {
   document.body.style.cursor = cursor;
 }
+
+let events = new Map()
+
+function subscribeToEvent(name, func) {
+  events.set(name, func)
+  return {
+    unsubscribe: ()=>{
+      events.delete(name)
+    }
+  }
+}
+
+function emitEvent(name, parameters) {
+  let event = events.get(name)
+  if(event){
+    event(parameters)
+  }else{
+    throw Error(`No such Event \"${name}\"`)
+  }
+}
+

@@ -5,7 +5,6 @@ scripts/Compiler/Dependencies/toolbox.js
 //Objects
 scripts/Objects/Object.js
 //All the Components
-//TODO add rect component
 scripts/ObjectEditorTab/propertyTypes.js
 scripts/Objects/Components/component.js
 scripts/Objects/Components/coreObjectComponent.js

@@ -58,6 +58,11 @@ export class GameObject {
     return false; // Invalid index
   }
 
+  getChildIndex(child){
+    const childrenObjectIds = this.getProperties().childrenObjectIds;
+    return childrenObjectIds.indexOf(child);
+  }
+
   removeChild(child) {
     const childrenObjectIds = this.getProperties().childrenObjectIds;
     const index = childrenObjectIds.indexOf(child);
