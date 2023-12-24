@@ -2,15 +2,18 @@
 
 //import { getObject, objects } from "../Objects/objectManager.js";
 import { getCurrentDraggingFile } from "../AssetPanel/fileManager.js";
+import { getObject } from "../Objects/ObjectManager.js";
 import { propertyTypes as propTypes } from "./propertyTypes.js";
 let propId = 0;
 
 export function reloadSelection(objectId, object) {
-  onObjectDeSelect(objectId, object);
-  onObjectSelect(objectId, object);
+  deselectObject(objectId, object);
+  selectObject(objectId, object);
 }
 
-export function onObjectSelect(objectId, object) {
+export function selectObject(objectId) {
+  deselectObject(objectId)
+  const object = getObject(objectId)
   propId++;
   let obj = object;
   let components = obj.components;
@@ -94,7 +97,8 @@ export function onObjectSelect(objectId, object) {
   }
 }
 
-export function onObjectDeSelect(objectId, object) {
+export function deselectObject(objectId) {
+  // const object = getObject(objectId)
   //console.log("DESELECTED", objectId);
   //Remove them all
   document.getElementById("propertyHolder").innerHTML = "";

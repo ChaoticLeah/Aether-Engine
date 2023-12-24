@@ -5,7 +5,11 @@ export let objects = new Map();
 
 export function renderObjects() {}
 
-//Finds a object by id
+/**
+ * 
+ * @param {string | number} id 
+ * @returns {GameObject}
+ */
 export function getObject(id) {
   return objects.get(id);
 }

@@ -46,6 +46,30 @@ export class GameObject {
     this.getProperties().childrenObjectIds.push(child);
   }
 
+  addChildAtIndex(child, index) {
+    const childrenObjectIds = this.getProperties().childrenObjectIds;
+  
+    // Ensure the index is within valid bounds
+    if (index >= 0 && index <= childrenObjectIds.length) {
+      childrenObjectIds.splice(index, 0, child); // Insert the child at the specified index
+      return true; // Child added successfully
+    }
+  
+    return false; // Invalid index
+  }
+
+  removeChild(child) {
+    const childrenObjectIds = this.getProperties().childrenObjectIds;
+    const index = childrenObjectIds.indexOf(child);
+  
+    if (index !== -1) {
+      childrenObjectIds.splice(index, 1);
+      return true; // Child removed successfully
+    }
+  
+    return false; // Child not found
+  }
+
   addComponent(component) {
     //if the parent object is not set then set it
     if (component.parentObject == undefined) {
@@ -140,6 +164,10 @@ export class GameObject {
 
   getParentObjectId() {
     return this.components[0].properties.parentObjectId;
+  }
+
+  setParentObjectId(parentId){
+    this.components[0].properties.parentObjectId = parentId
   }
 
   setX(x) {
