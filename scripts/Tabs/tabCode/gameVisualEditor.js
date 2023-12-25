@@ -51,12 +51,16 @@ function getCssVariable(variable) {
 let cornerTopLeftDragHandle = new DragRect(
   getCssVariable("--highlight1"),
   (x, y, parent) => {
-    //set the selected objects x
-    let gameCoords = convertToGameCoords(x - globalOffsetX, y - globalOffsetY);
+    if(mouseDown){
+      //set the selected objects x
+      let gameCoords = convertToGameCoords(x - globalOffsetX, y - globalOffsetY);
+      let parentOffsets = convertToGameCoords(getObject(selectedObject).getParentOffsetX(), getObject(selectedObject).getParentOffsetY());
 
-    getObject(selectedObject).setX(gameCoords.x);
-    getObject(selectedObject).setY(gameCoords.y);
-    reloadObjectSelection();
+
+      getObject(selectedObject).setX(gameCoords.x - parentOffsets.x);
+      getObject(selectedObject).setY(gameCoords.y - parentOffsets.y);
+      reloadObjectSelection();
+    }
     //set the selected objects y
     //getObject(selectedObject).setY(y);
 
@@ -128,8 +132,8 @@ export let gameVisualEditor = {
       );*/
 
       rect(
-        parseInt(selectedObj.getX() - 4),
-        parseInt(selectedObj.getY() - 4),
+        parseInt(selectedObj.getGlobalOffsetX() - 4),
+        parseInt(selectedObj.getGlobalOffsetY() - 4),
         parseInt(selectedObj.getW() + 8),
         parseInt(selectedObj.getH() + 8)
       );
@@ -139,8 +143,8 @@ export let gameVisualEditor = {
       let relativeCoords = removeCanvasOffset(mouseX, mouseY);
 
       cornerTopLeftDragHandle.run(
-        selectedObj.getX(),
-        selectedObj.getY(),
+        selectedObj.getGlobalOffsetX(),
+        selectedObj.getGlobalOffsetY(),
         selectedObj.getW(),
         selectedObj.getH()
       );

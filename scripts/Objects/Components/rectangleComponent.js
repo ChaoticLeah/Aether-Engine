@@ -23,10 +23,9 @@ export class RectangleComponent extends Component {
   //This one is ran in the editor
   display() {
     fill(this.properties.color);
-
     rect(
-      this.parentObject.getX(),
-      this.parentObject.getY(),
+      this.parentObject.getGlobalOffsetX(),
+      this.parentObject.getGlobalOffsetY(),
       this.parentObject.getW(),
       this.parentObject.getH()
     );

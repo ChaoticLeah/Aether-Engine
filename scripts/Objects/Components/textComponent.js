@@ -63,8 +63,8 @@ export class TextComponent extends Component {
 
     textWraped(
       this.properties.text,
-      this.parentObject.getX(),
-      this.parentObject.getY() + yOffset,
+      this.parentObject.getGlobalOffsetX(),
+      this.parentObject.getGlobalOffsetY() + yOffset,
       this.parentObject.getW(),
       Number(this.properties.fontsize) * 0.8
     );

@@ -125,13 +125,67 @@ export class GameObject {
 
   getX() {
     return (
-      convertToScreenCoords(Number(this.components[0].properties.x), 0).x +
-      globalOffsetX
+      convertToScreenCoords(Number(this.components[0].properties.x), 0).x
     );
   }
   getY() {
     return (
-      convertToScreenCoords(0, Number(this.components[0].properties.y)).y +
+      convertToScreenCoords(0, Number(this.components[0].properties.y)).y
+    );
+  }
+
+  getCameraOffsetX(){
+    return globalOffsetX
+  }
+
+  getCameraOffsetY(){
+    return globalOffsetY
+  }
+
+  getParentOffsetX() {
+    let parent = getObject(this.getParentObjectId())
+    let parentX = 0;
+    if(parent != undefined){
+      parentX = parent.getGlobalOffsetWithoutCameraX()
+    }
+    return (
+      parentX
+    );
+  }
+
+  getParentOffsetY() {
+    let parent = getObject(this.getParentObjectId())
+    let parentY = 0;
+    if(parent != undefined){
+      parentY = parent.getGlobalOffsetWithoutCameraY()
+    }
+    return (
+      parentY
+    );
+  }
+
+  getGlobalOffsetWithoutCameraX() {
+    return (
+      this.getX() + this.getParentOffsetX()
+    );
+  }
+  
+  getGlobalOffsetWithoutCameraY() {
+    return (
+      this.getY() + this.getParentOffsetY()
+    );
+  }
+  
+  getGlobalOffsetX() {
+    return (
+      this.getGlobalOffsetWithoutCameraX() +
+      globalOffsetX
+    );
+  }
+  
+  getGlobalOffsetY() {
+    return (
+      this.getGlobalOffsetWithoutCameraY() +
       globalOffsetY
     );
   }

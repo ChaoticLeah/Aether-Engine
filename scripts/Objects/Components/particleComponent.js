@@ -72,8 +72,8 @@ export class ParticleComponent extends Component {
         //draw the image
         renderImage(
           getFile(particle.image).data,
-          this.parentObject.getX() + particle.x,
-          this.parentObject.getY() + particle.y,
+          this.parentObject.getGlobalOffsetX() + particle.x,
+          this.parentObject.getGlobalOffsetY() + particle.y,
           particle.width,
           particle.height,
           particle.rotates,

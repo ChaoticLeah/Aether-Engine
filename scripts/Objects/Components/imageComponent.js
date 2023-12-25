@@ -44,8 +44,8 @@ export class ImageComponent extends Component {
     if (getFile(this.properties.image) != undefined)
       renderImage(
         getFile(this.properties.image).data,
-        this.parentObject.getX(),
-        this.parentObject.getY(),
+        this.parentObject.getGlobalOffsetX(),
+        this.parentObject.getGlobalOffsetY(),
         this.parentObject.getW(),
         this.parentObject.getH()
       );
