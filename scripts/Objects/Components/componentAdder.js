@@ -1,5 +1,6 @@
 //ignore
 import { getObject } from "../ObjectManager.js";
+import { CameraComponent } from "./cameraComponent.js";
 import { Component } from "./component.js";
 import { ImageComponent } from "./imageComponent.js";
 import { ParticleComponent } from "./particleComponent.js";
@@ -16,6 +17,7 @@ function init() {
   components.set(Component.TextComponent, new TextComponent());
   components.set(Component.ScriptComponent, new ScriptComponent());
   components.set(Component.ParticleComponent, new ParticleComponent());
+  components.set(Component.CameraComponent, new CameraComponent());
 }
 
 export function getComponents() {
@@ -27,6 +29,7 @@ export function getComponentsMap() {
 }
 
 export function getComponentByName(name) {
+  console.log(name, components.get(name))
   return Object.create(components.get(name));
 }
 
