@@ -72,8 +72,8 @@ export class ParticleComponent extends Component {
         //draw the image
         renderImage(
           getFile(particle.image).data,
-          this.parentObject.getGlobalOffsetX() + particle.x,
-          this.parentObject.getGlobalOffsetY() + particle.y,
+          particle.x,
+          particle.y,
           particle.width,
           particle.height,
           particle.rotates,
@@ -111,8 +111,8 @@ export class ParticleComponent extends Component {
     //add it as a json object
     let particle = {
       image: this.properties.image,
-      x: 0,
-      y: 0,
+      x: this.parentObject.getGlobalOffsetX(),
+      y: this.parentObject.getGlobalOffsetY(),
       width: this.properties.width,
       height: this.properties.height,
       velocityX: this.properties.velocityX * Math.random(),
