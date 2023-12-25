@@ -29,7 +29,10 @@ export function getComponentsMap() {
 }
 
 export function getComponentByName(name) {
-  console.log(name, components.get(name))
+  if(components.get(name) == undefined){
+    console.error(`Cannot load unknown component "${name}".`)
+    return undefined;
+  }
   return Object.create(components.get(name));
 }
 
