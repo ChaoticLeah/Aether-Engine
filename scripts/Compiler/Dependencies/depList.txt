@@ -12,5 +12,6 @@ scripts/Objects/Components/rectangleComponent.js
 scripts/Objects/Components/textComponent.js
 scripts/Objects/Components/imageComponent.js
 scripts/Objects/Components/particleComponent.js
+scripts/Objects/Components/cameraComponent.js
 //needed
 scripts/Objects/ObjectManager.js

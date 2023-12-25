@@ -70,10 +70,10 @@ function removeFunctionsWithIgnoreComment(str) {
   let finalString = "";
   lines.forEach((l) => {
     l = l.trim();
-    if (l.includes("//ignore\n")) {
+    if (l.includes("//ignore")) {
       ignore = true;
     }
-    if (l.includes("//stopIgnore\n")) {
+    if (l.includes("//stopIgnore")) {
       ignore = false;
     }
     if (!ignore) {
@@ -91,10 +91,10 @@ function removeFunctionsWithProductionIgnoreComment(str, shouldRemove) {
 
   lines.forEach((l) => {
     l = l.trim();
-    if (l.includes("//ignoreForProduction\n")) {
+    if (l.includes("//ignoreForProduction")) {
       if (shouldRemove) ignore = true;
     }
-    if (l.includes("//stopIgnoreForProduction\n")) {
+    if (l.includes("//stopIgnoreForProduction")) {
       ignore = false;
     }
     if (!ignore) {

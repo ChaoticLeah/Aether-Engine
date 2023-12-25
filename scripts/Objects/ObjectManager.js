@@ -1,4 +1,5 @@
 import { getCanvasSize } from "../Canvas/canvasSizer.js";
+import { CameraComponent } from "./Components/cameraComponent.js";
 import { GameObject } from "./Object.js";
 
 export let objects = new Map();
@@ -42,6 +43,7 @@ function init() {
   addObject(rootObject, "none");
 
   let camera = addEmptyObject("root");
+  camera.addComponent(new CameraComponent())
   console.log(camera.components[0].properties);
   camera.setName("Camera");
   camera.setSize(178, 100);

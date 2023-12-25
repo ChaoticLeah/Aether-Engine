@@ -3,7 +3,11 @@ import { convertToScreenCoords, getObject } from "./ObjectManager.js";
 import { reloadObjectSelection } from "./ObjectsTab.js";
 
 let idCounter = 0;
-export let inEditor = true;
+
+export let inEditor = false;
+//ignore
+inEditor = true
+//stopIgnore
 
 export let globalOffsetX = 0;
 export let globalOffsetY = 0;
