@@ -31,7 +31,6 @@ export class CameraComponent extends Component {
 
   //This one isnt ran in the editor
   update(){
-    console.log(this.parentObject.getGlobalOffsetWithoutCameraX())
     setGlobalOffsetX(-this.parentObject.getGlobalOffsetWithoutCameraX())
     setGlobalOffsetY(-this.parentObject.getGlobalOffsetWithoutCameraY())
   }
