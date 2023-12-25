@@ -18,6 +18,8 @@ export let jsCodeEditor = {
         e.preventDefault();
         saveFile = true;
       }
+      //Workaround for now so it always saves
+      saveFile = true;
     });
 
     document.getElementById("addComponent").addEventListener("click", () => {
