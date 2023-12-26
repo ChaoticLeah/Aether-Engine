@@ -107,7 +107,7 @@ export async function loadProject(data = undefined) {
 
   let objects = data.objects;
   let objectKeys = Object.keys(objects);
-
+  
   for await (const objectKey of objectKeys) {
     let object = objects[objectKey];
     let components = object.components;
@@ -121,8 +121,8 @@ export async function loadProject(data = undefined) {
       let component = components[i];
       let componentName = component.componentName;
       let componentProperties = component.properties;
-      //let newcomponent = getComponentByName(componentName);
-      let newcomponent = addComponent(components[0].properties.id, componentName)
+      let newcomponent = getComponentByName(componentName);
+      newcomponent.init(newGameObject);
       //if the component doesnt exist, skip it
       if (newcomponent == undefined) {
         addInfoPopup(
