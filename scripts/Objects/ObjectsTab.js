@@ -131,10 +131,11 @@ function getOrderedObjectArray() {
   // Walk every branch and print the childrenObjectIds
   walkEveryBranch("root", 0, (node) => {
     node.depth --
-    if(node.id != "root")
+    if(node.id != "root" && ![...nodes, {id: -1}].some(function(lnode) {
+      return lnode.id == node.id
+    }))
       nodes.push(node)
   });
-
   return nodes
 }
 
