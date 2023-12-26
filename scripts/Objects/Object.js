@@ -208,6 +208,15 @@ export class GameObject {
     return Number(this.components[0].properties.y);
   }
 
+  getWWithoutEditorOffsetScreenCoords() {
+    return Number(this.components[0].properties.w);
+  }
+  getHWithoutEditorOffsetScreenCoords() {
+    return Number(this.components[0].properties.h);
+  }
+
+  
+
   getW() {
     return convertToScreenCoords(
       0,
