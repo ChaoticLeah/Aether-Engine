@@ -46,8 +46,12 @@ export class GameObject {
     }
   }
 
-  addChild(child) {
-    this.getProperties().childrenObjectIds.push(child);
+  addChild(childId) {
+    this.getProperties().childrenObjectIds.push(childId);
+  }
+
+  hasChild(childId) {
+    return this.getProperties().childrenObjectIds.includes(childId)
   }
 
   addChildAtIndex(child, index) {

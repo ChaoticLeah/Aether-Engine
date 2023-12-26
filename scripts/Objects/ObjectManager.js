@@ -57,8 +57,11 @@ export function addObject(object, parentObjectId) {
       parentObjectId = "root";
     }
     object.getProperties().parentObjectId = parentObjectId.toString();
-    if (parentObjectId != "none")
+    const parentIsDefined = getObject(parentObjectId) != undefined
+    const alreadyHasChild = parentIsDefined && getObject(parentObjectId).hasChild(object.getProperties().id)
+    if (parentObjectId != "none" && parentIsDefined && !alreadyHasChild)
       getObject(parentObjectId).addChild(object.getProperties().id);
+
     objects.set(object.getProperties().id, object);
     return true;
   } catch (err) {
