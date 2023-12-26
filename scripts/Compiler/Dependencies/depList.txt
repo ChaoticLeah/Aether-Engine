@@ -13,5 +13,6 @@ scripts/Objects/Components/textComponent.js
 scripts/Objects/Components/imageComponent.js
 scripts/Objects/Components/particleComponent.js
 scripts/Objects/Components/cameraComponent.js
+scripts/Objects/Components/rigidbodyComponent.js
 //needed
 scripts/Objects/ObjectManager.js

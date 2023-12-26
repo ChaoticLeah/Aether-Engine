@@ -5,6 +5,7 @@ import { Component } from "./component.js";
 import { ImageComponent } from "./imageComponent.js";
 import { ParticleComponent } from "./particleComponent.js";
 import { RectangleComponent } from "./rectangleComponent.js";
+import { RigidbodyComponent } from "./rigidbodyComponent.js";
 import { ScriptComponent } from "./scriptComponent.js";
 import { TextComponent } from "./textComponent.js";
 //stopignore
@@ -18,6 +19,7 @@ function init() {
   components.set(Component.ScriptComponent, new ScriptComponent());
   components.set(Component.ParticleComponent, new ParticleComponent());
   components.set(Component.CameraComponent, new CameraComponent());
+  components.set(Component.RigidbodyComponent, new RigidbodyComponent());
 }
 
 export function getComponents() {

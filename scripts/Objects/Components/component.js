@@ -35,3 +35,4 @@ Component.TextComponent = "Text Component";
 Component.ScriptComponent = "Script Component";
 Component.ParticleComponent = "Particle Component";
 Component.CameraComponent = "Camera Component"
+Component.RigidbodyComponent = "Rigidbody Component"
