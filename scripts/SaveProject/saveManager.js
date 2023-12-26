@@ -102,7 +102,7 @@ export async function loadProject(data = undefined) {
 
   //clear all the objects
   clearObjects();
-
+  
   //Load all the objects
 
   let objects = data.objects;
