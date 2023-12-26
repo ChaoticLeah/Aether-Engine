@@ -18,6 +18,7 @@ export class ParticleComponent extends Component {
     super(parentObject, image);
     this.objectPropertyTypes = {
       image: propertyTypes.FILE_INPUT,
+      emitting: propertyTypes.TOGGLE_INPUT,
       width: propertyTypes.NUMBER_INPUT,
       height: propertyTypes.NUMBER_INPUT,
       minVelocityX: propertyTypes.NUMBER_INPUT,
@@ -43,14 +44,15 @@ export class ParticleComponent extends Component {
   ) {
     this.parentObject = parentObject;
     this.properties = {
+      emitting: true,
       image: image,
       width: width,
       height: height,
-      minVelocityX: velocityX,
+      minVelocityX: -velocityX,
       maxVelocityX: velocityX,
-      minVelocityY: velocityY,
+      minVelocityY: -velocityY,
       maxVelocityY: velocityY,
-      drag: 1,
+      drag: 0,
       spawnRate: 1,
       rotates: rotates,
       lifetime: 100,
@@ -109,7 +111,7 @@ export class ParticleComponent extends Component {
           this.childrenParticles.splice(i, 1);
         }
       }
-      if(this.tick % parseFloat(this.properties.spawnRate) == 0)
+      if(this.tick % parseFloat(this.properties.spawnRate) == 0 && this.properties.emitting)
         this.addParticle();
       // renderImage(
       //   getFile(this.properties.image).data,
