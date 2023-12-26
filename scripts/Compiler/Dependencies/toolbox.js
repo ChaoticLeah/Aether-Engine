@@ -1,3 +1,5 @@
+import { height } from "../../toolbox";
+
 let mouse = {
   x: 0,
   y: 0,
@@ -172,8 +174,9 @@ function resize() {
   game.canvas.canvas.width = width;
   game.canvas.canvas.height = height;
 
-  game.canvas.canvas.style.width = width;
-  game.canvas.canvas.style.height = height;
+  game.canvas.canvas.style.width = `${width}px`;
+  game.canvas.canvas.style.height = `${height}px`;
+  game.context.imageSmoothingEnabled = false;
 }
 resize();
 let renderer = {
