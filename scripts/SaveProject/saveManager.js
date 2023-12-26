@@ -109,6 +109,7 @@ export async function loadProject(data = undefined) {
   let objectKeys = Object.keys(objects);
 
   for await (const objectKey of objectKeys) {
+    console.log(objectKey)
     let object = objects[objectKey];
     let components = object.components;
 

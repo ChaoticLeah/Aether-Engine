@@ -6,6 +6,8 @@ import { Component } from "./component.js";
 export class RigidbodyComponent extends Component {
   componentName = Component.RigidbodyComponent || "Rigidbody Component";
   onGround = false
+  touchingLeftWall = false
+  touchingRightWall = false
   constructor(parentObject, color) {
     if (typeof color != "object") color = { color: color };
     super(parentObject, color);
@@ -50,11 +52,20 @@ export class RigidbodyComponent extends Component {
     // Assume checkCollisionsWithRigidbody(this.parentObject) returns the array
     var collisionsArray = checkCollisionsWithRigidbody(this.parentObject);
 
-    let collidingObject = collisionsArray.find(function (collision) {
-        return collision.direction.includes(DIR_ENUM.DOWN);
+    let downCollidingObject = collisionsArray.find(function (collision) {
+        return collision.direction.includes(DIR_ENUM.BOTTOM_LEFT) || collision.direction.includes(DIR_ENUM.BOTTOM_RIGHT);
     })
 
-    this.onGround = collidingObject != undefined
+    this.onGround = downCollidingObject != undefined
+
+    this.touchingLeftWall = (collisionsArray.find(function (collision) {
+      return collision.direction.includes(DIR_ENUM.TOP_LEFT);
+    }) != undefined)
+
+    this.touchingRightWall = (collisionsArray.find(function (collision) {
+      return collision.direction.includes(DIR_ENUM.TOP_RIGHT);
+    }) != undefined)
+
     // You may want to add collision detection and response logic here
     if(this.onGround){
         if(this.properties.velocityY > 0)
@@ -63,6 +74,11 @@ export class RigidbodyComponent extends Component {
             //this.parentObject.setY(collidingObject.object.getYWithoutEditorOffsetScreenCoords() - (this.parentObject.getHWithoutEditorOffsetScreenCoords()))
             //console.log(collidingObject.object)
     }
+    
+    if(this.touchingLeftWall && this.properties.velocityX < 0)
+      this.properties.velocityX = 0
+    if(this.touchingRightWall && this.properties.velocityX > 0)
+      this.properties.velocityX = 0
 
     // Update position using Euler integration
     this.parentObject.incrementX(this.properties.velocityX);

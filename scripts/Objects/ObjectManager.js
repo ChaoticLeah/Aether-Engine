@@ -124,10 +124,10 @@ export function checkCollisionsWithRigidbody(gameObject) {
 }
 
 export const DIR_ENUM = {
-	LEFT: 0,
-  RIGHT: 1,
-  UP: 2,
-  DOWN: 3
+	TOP_LEFT: 0,
+  BOTTOM_LEFT: 1,
+  TOP_RIGHT: 2,
+  BOTTOM_RIGHT: 3
 }
 
 
@@ -175,17 +175,17 @@ export function isObjectsColliding(object1, object2) {
     bottomLeft
   ) {
     let sides = []
-    if(topLeft || topRight){
-       sides.push(DIR_ENUM.UP)
+    if(topLeft){
+       sides.push(DIR_ENUM.TOP_LEFT)
     }
-    if(bottomRight || bottomLeft){
-      sides.push(DIR_ENUM.DOWN)
+    if(bottomLeft){
+      sides.push(DIR_ENUM.BOTTOM_LEFT)
     }
-    if(bottomLeft || topLeft){
-      sides.push(DIR_ENUM.LEFT)
+    if(topRight){
+      sides.push(DIR_ENUM.TOP_RIGHT)
     }
-    if(bottomRight || topRight){
-      sides.push(DIR_ENUM.RIGHT)
+    if(bottomRight){
+      sides.push(DIR_ENUM.BOTTOM_RIGHT)
     }
     
     return sides

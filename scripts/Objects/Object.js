@@ -2,7 +2,7 @@ import { CoreObjectComponent } from "./Components/coreObjectComponent.js";
 import { convertToScreenCoords, getObject } from "./ObjectManager.js";
 import { reloadObjectSelection } from "./ObjectsTab.js";
 
-let idCounter = 0;
+let idCounter = Date.now();
 
 export let inEditor = false;
 //ignore
