@@ -5,7 +5,7 @@ import {
   removeAllDirectories,
 } from "../AssetPanel/fileManager.js";
 import { editorData } from "../editorData.js";
-import { getComponentByName } from "../Objects/Components/componentAdder.js";
+import { addComponent, getComponentByName } from "../Objects/Components/componentAdder.js";
 import { GameObject } from "../Objects/Object.js";
 import {
   addObject,
@@ -109,17 +109,20 @@ export async function loadProject(data = undefined) {
   let objectKeys = Object.keys(objects);
 
   for await (const objectKey of objectKeys) {
-    console.log(objectKey)
     let object = objects[objectKey];
     let components = object.components;
-
+    // console.log(components[0].properties.id)
     let newGameObject = new GameObject(components[0].properties);
+
+    //add the object
+    addObject(newGameObject, components[0].properties.parentObjectId);
     //start at object 1 so we skip the core component since it was already put into the game object.
     for (let i = 1; i < components.length; i++) {
       let component = components[i];
       let componentName = component.componentName;
       let componentProperties = component.properties;
-      let newcomponent = getComponentByName(componentName);
+      //let newcomponent = getComponentByName(componentName);
+      let newcomponent = addComponent(components[0].properties.id, componentName)
       //if the component doesnt exist, skip it
       if (newcomponent == undefined) {
         addInfoPopup(
@@ -129,14 +132,12 @@ export async function loadProject(data = undefined) {
         );
         continue;
       }
-
       //set the newcomponents properties
-      newcomponent.properties = componentProperties;
+      newcomponent.properties = Object.assign(newcomponent.properties || {}, componentProperties);
       //add the new component to the game object
       newGameObject.addComponent(newcomponent, componentProperties);
     }
 
-    //add the object
-    addObject(newGameObject, components[0].properties.parentObjectId);
+    
   }
 }

@@ -102,9 +102,7 @@ export function createUI() {
         Flatted.parse(localStorage.getItem(e.target.getAttribute("loadName")))
       );
       // console.log("Loaded project");
-      //close the welcome tab and switch to the project tab
-      
-      //getOpenTab().close();
+      //switch to the project tab
       setActiveTab("EditorId");
 
       setActiveTab(getOpenTabId());

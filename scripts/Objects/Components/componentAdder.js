@@ -39,9 +39,10 @@ export function getComponentByName(name) {
 }
 
 export function addComponent(objId, componentName) {
-  let component = Object.create(components.get(componentName));
+  let component = getComponentByName(componentName);
   let object = getObject(objId);
 
   component.init(object);
   object.addComponent(component);
+  return component;
 }
