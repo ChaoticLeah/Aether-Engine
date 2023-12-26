@@ -15,6 +15,7 @@ export class RigidbodyComponent extends Component {
         velocityX: propertyTypes.NUMBER_INPUT,
         velocityY: propertyTypes.NUMBER_INPUT,
         applyGravity:  propertyTypes.TOGGLE_INPUT,
+        shouldCollide:  propertyTypes.TOGGLE_INPUT,
         mass: propertyTypes.NUMBER_INPUT,
         damping: propertyTypes.NUMBER_INPUT,
         terminalVelocity: propertyTypes.NUMBER_INPUT,
@@ -23,7 +24,7 @@ export class RigidbodyComponent extends Component {
 
   init(parentObject, color = "#ff0000") {
     this.parentObject = parentObject;
-    this.properties = { velocityX: 0, velocityY: 0, applyGravity: true, mass: 1, damping: 0.98, terminalVelocity: 10 };
+    this.properties = { velocityX: 0, velocityY: 0, applyGravity: true, shouldCollide:false, mass: 1, damping: 0.98, terminalVelocity: 10 };
   }
 
   initValues() {}
@@ -50,22 +51,23 @@ export class RigidbodyComponent extends Component {
 
 
     // Assume checkCollisionsWithRigidbody(this.parentObject) returns the array
-    var collisionsArray = checkCollisionsWithRigidbody(this.parentObject);
+    if(this.properties.shouldCollide){
+      var collisionsArray = checkCollisionsWithRigidbody(this.parentObject);
 
-    let downCollidingObject = collisionsArray.find(function (collision) {
-        return collision.direction.includes(DIR_ENUM.BOTTOM_LEFT) || collision.direction.includes(DIR_ENUM.BOTTOM_RIGHT);
-    })
+      let downCollidingObject = collisionsArray.find(function (collision) {
+          return collision.direction.includes(DIR_ENUM.BOTTOM_LEFT) || collision.direction.includes(DIR_ENUM.BOTTOM_RIGHT);
+      })
 
-    this.onGround = downCollidingObject != undefined
+      this.onGround = downCollidingObject != undefined
 
-    this.touchingLeftWall = (collisionsArray.find(function (collision) {
-      return collision.direction.includes(DIR_ENUM.TOP_LEFT);
-    }) != undefined)
+      this.touchingLeftWall = (collisionsArray.find(function (collision) {
+        return collision.direction.includes(DIR_ENUM.TOP_LEFT);
+      }) != undefined)
 
-    this.touchingRightWall = (collisionsArray.find(function (collision) {
-      return collision.direction.includes(DIR_ENUM.TOP_RIGHT);
-    }) != undefined)
-
+      this.touchingRightWall = (collisionsArray.find(function (collision) {
+        return collision.direction.includes(DIR_ENUM.TOP_RIGHT);
+      }) != undefined)
+    }
     // You may want to add collision detection and response logic here
     if(this.onGround){
         if(this.properties.velocityY > 0)
