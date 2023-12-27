@@ -8,9 +8,8 @@ export class RigidbodyComponent extends Component {
   onGround = false
   touchingLeftWall = false
   touchingRightWall = false
-  constructor(parentObject, color) {
-    if (typeof color != "object") color = { color: color };
-    super(parentObject, color);
+  constructor(parentObject, data) {
+    super(parentObject, data);
     this.objectPropertyTypes = {
         velocityX: propertyTypes.NUMBER_INPUT,
         velocityY: propertyTypes.NUMBER_INPUT,
@@ -22,7 +21,7 @@ export class RigidbodyComponent extends Component {
     };
   }
 
-  init(parentObject, color = "#ff0000") {
+  init(parentObject) {
     this.parentObject = parentObject;
     this.properties = { velocityX: 0, velocityY: 0, applyGravity: true, shouldCollide:false, mass: 1, damping: 0.98, terminalVelocity: 10 };
   }
@@ -72,9 +71,6 @@ export class RigidbodyComponent extends Component {
     if(this.onGround){
         if(this.properties.velocityY > 0)
             this.properties.velocityY = 0
-            // this.parentObject.incrementY(-0.1);
-            //this.parentObject.setY(collidingObject.object.getYWithoutEditorOffsetScreenCoords() - (this.parentObject.getHWithoutEditorOffsetScreenCoords()))
-            //console.log(collidingObject.object)
     }
     
     if(this.touchingLeftWall && this.properties.velocityX < 0)

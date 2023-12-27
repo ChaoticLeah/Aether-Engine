@@ -58,6 +58,7 @@ export function addObject(object, parentObjectId) {
     }
     object.getProperties().parentObjectId = parentObjectId.toString();
     const parentIsDefined = getObject(parentObjectId) != undefined
+    //This happens when loading in a project since the loading will already come with children data
     const alreadyHasChild = parentIsDefined && getObject(parentObjectId).hasChild(object.getProperties().id)
     if (parentObjectId != "none" && parentIsDefined && !alreadyHasChild)
       getObject(parentObjectId).addChild(object.getProperties().id);
